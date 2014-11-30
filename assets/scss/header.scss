@@ -1,0 +1,47 @@
+header {
+    position: fixed;
+    z-index: 10;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 3em;
+    background-color: #373737;
+
+    img {
+        height: 3.5em;
+        vertical-align: middle;
+        padding-right: 3.5em;
+        display: inline;
+        position: relative;
+        top: 0.5em;
+        left: 2em;
+    }
+
+    ul {
+        display: inline-block;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    li {
+        padding: 1em;
+        display: inline-block;
+    }
+
+    .blog-tree {
+        display: none;
+    }
+
+}
+
+.headroom {
+    transition: transform 200ms linear;
+}
+.headroom--pinned {
+    transform: translateY(0%);
+}
+.headroom--unpinned {
+    transform: translateY(-100%);
+}
+

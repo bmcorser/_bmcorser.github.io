@@ -1,0 +1,23 @@
+{
+  "name": "bmcorser.github.io",
+  "version": "0.0.1",
+  "authors": [
+    "bmcorser <bmcorser@gmail.com>"
+  ],
+  "description": "Personal webpage",
+  "license": "MIT",
+  "homepage": "https://bmcorser.github.io",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "emojione": "~1.3.0",
+    "headroom.js": "~0.7.0",
+    "lodash": "~2.4.1"
+  }
+}

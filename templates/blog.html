@@ -1,0 +1,24 @@
+<%!
+    import calendar
+%>
+<%inherit file="base.html"/>
+
+<%block name="content">
+    <div id="container">
+        % for year, months in index.iteritems():
+        <h1>${year}</h1>
+            % for month, postmetas in months.iteritems():
+            <h2>${calendar.month_name[month]}</h2>
+            <ul>
+                % for postmeta in postmetas:
+                <li>
+                    <a href="${postmeta['buildpath'].replace('_build', '')}">
+                        ${postmeta['title']}
+                    </a>
+                </li>
+                % endfor
+            </ul>
+            % endfor
+        % endfor
+    </div>
+</%block>
