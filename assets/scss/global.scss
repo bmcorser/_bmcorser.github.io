@@ -38,7 +38,6 @@ $default-text-width-em: 29em;
 
 body {
     font-family: "ProximaNova";
-    color: $default-text;
     font-size: 100%;
     width: 100%;
     margin: 0;
@@ -46,7 +45,8 @@ body {
 }
 
 #container {
-    margin-top: 8.000em;
+    margin-top: 0;
+    padding-top: 8em;
     @include center;
 }
 
@@ -57,9 +57,6 @@ body {
 h2 {
     @include center;
     font-family: "ProximaNova-Bold";
-    font-size: 1.313em;
-    width: $default-text-width-em / 1.313em * 1em;
-    color: #222;
     margin-top: 1.875em;
 }
 
