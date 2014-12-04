@@ -124,6 +124,7 @@ def build():
     template_lookup = TemplateLookup(directories=['.'])
 
     pool = multiprocessing.Pool(8)
+    pool.map_async = map  # debug
     pool.map_async(build_page, (
         'pages/bio.rst',
         'pages/projects.rst',
