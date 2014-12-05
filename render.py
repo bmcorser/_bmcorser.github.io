@@ -45,17 +45,44 @@ def write_html(html, htmlpath):
     with open(htmlpath, 'w') as htmlfile:
         htmlfile.write(html.encode('utf8'))
 
-
-def parse_meta(rst_path):
+def slug_buildpath_title(rst_path):
     bare_path, ext = os.path.splitext(rst_path)
     slug = os.path.split(bare_path)[-1]
     buildpath = (bare_path + '.html').replace('blog', '_build')
+    title = ' '.join(slug.split('-')).capitalize()
+    return slug, buildpath, title
+
+def prev_next(rst_path):
+    try:
+        next_index = rst_paths.index(rst_path) - 1
+        if next_index < 0:
+            nextpath = nexttitle = None
+        else:
+            _, nextpath, nexttitle = slug_buildpath_title(rst_paths[next_index])
+            nextpath = nextpath.replace('_build', '')
+    except IndexError:
+        nextpath = nexttitle = None
+    try:
+        _, previouspath, previoustitle = slug_buildpath_title(rst_paths[rst_paths.index(rst_path) + 1])
+        previouspath = previouspath.replace('_build', '')
+    except IndexError:
+        previouspath = previoustitle = None
+    return previouspath, previoustitle, nextpath, nexttitle
+
+def parse_meta(rst_path):
+    slug, buildpath, title = slug_buildpath_title(rst_path)
+    previouspath, previoustitle, nextpath, nexttitle = prev_next(rst_path)
     return {
         'date': datetime.date(*map(int, rst_path.split(os.sep)[1:4])),
-        'title': ' '.join(slug.split('-')).capitalize(),
+        'title': title,
         'slug': slug,
         'buildpath': buildpath,
+        'nextpath': nextpath,
+        'nexttitle': nexttitle,
+        'previouspath': previouspath,
+        'previoustitle': previoustitle,
     }
+
 
 
 def render_rst(rst_path):
@@ -84,12 +111,15 @@ def render_mako(rst_path):
     write_html(template.render(**context), context['meta']['buildpath'])
 
 def build_blog_page(blog_template):
-    buildpath = blog_template.replace('templates', '_build')
+    buildpath = blog_template.replace('templates', '_build').replace('rst', 'html')
+    index_rst = Template(filename=blog_template, lookup=template_lookup).render(index=index)
+    content_html = docutils_publish(index_rst, writer_name='html')['html_body']
     context = {
         'index': index,
-        'meta': {'title': 'Chatter'},
+        'content_html': content_html,
+        'meta': {'title': 'Blog'},
     }
-    template = Template(filename=blog_template, lookup=template_lookup)
+    template = Template(filename='templates/page.html', lookup=template_lookup)
     write_html(template.render(**context), buildpath)
 
 def build_page(rst_path):
@@ -116,6 +146,7 @@ def build_copy_file(source, dest):
 def build():
     global index
     global template_lookup
+    global rst_paths
 
     find = ['find', 'blog', '-name', '*.rst']
     rst_paths = sorted(subprocess.check_output(find).split(), reverse=True)
@@ -124,9 +155,8 @@ def build():
     template_lookup = TemplateLookup(directories=['.'])
 
     pool = multiprocessing.Pool(8)
-    pool.map_async = map  # debug
     pool.map_async(build_page, (
-        'pages/bio.rst',
+        'pages/about.rst',
         'pages/projects.rst',
     ))
     pool.map_async(render_mako, rst_paths)
@@ -138,7 +168,7 @@ def build():
     ))
     pool.apply_async(shutil.copy, ('templates/index.html', '_build'))
     subprocess.check_call(['sass', 'assets/scss', '_build/assets/css'])
-    build_blog_page('templates/blog.html')
+    build_blog_page('templates/blog.rst')
 
     pool.close()
     pool.join()
