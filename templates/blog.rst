@@ -1,11 +1,11 @@
 <%!
     import calendar
 %>
-% for year, months in index.iteritems():
+% for year, months in index.items():
 ${year}
 ${''.join('#' for _ in range(len(str(year))))}
 
-% for month, postmetas in months.iteritems():
+% for month, postmetas in months.items():
 ${calendar.month_name[month]}
 ${''.join('=' for _ in range(len(calendar.month_name[month])))}
 

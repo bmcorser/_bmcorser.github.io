@@ -9,15 +9,17 @@ Preamble
 
 Last week, dreaming about being able to serve pars_ images using something like
 the BitTorrent protocol from the browser. I asked Jeeves: "Can browsers
-communicate peer-to-peer?" Turns out they can, through WebRTC_.  The WebRTC
-protocol is supported by major browsers (but, disappointingly, interoperability
-is only possible through a polyfill_) which means it would be possible to
-implement a torrent client in JavaScript that would run in the browser. As the
-wise programmer once said, everything you can think of has already been
-implemented in JavaScript, and sure enough someone has already implemented an
-in-browser BitTorrent client, called webtorrent_.
+communicate peer-to-peer?" Turns out they can through WebRTC_, released by
+Harald Alvestrand ("on behalf" of Google) in 2011. The WebRTC protocol is
+supported by some major browsers but, disappointingly, interoperability is
+only possible through a polyfill_ and neither Safari or IE have native support
+in any form. It would be possible to implement something like a torrent client
+in JavaScript that would run in the browser. As the wise programmer once said,
+everything you can think of has already been implemented in JavaScript, and
+sure enough someone has already implemented an in-browser BitTorrent client,
+called webtorrent_.
 
-That could have gone somewhere, until I was on Dan O'Huiginn's blog and read
+So that could have gone somewhere, until I was on Dan O'Huiginn's blog and read
 `his overview`_ of the InterPlanetary Filesystem.
 
 It kind of sounded like something I wanted.
@@ -31,40 +33,91 @@ It kind of sounded like something I wanted.
 Introduction
 ------------
 
-IPFS got designed by some Stanford CS graduate dude (`Juan Batiz-Benet`_), who
-made a company which sold to Yahoo as an `"acqui-hire"`_ last year. The
+IPFS is being designed primarily by a Stanford CS dude (`Juan Batiz-Benet`_),
+who made a company which sold to Yahoo as an `"acqui-hire"`_ last year. The
 protocol is not groundbreaking in itself, it's a pretty simple idea. It
-describes something like a global Git repo that you can check out incrementally
-like shallow cloning part of a tree, in Git terms. The parts of the repo you
-have cloned locally would be made to others nearby who needed them like seeding
-a file in BitTorrent. These are ideas many people are familiar with, and at
-least one unrelated thrust (GTP_) has already been made in a similar direction.
+describes something like a single, global Git repo that supports peer-to-peer
+protocols as well as SSH and HTTP. You can get the data you want by cloning the
+relevant part of the DAG through BitTorrent (like a shallow clone in Git). The
+parts of the repo you have locally would be seeded to others in the network who
+requested them, following similar choking rules to BitTorrent.
 
-Aside from borrowing ideas from successful applications of DAGs and DHTs, the
-IPFS protocol claims to solve issues around permission and security. In terms
-of a global Git repo, what if someone overwrote the master branch? How many
-people would want branches called ``dev``?
+It's a great idea because it builds on ideas many people are familiar with,
+that have mature and and widely successful implementations. At least one
+unrelated thrust (GTP_) has already been made in a similar direction, but IPFS
+does some clever stuff on top (see `Mutable namespaces`_) that I think gives it
+good shot at becoming popular. It has WIP implementations in hipster [#]_
+languages like Golang and Node.js, someone is even working [#]_ on Haskell
+implementation. Groovy.
 
+However, it's not going to happen tomorrow; IPFS is still just a cool idea.
+There are no clients, there is no toolchain or "ecosystem" and there's no
+browser support. That said, let's have a look in some more detail at what IPFS
+is made out of and imagine some applications of being able "mount the world at
+``/ipfs``".
 
-The most interesting part of the spec is how it handles addressing and namespacing
-
-It has WIP implementations in hipster [1]_ languages like Golang and Node.js,
-someone is even working [2]_ on Haskell implementation. Groovy.
-
-
-However, it's not going to happen tomorrow; IPFS is still really just a good
-idea. There is no toolchain, but more importantly there is no browser support.
-It would take development on the part of browser vendors to support the
-protocol 
 
 .. _`Juan Batiz-Benet`: http://juan.benet.ai/
 .. _`"acqui-hire"`: http://en.wikipedia.org/wiki/Acqui-hiring
 .. _GTP: https://code.google.com/p/gittorrent/
+.. [#] Read "young" ... young languages are hipsters until battle proven.
+.. [#] Well, there's a GitHub issue that says someone expressed an interest at
+       https://github.com/jbenet/ipfs/issues/4
 
 Innards
 -------
 
-Running through
+Running through the stack that ``ipfs`` will run on, we come across some old
+friends who play together in interesting new ways.
+
+Merkel DAG
+~~~~~~~~~~
+
+
+DHT
+~~~
+
+Mutable namespaces
+~~~~~~~~~~~~~~~~~~
+
+Aside from borrowing ideas from successful applications of DAGs and DHTs, the
+spec has a novel take on the URL. Novel to me, but actually just an idea
+borrowed from SFS_, designed for his doctoral thesis in 2000 by David Mazières.
+
+.. _SFS: http://en.wikipedia.org/wiki/Self-certifying_File_System
+
+In IPFS, files are addressed by the cryptographic hash of their content (as are
+"blob" objects in Git) rather than a file path or web address decided by a
+human, the content-hash becomes a file's "name". This is convenient for
+programmatically addressing files, but supremely un-human-readable.
+
+On the internet, we rely heavily on the same name refering to different things
+at different times. For example, consider the domain ``news.com``. When we
+request that content at that address, we would probably expect to find the
+lastest news. This would not be possible if we were using a content-addressed
+system because the *content* of ``news.com`` (and therefore its "name") would
+change every time an event was reported.
+
+The IPFS would interface with DNS to offer domain names and web addresses, or
+in the context of a content-addressed system; *mutable namespaces*. These would
+operate something like a branch in Git, signed by someone's private-key and
+accessible on a DHT [#]_ via that person's public-key. Basically, everyone would get
+a personal namespace rooted in their public-key, which could be mapped to a
+"proper" domain name in a DNS record.
+
+.. [#] Probably a dedicated "namespaces" DHT that would store named pointers to
+       objects in the "content" DHT.
+
+In the analogy of the "single global Git repo", this solves the problem of
+someone pushing with ``--force`` on to ``master`` and everyone wanting a branch
+called ``dev``.
+
+
+
+
+
+Layers
+------
 
 Obvious applications
 --------------------
@@ -81,6 +134,3 @@ Package manager
 Like GitHub did for git (go, bower, npm)
 
 
-.. [1] Read "young" .. don't be so suspicious!
-.. [2] Well, there's a GitHub issue that says someone expressed an interest at
-       https://github.com/jbenet/ipfs/issues/4

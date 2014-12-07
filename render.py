@@ -12,6 +12,8 @@ from pygments_directive import pygments_directive
 from mako.template import Template
 from mako.lookup import TemplateLookup
 
+lmap = lambda func, *iterable: list(map(func, *iterable))
+
 class OrderedDefaultdict(collections.OrderedDict):
 
     def __init__(self, *args, **kwargs):
@@ -43,7 +45,7 @@ def write_html(html, htmlpath):
     if not os.path.exists(htmldir):
         os.makedirs(htmldir)
     with open(htmlpath, 'w') as htmlfile:
-        htmlfile.write(html.encode('utf8'))
+        htmlfile.write(html)
 
 def slug_buildpath_title(rst_path):
     bare_path, ext = os.path.splitext(rst_path)
@@ -148,13 +150,16 @@ def build():
     global template_lookup
     global rst_paths
 
-    find = ['find', 'blog', '-name', '*.rst']
-    rst_paths = sorted(subprocess.check_output(find).split(), reverse=True)
+    find = subprocess.check_output(['find', 'blog', '-name', '*.rst'],
+                                   universal_newlines=True)
+    rst_paths = sorted(find.split(), reverse=True)
 
     index = build_index(rst_paths)
     template_lookup = TemplateLookup(directories=['.'])
 
     pool = multiprocessing.Pool(8)
+
+    pool.map_async = lmap
     pool.map_async(build_page, (
         'pages/about.rst',
         'pages/projects.rst',
@@ -167,11 +172,11 @@ def build():
         'bower_components',
     ))
     pool.apply_async(shutil.copy, ('templates/index.html', '_build'))
-    subprocess.check_call(['sass', 'assets/scss', '_build/assets/css'])
     build_blog_page('templates/blog.rst')
 
     pool.close()
     pool.join()
+    subprocess.check_call(['sass', 'assets/scss', '_build/assets/css'])
     print('done.')
 
 
