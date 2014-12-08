@@ -60,19 +60,24 @@ is made out of and imagine some applications of being able "mount the world at
 .. _`Juan Batiz-Benet`: http://juan.benet.ai/
 .. _`"acqui-hire"`: http://en.wikipedia.org/wiki/Acqui-hiring
 .. _GTP: https://code.google.com/p/gittorrent/
-.. [#] Read "young" ... young languages are hipsters until battle proven.
+.. [#] Read "young".
 .. [#] Well, there's a GitHub issue that says someone expressed an interest at
        https://github.com/jbenet/ipfs/issues/4
 
 Innards
 -------
 
-Running through the stack that ``ipfs`` will run on, we come across some old
-friends who play together in interesting new ways.
+Running through the stack that makes up ``ipfs``, we revisit some old
+friends who play together in interesting new ways:
 
-Merkel DAG
+    - `Merkle DAG`_
+    - `DHT`_
+    - `Mutable namespaces`_
+
+Merkle DAG
 ~~~~~~~~~~
 
+.. image:: /assets/images/merkel.jpg
 
 DHT
 ~~~
@@ -81,36 +86,45 @@ Mutable namespaces
 ~~~~~~~~~~~~~~~~~~
 
 Aside from borrowing ideas from successful applications of DAGs and DHTs, the
-spec has a novel take on the URL. Novel to me, but actually just an idea
-borrowed from SFS_, designed for his doctoral thesis in 2000 by David Mazières.
+spec has a novel take on the URL. Novel, but apparently just an idea borrowed
+from SFS_, designed for his doctoral thesis in 2000 by David Mazières.
 
-.. _SFS: http://en.wikipedia.org/wiki/Self-certifying_File_System
+In IPFS, files are addressed by the cryptographic hash of their content and
+meta data, like objects in Git, rather than a file path or web address
+decided by a human, the content-hash becomes a file's "name". This is
+convenient for programmatically addressing files, but supremely
+un-human-readable.
 
-In IPFS, files are addressed by the cryptographic hash of their content (as are
-"blob" objects in Git) rather than a file path or web address decided by a
-human, the content-hash becomes a file's "name". This is convenient for
-programmatically addressing files, but supremely un-human-readable.
-
-On the internet, we rely heavily on the same name refering to different things
-at different times. For example, consider the domain ``news.com``. When we
-request that content at that address, we would probably expect to find the
-lastest news. This would not be possible if we were using a content-addressed
-system because the *content* of ``news.com`` (and therefore its "name") would
-change every time an event was reported.
+    On the internet, we rely heavily on the same address refering to different
+    things at different times. For example, consider the domain ``news.com``.
+    When we request that content at that address, we would probably expect to
+    find the lastest news. This would not be possible if we were using a
+    content-addressed system because the *content* of ``news.com`` (and
+    therefore its address) would change every time an event was reported.
 
 The IPFS would interface with DNS to offer domain names and web addresses, or
 in the context of a content-addressed system; *mutable namespaces*. These would
-operate something like a branch in Git, signed by someone's private-key and
-accessible on a DHT [#]_ via that person's public-key. Basically, everyone would get
-a personal namespace rooted in their public-key, which could be mapped to a
-"proper" domain name in a DNS record.
+operate something like a signed ref (tag or branch) `in Git`_, addressed on a
+DHT [#]_ via your public-key. Basically, everyone would get a namespace rooted
+in their key pair, which could be mapped (somehow) to a "proper" domain name in
+a DNS record.
+
+In the analogy of the "single global Git repo", this would solve the problems
+of someone pushing with ``--force`` on to ``master``, everyone wanting a branch
+called ``dev`` as well as making it possible to offer new news on ``news.com``.
+
+Trust here would be provided by PGP_, which I guess pretty good :wink:
+
+IPFS would also make it impossible to own a domain name, however, since there
+would no longer be "official" nameservers it would be up to the user to decide
+whos mapping of named-reference
 
 .. [#] Probably a dedicated "namespaces" DHT that would store named pointers to
        objects in the "content" DHT.
+.. _SFS: http://en.wikipedia.org/wiki/Self-certifying_File_System
+.. _`in Git`: https://ariejan.net/2014/06/04/gpg-sign-your-git-commits/
+.. _PGP: http://www.pgp.net/pgpnet/pgp-faq/pgp-faq-security-questions.html#security-how
 
-In the analogy of the "single global Git repo", this solves the problem of
-someone pushing with ``--force`` on to ``master`` and everyone wanting a branch
-called ``dev``.
 
 
 

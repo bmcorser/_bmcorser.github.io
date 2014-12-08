@@ -38,12 +38,12 @@ $max-width: 30em;
             font-size: 1.125em;
             @include em-layout(1.125em);
         }
-        p, blockquote {
+        p, blockquote, img {
             @include em-layout(1em);
+            padding-bottom: 1em;
         }
         p {
             text-align: justify;
-            padding-bottom: 1em;
         }
 
         pre {
