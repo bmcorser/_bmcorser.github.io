@@ -78,6 +78,9 @@ Merkle DAG
 ~~~~~~~~~~
 
 .. image:: /assets/images/merkel.jpg
+           :class: full
+
+Not invented by the German chancellor, but interesting nonetheless
 
 DHT
 ~~~

@@ -12,6 +12,7 @@ $max-width: 30em;
     padding-bottom: $font-size / 8;
 }
 
+
 .content {
     .previous-next {
         max-width: $max-width;
@@ -38,9 +39,11 @@ $max-width: 30em;
             font-size: 1.125em;
             @include em-layout(1.125em);
         }
-        p, blockquote, img {
+        p, blockquote, img.full {
             @include em-layout(1em);
             padding-bottom: 1em;
+            display: block;
+            margin: auto;
         }
         p {
             text-align: justify;
