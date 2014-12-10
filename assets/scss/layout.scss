@@ -41,6 +41,7 @@ $max-width: 30em;
         }
         p, blockquote, img.full {
             @include em-layout(1em);
+            max-height: 400px;
             padding-bottom: 1em;
             display: block;
             margin: auto;

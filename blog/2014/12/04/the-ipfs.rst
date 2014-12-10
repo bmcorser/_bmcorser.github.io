@@ -67,12 +67,12 @@ is made out of and imagine some applications of being able "mount the world at
 Innards
 -------
 
-Running through the stack that makes up ``ipfs``, we revisit some old
-friends who play together in interesting new ways:
+Running through the stack that makes up IPFS, there are some old friends who
+play together in interesting new ways. The parts I'll cover are listed below:
 
     - `Merkle DAG`_
     - `DHT`_
-    - `Mutable namespaces`_
+
 
 Merkle DAG
 ~~~~~~~~~~
@@ -80,7 +80,71 @@ Merkle DAG
 .. image:: /assets/images/merkel.jpg
            :class: full
 
-Not invented by the German chancellor, but interesting nonetheless
+Not invented by the German chancellor, but interesting nonetheless.
+
+The nuance of the naming might not stick the first time; we're not describing a
+Merkle *tree* `typically used`_ to verify data integrity incrementally, we're
+talking about a Merkle *DAG*. The key difference between the two structures is
+that (in the DAG one) any node can potentially hold data and references as well
+as being a hash of its parents.
+
+This is true of the graph of objects making up the the "main" DAG in everyone's
+Git repos, except that `as far as my understanding goes`_ Git's Merkle DAG is
+used more for high performance addressing rather than ensuring data integrity
+between peers. Git isn't a peer-to-peer thing in the same way as IPFS is.
+
+To allow a peer to verify the block it has using the hash tree, it needs the
+root hash and the series of hashes that make up the hash representation of the
+blocks it doesn't know about. Because the hashes are in a tree structure, this
+doesn't necessarily mean the hashes of *all* the missing blocks (although that
+would work too), here's a diagram:
+
+IPFS sets out to take advantage of the Merkle DAG for both of the properties
+mentioned above. There's a good explanation in `this issue`_.
+
+The data integrity j
+
+.. dot-graph:: /assets/images/merkle.svg
+
+    digraph merkle {
+
+        // uncles
+        06 [color=red];
+        12 [color=red];
+        01 [color=red];
+
+        // sibling
+        24 [color=blue];
+
+        // block
+        23 [color=green];
+
+        15 -> 07 -> 03 -> 01 -> 00 [dir=back];
+        16 -> 07 [dir=back];
+        17 -> 08 -> 03 [dir=back];
+        18 -> 08 [dir=back];
+        19 -> 09 -> 04 -> 01 [dir=back];
+        20 -> 09 [dir=back];
+        21 -> 10 -> 04 [dir=back];
+        22 -> 10 [dir=back];
+        23 -> 11 -> 05 -> 02 -> 00 [dir=back];
+        24 -> 11 [dir=back];
+        25 -> 12 -> 05 [dir=back];
+        26 -> 12 [dir=back];
+        27 -> 13 -> 06 -> 02 [dir=back];
+        28 -> 13 [dir=back];
+        29 -> 14 -> 06 [dir=back];
+        30 -> 14 [dir=back];
+    }
+
+
+
+
+.. [#] The graph representing the revision history seen with 
+       ``git log --graph`` is just a DAG of commit objects
+.. _`typically used`: http://www.bittorrent.org/beps/bep_0030.html
+.. _`as far as my understanding goes`: http://giphy.com/gifs/cartoon-network-flying-superman-Uw0Xv5ZKasc0g/fullscreen
+.. _`this issue`: at https://github.com/jbenet/random-ideas/issues/20
 
 DHT
 ~~~

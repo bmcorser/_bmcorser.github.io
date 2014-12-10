@@ -9,6 +9,7 @@ import subprocess
 from docutils.core import publish_parts as docutils_publish
 from docutils.parsers.rst import directives
 from pygments_directive import pygments_directive
+from dotgraph_directive import DotgraphDirective
 from mako.template import Template
 from mako.lookup import TemplateLookup
 
@@ -37,6 +38,7 @@ class OrderedDefaultdict(collections.OrderedDict):
         return self.__class__, args, None, None, self.iteritems()
 
 directives.register_directive('code-block', pygments_directive)
+directives.register_directive('dot-graph', DotgraphDirective)
 
 shutil.rmtree('_build', ignore_errors=True)
 
@@ -160,17 +162,19 @@ def build():
     pool = multiprocessing.Pool(8)
 
     pool.map_async = lmap
-    pool.map_async(build_page, (
-        'pages/about.rst',
-        'pages/projects.rst',
-    ))
-    pool.map_async(render_mako, rst_paths)
+
     pool.map_async(build_copy_dir, (
         'assets/images',
         'assets/js',
         'assets/fonts',
         'bower_components',
     ))
+
+    pool.map_async(build_page, (
+        'pages/about.rst',
+        'pages/projects.rst',
+    ))
+    pool.map_async(render_mako, rst_paths)
     pool.apply_async(shutil.copy, ('templates/index.html', '_build'))
     build_blog_page('templates/blog.rst')
 
