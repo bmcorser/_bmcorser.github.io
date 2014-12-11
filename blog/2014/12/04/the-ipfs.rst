@@ -93,17 +93,120 @@ Git repos, except that `as far as my understanding goes`_ Git's Merkle DAG is
 used more for high performance addressing rather than ensuring data integrity
 between peers. Git isn't a peer-to-peer thing in the same way as IPFS is.
 
-To allow a peer to verify the block it has using the hash tree, it needs the
-root hash and the series of hashes that make up the hash representation of the
-blocks it doesn't know about. Because the hashes are in a tree structure, this
-doesn't necessarily mean the hashes of *all* the missing blocks (although that
-would work too), here's a diagram:
+To allow a peer to verify the hash of a block it has using the hash tree, it
+needs the root hash and the series of hashes that make up the hash
+representation of the blocks it doesn't have. Because the hashes are in a tree
+structure, this doesn't necessarily mean the hashes of *all* the missing
+blocks (although that would work too), here's a diagram:
+
+.. dot-graph:: /assets/images/merkle-tree.svg
+
+    digraph merkle {
+
+        // uncles
+        1 [fillcolor="#7FDBFF", style=filled];
+        12 [fillcolor="#7FDBFF", style=filled];
+        6 [fillcolor="#7FDBFF", style=filled];
+
+        // root
+        root [fillcolor="#2ECC40", style=filled];
+
+        // sibling
+        24 [fillcolor="#7FDBFF", style=filled];
+
+        // uncle covered
+        3 [color=lightgrey, fontcolor=lightgrey];
+        4 [color=lightgrey, fontcolor=lightgrey];
+
+        7 [color=lightgrey, fontcolor=lightgrey];
+        8 [color=lightgrey, fontcolor=lightgrey];
+        9 [color=lightgrey, fontcolor=lightgrey];
+        10 [color=lightgrey, fontcolor=lightgrey];
+
+        13 [color=lightgrey, fontcolor=lightgrey];
+        14 [color=lightgrey, fontcolor=lightgrey];
+        15 [color=lightgrey, fontcolor=lightgrey];
+        16 [color=lightgrey, fontcolor=lightgrey];
+        17 [color=lightgrey, fontcolor=lightgrey];
+        18 [color=lightgrey, fontcolor=lightgrey];
+        19 [color=lightgrey, fontcolor=lightgrey];
+        20 [color=lightgrey, fontcolor=lightgrey];
+        21 [color=lightgrey, fontcolor=lightgrey];
+        22 [color=lightgrey, fontcolor=lightgrey];
+
+        25 [color=lightgrey, fontcolor=lightgrey];
+        26 [color=lightgrey, fontcolor=lightgrey];
+        27 [color=lightgrey, fontcolor=lightgrey];
+        28 [color=lightgrey, fontcolor=lightgrey];
+        29 [color=lightgrey, fontcolor=lightgrey];
+        30 [color=lightgrey, fontcolor=lightgrey];
+
+
+
+        // local block
+        B9 [fillcolor=red, style=filled];
+        23 [fillcolor=pink, style=filled];
+
+        // hash chain
+        11 [fillcolor=pink, style=filled];
+        5 [fillcolor=pink, style=filled];
+        2 [fillcolor=pink, style=filled];
+        0 [fillcolor=pink, style=filled];
+
+        // unknown blocks
+        B1 [fillcolor="#FFDC00", style=filled];
+        B2 [fillcolor="#FFDC00", style=filled];
+        B3 [fillcolor="#FFDC00", style=filled];
+        B4 [fillcolor="#FFDC00", style=filled];
+        B5 [fillcolor="#FFDC00", style=filled];
+        B6 [fillcolor="#FFDC00", style=filled];
+        B7 [fillcolor="#FFDC00", style=filled];
+        B8 [fillcolor="#FFDC00", style=filled];
+        B10 [fillcolor="#FFDC00", style=filled];
+        B11 [fillcolor="#FFDC00", style=filled];
+        B12 [fillcolor="#FFDC00", style=filled];
+        B13 [fillcolor="#FFDC00", style=filled];
+        B14 [fillcolor="#FFDC00", style=filled];
+        B15 [fillcolor="#FFDC00", style=filled];
+        B16 [fillcolor="#FFDC00", style=filled];
+
+        B1 -> 15 -> 7 -> 3 -> 1 [color=lightgrey]; 1 -> 0 -> root -> 0;
+        B2 -> 16 -> 7 [color=lightgrey];
+        B3 -> 17 -> 8 -> 3 [color=lightgrey];
+        B4 -> 18 -> 8 [color=lightgrey];
+        B5 -> 19 -> 9 -> 4 -> 1 [color=lightgrey];
+        B6 -> 20 -> 9 [color=lightgrey];
+        B7 -> 21 -> 10 -> 4 [color=lightgrey];
+        B8 -> 22 -> 10 [color=lightgrey];
+        B9 -> 23 -> 11 -> 5 -> 2 -> 0;
+        B10 -> 24 [color=lightgrey]; 24 -> 11;
+        B11 -> 25 -> 12 [color=lightgrey]; 12 -> 5;
+        B12 -> 26 -> 12 [color=lightgrey];
+        B13 -> 27 -> 13 -> 6 [color=lightgrey]; 6 -> 2 ;
+        B14 -> 28 -> 13 [color=lightgrey];
+        B15 -> 29 -> 14 -> 6 [color=lightgrey];
+        B16 -> 30 -> 14 [color=lightgrey];
+    }
+
+In this example, we have been sent block ``B9`` (red) and the "uncle" hashes
+for that block (blue) by an untrusted peer. We don't have any other verified
+blocks (yellow) and we need to verify the integrity of the block we've been
+sent. To do this we don't need anything apart from the untrusted block itself,
+the untrusted "uncle" hashes and the trusted root hash (green). Calculating the
+missing nodes in the Merkle tree (pink) will get us a untrusted hash of all the
+blocks which can be compared to our trusted root hash to decide whether to keep
+the block or not (and treat that peer as untrustworthy in the future).
+
+The beauty of this is that we didn't need to know or calculate any of the
+hashes that make up the hash tree for the blocks we don't yet have, the
+greyed-out parts of the tree can remain unknown because they are covered by
+the blue "uncle" hashes.
 
 IPFS sets out to take advantage of the Merkle DAG for deduplication which I can
 see; same hash means same content, we can take advantage of "usual"
 characteristics of a Merkle tree to not request objects we already have, etc.
 
-I am, however, thinking about Git's hardcore immutibility (the time and commit
+I am, however, thinking about Git's object immutibility (the time and commit
 message contribute to the hash of a commit) and how that might work against
 deduplication here. We can have two commits with the same content and same
 message, but if they are made on a different day then they will have different
@@ -113,81 +216,8 @@ it comes to parts of the codebase I hold dear, then making commits by different
 people appear distinct helps me. If I was only concerned about *"what is
 there?"* then pure-content-addressing is dandy.
 
-With IPFS, however, it seems that 
+There's a good explanation in `this issue`_.
 
-There's a good explanation in `this
-issue`_.
-
-
-.. dot-graph:: /assets/images/merkle.svg
-
-    digraph merkle {
-
-        // uncle 6
-        6 [fillcolor="#0074D9", style=filled];
-        // uncle 6 covers
-        13 [fillcolor="#7FDBFF", style=filled];
-        14 [fillcolor="#7FDBFF", style=filled];
-        27 [fillcolor="#7FDBFF", style=filled];
-        28 [fillcolor="#7FDBFF", style=filled];
-        29 [fillcolor="#7FDBFF", style=filled];
-        30 [fillcolor="#7FDBFF", style=filled];
-
-        // uncle 1
-        1 [fillcolor="#0074D9", style=filled];
-        // uncle 1 covers
-        3 [fillcolor="#7FDBFF", style=filled];
-        4 [fillcolor="#7FDBFF", style=filled];
-        7 [fillcolor="#7FDBFF", style=filled];
-        8 [fillcolor="#7FDBFF", style=filled];
-        9 [fillcolor="#7FDBFF", style=filled];
-        10 [fillcolor="#7FDBFF", style=filled];
-        15 [fillcolor="#7FDBFF", style=filled];
-        16 [fillcolor="#7FDBFF", style=filled];
-        17 [fillcolor="#7FDBFF", style=filled];
-        18 [fillcolor="#7FDBFF", style=filled];
-        19 [fillcolor="#7FDBFF", style=filled];
-        20 [fillcolor="#7FDBFF", style=filled];
-        21 [fillcolor="#7FDBFF", style=filled];
-        22 [fillcolor="#7FDBFF", style=filled];
-
-        // uncle 12
-        12 [fillcolor="#0074D9", style=filled];
-        // uncle 12 covers
-        25 [fillcolor="#7FDBFF", style=filled];
-        26 [fillcolor="#7FDBFF", style=filled];
-
-        // sibling
-        24 [fillcolor="#0074D9", style=filled];
-
-        // block
-        B9 [fillcolor="#2ECC40", style=filled];
-        23 [fillcolor="#FF4136", style=filled];
-        23 [fillcolor="#FF4136", style=filled];
-
-        // hash chain
-        11 [fillcolor=pink, style=filled];
-        5 [fillcolor=pink, style=filled];
-        2 [fillcolor=pink, style=filled];
-        0 [fillcolor=pink, style=filled];
-
-        B1 -> 15 -> 7 -> 3 -> 1 -> 0;
-        B2 -> 16 -> 7;
-        B3 -> 17 -> 8 -> 3;
-        B4 -> 18 -> 8;
-        B5 -> 19 -> 9 -> 4 -> 1;
-        B6 -> 20 -> 9;
-        B7 -> 21 -> 10 -> 4;
-        B8 -> 22 -> 10;
-        B9 -> 23 -> 11 -> 5 -> 2 -> 0 [color=red];
-        B10 -> 24 -> 11;
-        B11 -> 25 -> 12 -> 5;
-        B12 -> 26 -> 12;
-        B13 -> 27 -> 13 -> 6 -> 2;
-        B14 -> 28 -> 13;
-        B15 -> 29 -> 14 -> 6;
-        B16 -> 30 -> 14;
-    }
 
 
 
