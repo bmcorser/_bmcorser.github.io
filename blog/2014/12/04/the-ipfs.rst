@@ -210,11 +210,10 @@ I am, however, thinking about Git's object immutibility (the time and commit
 message contribute to the hash of a commit) and how that might work against
 deduplication here. We can have two commits with the same content and same
 message, but if they are made on a different day then they will have different
-IDs. If I was concerned about *"who did what, where did they do it and exactly
-what time after midday did they do what they did?"* which I frequently am, when
-it comes to parts of the codebase I hold dear, then making commits by different
-people appear distinct helps me. If I was only concerned about *"what is
-there?"* then pure-content-addressing is dandy.
+IDs. If I was concerned about *"who did what, where and at what time?"* which I
+frequently am, when it comes to parts of the codebase I hold dear, then making
+commits by different people appear distinct helps me. If I was only concerned
+about *"what is there?"* then pure-content-addressing is dandy.
 
 There's a good explanation in `this issue`_.
 
