@@ -99,42 +99,94 @@ blocks it doesn't know about. Because the hashes are in a tree structure, this
 doesn't necessarily mean the hashes of *all* the missing blocks (although that
 would work too), here's a diagram:
 
-IPFS sets out to take advantage of the Merkle DAG for both of the properties
-mentioned above. There's a good explanation in `this issue`_.
+IPFS sets out to take advantage of the Merkle DAG for deduplication which I can
+see; same hash means same content, we can take advantage of "usual"
+characteristics of a Merkle tree to not request objects we already have, etc.
 
-The data integrity j
+I am, however, thinking about Git's hardcore immutibility (the time and commit
+message contribute to the hash of a commit) and how that might work against
+deduplication here. We can have two commits with the same content and same
+message, but if they are made on a different day then they will have different
+IDs. If I was concerned about *"who did what, where did they do it and exactly
+what time after midday did they do what they did?"* which I frequently am, when
+it comes to parts of the codebase I hold dear, then making commits by different
+people appear distinct helps me. If I was only concerned about *"what is
+there?"* then pure-content-addressing is dandy.
+
+With IPFS, however, it seems that 
+
+There's a good explanation in `this
+issue`_.
+
 
 .. dot-graph:: /assets/images/merkle.svg
 
     digraph merkle {
 
-        // uncles
-        06 [color=red];
-        12 [color=red];
-        01 [color=red];
+        // uncle 6
+        6 [fillcolor="#0074D9", style=filled];
+        // uncle 6 covers
+        13 [fillcolor="#7FDBFF", style=filled];
+        14 [fillcolor="#7FDBFF", style=filled];
+        27 [fillcolor="#7FDBFF", style=filled];
+        28 [fillcolor="#7FDBFF", style=filled];
+        29 [fillcolor="#7FDBFF", style=filled];
+        30 [fillcolor="#7FDBFF", style=filled];
+
+        // uncle 1
+        1 [fillcolor="#0074D9", style=filled];
+        // uncle 1 covers
+        3 [fillcolor="#7FDBFF", style=filled];
+        4 [fillcolor="#7FDBFF", style=filled];
+        7 [fillcolor="#7FDBFF", style=filled];
+        8 [fillcolor="#7FDBFF", style=filled];
+        9 [fillcolor="#7FDBFF", style=filled];
+        10 [fillcolor="#7FDBFF", style=filled];
+        15 [fillcolor="#7FDBFF", style=filled];
+        16 [fillcolor="#7FDBFF", style=filled];
+        17 [fillcolor="#7FDBFF", style=filled];
+        18 [fillcolor="#7FDBFF", style=filled];
+        19 [fillcolor="#7FDBFF", style=filled];
+        20 [fillcolor="#7FDBFF", style=filled];
+        21 [fillcolor="#7FDBFF", style=filled];
+        22 [fillcolor="#7FDBFF", style=filled];
+
+        // uncle 12
+        12 [fillcolor="#0074D9", style=filled];
+        // uncle 12 covers
+        25 [fillcolor="#7FDBFF", style=filled];
+        26 [fillcolor="#7FDBFF", style=filled];
 
         // sibling
-        24 [color=blue];
+        24 [fillcolor="#0074D9", style=filled];
 
         // block
-        23 [color=green];
+        B9 [fillcolor="#2ECC40", style=filled];
+        23 [fillcolor="#FF4136", style=filled];
+        23 [fillcolor="#FF4136", style=filled];
 
-        15 -> 07 -> 03 -> 01 -> 00 [dir=back];
-        16 -> 07 [dir=back];
-        17 -> 08 -> 03 [dir=back];
-        18 -> 08 [dir=back];
-        19 -> 09 -> 04 -> 01 [dir=back];
-        20 -> 09 [dir=back];
-        21 -> 10 -> 04 [dir=back];
-        22 -> 10 [dir=back];
-        23 -> 11 -> 05 -> 02 -> 00 [dir=back];
-        24 -> 11 [dir=back];
-        25 -> 12 -> 05 [dir=back];
-        26 -> 12 [dir=back];
-        27 -> 13 -> 06 -> 02 [dir=back];
-        28 -> 13 [dir=back];
-        29 -> 14 -> 06 [dir=back];
-        30 -> 14 [dir=back];
+        // hash chain
+        11 [fillcolor=pink, style=filled];
+        5 [fillcolor=pink, style=filled];
+        2 [fillcolor=pink, style=filled];
+        0 [fillcolor=pink, style=filled];
+
+        B1 -> 15 -> 7 -> 3 -> 1 -> 0;
+        B2 -> 16 -> 7;
+        B3 -> 17 -> 8 -> 3;
+        B4 -> 18 -> 8;
+        B5 -> 19 -> 9 -> 4 -> 1;
+        B6 -> 20 -> 9;
+        B7 -> 21 -> 10 -> 4;
+        B8 -> 22 -> 10;
+        B9 -> 23 -> 11 -> 5 -> 2 -> 0 [color=red];
+        B10 -> 24 -> 11;
+        B11 -> 25 -> 12 -> 5;
+        B12 -> 26 -> 12;
+        B13 -> 27 -> 13 -> 6 -> 2;
+        B14 -> 28 -> 13;
+        B15 -> 29 -> 14 -> 6;
+        B16 -> 30 -> 14;
     }
 
 
