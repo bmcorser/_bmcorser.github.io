@@ -1,8 +1,8 @@
 What's up?
 ##########
 
-Pythonista and hipster coder extraordinaire, I know my perriwinkle blue
-caravans and can get my groove on from the bottom of the stack to the top.
+Pythonista and hipster coder extraordinaire, I know my periwinkle blue caravans
+and can get my groove on from the bottom of the stack to the top.
 
 `:cake: :custard: :shaved_ice: :doughnut:`
 
