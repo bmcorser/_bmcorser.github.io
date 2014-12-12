@@ -1,0 +1,12 @@
+buildpath: _build
+pages:
+  - pages/about
+  - pages/projects
+assetpaths:
+  - assets/images
+  - assets/js
+  - assets/fonts
+  - bower_components
+sassin: assets/scss
+sassout: assets/css
+github: https://github.com/bmcorser/_bmcorser.github.io/

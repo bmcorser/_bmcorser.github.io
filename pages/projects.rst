@@ -5,8 +5,8 @@ Things I've made. They live on GitHub_ and PyPI.
 
 .. _GitHub: https://github.com/bmcorser
 
-expr_
-=====
+`:rainbow:` expr_
+=================
 
 Create simple visualisations of mathematical operations on `small datasets`_
 by rendering an `expression graph`_, show your friends or serialise it for later.
@@ -18,11 +18,11 @@ by rendering an `expression graph`_, show your friends or serialise it for later
 Other repos
 ===========
 
-    - sass-cli_: The missing CLI for compiling Sass in Python
-    - fontawesome-markdown_: Markdown extension to use Font Awesome icons in a
-      GitHub style
-    - toyrabbit_: A tiny and very unstable message bus in Python that uses
-      RabbitMQ.
+    - `:eyeglasses:` sass-cli_ The missing CLI for compiling Sass in Python
+    - `:coffee:` fontawesome-markdown_ Markdown extension to use FontAwesome
+      icons in a GitHub style
+    - `:rabbit2:` toyrabbit_ A tiny and very unstable message bus in Python that
+      uses RabbitMQ.
 
 .. _sass-cli: https://github.com/bmcorser/sass-cli
 .. _fontawesome-markdown: https://github.com/bmcorser/fontawesome-markdown

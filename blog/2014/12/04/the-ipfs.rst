@@ -35,20 +35,21 @@ Introduction
 
 IPFS is being designed primarily by a Stanford CS dude (`Juan Batiz-Benet`_),
 who made a company which sold to Yahoo as an `"acqui-hire"`_ last year. The
-protocol is not groundbreaking in itself, it's a pretty simple idea. It
-describes something like a single, global Git repo that supports peer-to-peer
-protocols as well as SSH and HTTP. You can get the data you want by cloning the
-relevant part of the DAG through BitTorrent (like a shallow clone in Git). The
-parts of the repo you have locally would be seeded to others in the network who
-requested them, following similar choking rules to BitTorrent.
+protocol does not appear groundbreaking in itself, on the face of it it's a
+pretty simple idea. It describes something like a single, global Git repo that
+supports peer-to-peer protocols as well as SSH and HTTP. You can get the data
+you want by cloning the relevant part of the DAG through BitTorrent (like a
+shallow clone in Git). The parts of the repo you have locally would be seeded
+to others in the network who requested them, following similar choking rules to
+BitTorrent.
 
-It's a great idea because it builds on ideas many people are familiar with,
-that have mature and and widely successful implementations. At least one
-unrelated thrust (GTP_) has already been made in a similar direction, but IPFS
-does some clever stuff on top (see `Mutable namespaces`_) that I think gives it
-good shot at becoming popular. It has WIP implementations in hipster [#]_
-languages like Golang and Node.js, someone is even working [#]_ on Haskell
-implementation. Groovy.
+It's a great idea because it builds on things people are already familiar with
+that also have mature and and widely successful implementations as well as
+introducing some novel ideas (see `Mutable namespaces`_) and wraps the whole
+lot into a cohesive whole. The clarity of vision is impressive and ambitious. 
+
+It also boasts WIP implementations in hipster [#]_ languages like Golang and
+Node.js, someone is even working [#]_ on Haskell implementation. Groovy.
 
 However, it's not going to happen tomorrow; IPFS is still just a cool idea.
 There are no clients, there is no toolchain or "ecosystem" and there's no
@@ -59,7 +60,6 @@ is made out of and imagine some applications of being able "mount the world at
 
 .. _`Juan Batiz-Benet`: http://juan.benet.ai/
 .. _`"acqui-hire"`: http://en.wikipedia.org/wiki/Acqui-hiring
-.. _GTP: https://code.google.com/p/gittorrent/
 .. [#] Read "young".
 .. [#] Well, there's a GitHub issue that says someone expressed an interest at
        https://github.com/jbenet/ipfs/issues/4
@@ -77,8 +77,12 @@ play together in interesting new ways. The parts I'll cover are listed below:
 Merkle DAG
 ~~~~~~~~~~
 
-.. image:: /assets/images/merkel.jpg
-           :class: full
+.. figure:: /assets/images/merkel.jpg
+            :class: full
+
+            Angela Merkel (source__)
+
+.. __: http://anotherangryvoice.blogspot.co.uk/2012/05/angela-merkel-dead-woman-walking.html
 
 Not invented by the German chancellor, but interesting nonetheless.
 
@@ -86,18 +90,33 @@ The nuance of the naming might not stick the first time; we're not describing a
 Merkle *tree* `typically used`_ to verify data integrity incrementally, we're
 talking about a Merkle *DAG*. The key difference between the two structures is
 that (in the DAG one) any node can potentially hold data and references as well
-as being a hash of its parents.
+as a hash of its parents.
 
 This is true of the graph of objects making up the the "main" DAG in everyone's
 Git repos, except that `as far as my understanding goes`_ Git's Merkle DAG is
 used more for high performance addressing rather than ensuring data integrity
 between peers. Git isn't a peer-to-peer thing in the same way as IPFS is.
 
-To allow a peer to verify the hash of a block it has using the hash tree, it
-needs the root hash and the series of hashes that make up the hash
-representation of the blocks it doesn't have. Because the hashes are in a tree
-structure, this doesn't necessarily mean the hashes of *all* the missing
-blocks (although that would work too), here's a diagram:
+Let's look at how a binary Merkle tree is used in peer-to-peer systems to allow
+verification of untrusted data with a high degree of confidence and low
+metadata overhead.
+
+To allow a me to verify the hash of a block I have, I need a trusted root hash
+(a trusted hash of all blocks) and a series of hashes that can be used to
+reconstruct the hash tree for the blocks I don't have. Because the hashes are
+in a tree structure, this doesn't necessarily mean the hashes of *all* the
+missing blocks (although that would work too).
+
+In the example below, we have been sent block ``B9`` (red) and the group of
+required "uncle" hashes (blue) by an untrusted peer. We don't have any other
+verified blocks (yellow) and we need to verify the integrity of the block we've
+been sent. To do this we don't need anything apart from the hash of the
+untrusted block (23), the untrusted "uncle" hashes and the trusted root hash
+(green). Calculating the missing nodes in the Merkle tree (pink) by hashing
+the descendants will eventually yield an untrusted hash representing all the
+blocks. This *untrusted* root hash can then be compared to our *trusted* root
+hash to decide whether to keep the block or not (and treat that peer as
+untrustworthy in the future, etc).
 
 .. dot-graph:: /assets/images/merkle-tree.svg
 
@@ -144,7 +163,7 @@ blocks (although that would work too), here's a diagram:
 
 
         // local block
-        B9 [fillcolor=red, style=filled];
+        B9 [fillcolor="#FF4136", style=filled];
         23 [fillcolor=pink, style=filled];
 
         // hash chain
@@ -188,47 +207,62 @@ blocks (although that would work too), here's a diagram:
         B16 -> 30 -> 14 [color=lightgrey];
     }
 
-In this example, we have been sent block ``B9`` (red) and the "uncle" hashes
-for that block (blue) by an untrusted peer. We don't have any other verified
-blocks (yellow) and we need to verify the integrity of the block we've been
-sent. To do this we don't need anything apart from the untrusted block itself,
-the untrusted "uncle" hashes and the trusted root hash (green). Calculating the
-missing nodes in the Merkle tree (pink) will get us a untrusted hash of all the
-blocks which can be compared to our trusted root hash to decide whether to keep
-the block or not (and treat that peer as untrustworthy in the future).
+The beauty of this is that there was a lot we didn't need to know (all the grey
+stuff in the diagram). The hashes that make up the tree for the blocks we don't
+yet have can remain unknown because those nodes in the tree are covered by the
+blue "uncle" nodes.
 
-The beauty of this is that we didn't need to know or calculate any of the
-hashes that make up the hash tree for the blocks we don't yet have, the
-greyed-out parts of the tree can remain unknown because they are covered by
-the blue "uncle" hashes.
+IPFS sets out to take advantage of the hash tree for deduplication; same hash
+means same content, we can take advantage of the generally-applied
+characteristics of a Merkle tree to not request data we already have.
 
-IPFS sets out to take advantage of the Merkle DAG for deduplication which I can
-see; same hash means same content, we can take advantage of "usual"
-characteristics of a Merkle tree to not request objects we already have, etc.
+However, in Git's object immutibility model even changing a commit message will
+generate a new object, because Git considers a commit message to be part of the
+"content" of a commit (not just the code changes you made). In IPFS the same
+is true, except the data stored in the object is potentially terabytes not the
+few kilobytes it takes to lint some JavaScript. This is where the versioning in
+IPFS will become critical. It shouldn't be the case (for example) if I change
+one line in a 30GB database dump that a new 30GB object will be created,
+instead just the "patch" of my one-liner is saved and can be applied to the
+original data.
 
-I am, however, thinking about Git's object immutibility (the time and commit
-message contribute to the hash of a commit) and how that might work against
-deduplication here. We can have two commits with the same content and same
-message, but if they are made on a different day then they will have different
-IDs. If I was concerned about *"who did what, where and at what time?"* which I
-frequently am, when it comes to parts of the codebase I hold dear, then making
-commits by different people appear distinct helps me. If I was only concerned
-about *"what is there?"* then pure-content-addressing is dandy.
-
-There's a good explanation in `this issue`_.
-
-
-
-
+There's a good overview of the Merkle DAG in `this issue`_
 
 .. [#] The graph representing the revision history seen with 
-       ``git log --graph`` is just a DAG of commit objects
+       ``git log --graph`` is just the part of the DAG featuring commit
+       objects.
 .. _`typically used`: http://www.bittorrent.org/beps/bep_0030.html
 .. _`as far as my understanding goes`: http://giphy.com/gifs/cartoon-network-flying-superman-Uw0Xv5ZKasc0g/fullscreen
 .. _`this issue`: at https://github.com/jbenet/random-ideas/issues/20
 
 DHT
 ~~~
+.. figure:: /assets/images/consistent_hashing.png
+            :class: full
+
+            Yes, it's that exciting (source__).
+
+.. __: http://offthelip.org/2009/07/19/distributed-hash-tables-part-1/
+
+One routing mechanism IPFS proposes to use is the "distributed sloppy hash
+table" employed by BitTorrent. The spec also states that the routing layer
+should be "swappable", meaning more traditional routing could be used in place
+of DHT(?). The specific DHT concept mentioned is Kademlia_ (Petar Maymounkov,
+David Mazières - 2002) which is a variant of Chord_, with nice properties for
+high-churn applications; that is, nodes becoming available and then becoming
+unavailable a short time later which is something frequently seen in existing
+filesharing spaces (we're all guilty of shutting down μTorrent as soon as that
+latest Linux distro has finished downloading).
+
+.. _Kademlia: http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf
+.. _Chord: http://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
+
+
+
+At least one unrelated thrust (GTP_) has already been made in a similar
+direction. 
+
+.. _GTP: https://code.google.com/p/gittorrent/
 
 Mutable namespaces
 ~~~~~~~~~~~~~~~~~~
@@ -274,10 +308,6 @@ whos mapping of named-reference
 .. _PGP: http://www.pgp.net/pgpnet/pgp-faq/pgp-faq-security-questions.html#security-how
 
 
-
-
-
-
 Layers
 ------
 
@@ -296,3 +326,13 @@ Package manager
 Like GitHub did for git (go, bower, npm)
 
 
+Security
+--------
+The security of a system such as IPFS presents different problems to
+traditional web security. The normal scenario would be that the trusted DNS
+server gives me the IP for the domain I request, I setup a connection to that
+trusted IP address over HTTP/TLS. As long as the box answering to that IP is
+secure (`lol, Sony`_) and I trust the owner of that box means me no harm then I
+can safely transfer files in good faith that the content will be what I expect.
+
+.. _`lol, Sony`: http://attrition.org/security/rant/sony_aka_sownage.html
