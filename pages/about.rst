@@ -27,6 +27,7 @@ Things I do inside Vim without a browser open:
 
 Things I do inside Vim with a browser open:
 
+    - Either ``{{ x }}`` or ``${y}``
     - Keep it real with Durandal and RequireJS
     - Just loads of ``_.chain(iterable)`` and ``_.reduce``
     - Occasionally shuffle about in Django

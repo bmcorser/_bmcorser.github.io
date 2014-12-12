@@ -246,17 +246,16 @@ DHT
 
 One routing mechanism IPFS proposes to use is the "distributed sloppy hash
 table" employed by BitTorrent. The spec also states that the routing layer
-should be "swappable", meaning more traditional routing could be used in place
-of DHT(?). The specific DHT concept mentioned is Kademlia_ (Petar Maymounkov,
-David Mazières - 2002) which is a variant of Chord_, with nice properties for
-high-churn applications; that is, nodes becoming available and then becoming
-unavailable a short time later which is something frequently seen in existing
-filesharing spaces (we're all guilty of shutting down μTorrent as soon as that
-latest Linux distro has finished downloading).
+should be "swappable", meaning more traditional (or more exotic) routing could
+be used in place of a DHT. The specific DHT concept mentioned is Kademlia_
+(Petar Maymounkov, David Mazières - 2002) which is a variant of Chord_, with
+nice properties for high-churn applications; that is, nodes becoming available
+and then becoming unavailable a short time later which is something frequently
+seen in existing filesharing spaces (we're all guilty of shutting down μTorrent
+as soon as that latest Linux distro has finished downloading).
 
 .. _Kademlia: http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf
 .. _Chord: http://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
-
 
 
 At least one unrelated thrust (GTP_) has already been made in a similar
