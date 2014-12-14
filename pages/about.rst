@@ -29,12 +29,13 @@ Things I do inside Vim with a browser open:
 
     - Either ``{{ x }}`` or ``${y}``
     - Keep it real with Durandal and RequireJS
-    - Just loads of ``_.chain(iterable)`` and ``_.reduce``
+    - Just loads of ``_.chain`` and ``_.reduce`` (it's a low dash)
     - Occasionally shuffle about in Django
 
 `:beer: :racehorse: :birthday: :tropical_drink:`
 
 Things I do in a browser:
 
-    - Make my Pull Requests pretty
+    - Make my Pull Requests real pretty
     - Wait for Chrome to reopen the 40 tabs I had open
+    - Surf
