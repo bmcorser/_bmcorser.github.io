@@ -1,12 +1,17 @@
 buildpath: _build
 pages:
-  - pages/about
   - pages/projects
+  - pages/about
+  - blog: /blog.html
+  - github: https://github.com/bmcorser
+  - twitter: https://twitter.com/bmcorser
+
 assetpaths:
   - assets/images
   - assets/js
   - assets/fonts
-  - bower_components
+  - bower_components/lodash/dist/lodash.min.js
+
 sassin: assets/scss
 sassout: assets/css
 github: https://github.com/bmcorser/_bmcorser.github.io/

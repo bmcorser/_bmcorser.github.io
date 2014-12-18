@@ -38,4 +38,4 @@ Things I do in a browser:
 
     - Make my Pull Requests real pretty
     - Wait for Chrome to reopen the 40 tabs I had open
-    - Surf
+    - Hang out on ``seclists.org``

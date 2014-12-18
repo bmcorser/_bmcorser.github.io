@@ -1,19 +1,22 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>BM Corser - ${meta['title']}</title>
+        <title>
+            BM Corser - <%block name="title_block">${title}</%block>
+        </title>
         <link rel="stylesheet" href="/assets/css/layout.css">
         <link rel="stylesheet" href="/assets/css/docutils.css">
         <link rel="stylesheet" href="/assets/css/tomorrow.css">
         <script src="/bower_components/lodash/dist/lodash.min.js"></script>
         <script src="//cdn.jsdelivr.net/emojione/1.3.0/lib/js/emojione.min.js"></script>
-        <script src="/bower_components/headroom.js/dist/headroom.min.js"></script>
         <script src="/assets/js/emoji.js"></script>
         <link rel="stylesheet" href="//cdn.jsdelivr.net/emojione/1.3.0/assets/css/emojione.min.css" />
     </head>
     <body>
         <%include file="header.html" />
-        <%block name="content" />
-        <div id="copyright">&copy; BM Corser, 2014</div>
+        <%block name="content_block" />
+        <%block name="footer_block">
+            <div id="copyright">&copy; BM Corser, 2014</div>
+        </%block>
     </body>
 </html>
