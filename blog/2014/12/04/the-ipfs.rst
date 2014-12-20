@@ -6,7 +6,6 @@ InterPlanetary Filesystem
 
 Preamble
 --------
-
 Last week, dreaming about being able to serve pars_ images using something like
 the BitTorrent protocol from the browser. I asked Jeeves: "Can browsers
 communicate peer-to-peer?" Turns out they can through WebRTC_, released by
@@ -32,7 +31,6 @@ It kind of sounded like something I wanted.
 
 Introduction
 ------------
-
 IPFS is being designed primarily by a Stanford CS dude (`Juan Batiz-Benet`_),
 who made a company which sold to Yahoo as an `"acqui-hire"`_ last year. The
 protocol does not appear groundbreaking in itself, on the face of it it's a
@@ -46,10 +44,12 @@ BitTorrent.
 It's a great idea because it builds on things people are already familiar with
 that also have mature and and widely successful implementations as well as
 introducing some novel ideas (see `Mutable namespaces`_) and wraps the whole
-lot into a cohesive whole. The clarity of vision is impressive and ambitious. 
+lot into a pretty well cohesive whole. The clarity of vision is impressive and
+ambitious, yes sir.
 
 It also boasts WIP implementations in hipster [#]_ languages like Golang and
-Node.js, someone is even working [#]_ on Haskell implementation. Groovy.
+Node.js, someone is even working [#]_ on a Haskell implementation. What's not
+to like?
 
 However, it's not going to happen tomorrow; IPFS is still just a cool idea.
 There are no clients, there is no toolchain or "ecosystem" and there's no
@@ -66,17 +66,18 @@ is made out of and imagine some applications of being able "mount the world at
 
 Innards
 -------
+Running through the stack that makes up IPFS, there are two core ideas with
+applications that will be familiar to most people:
 
-Running through the stack that makes up IPFS, there are some old friends who
-play together in interesting new ways. The parts I'll cover are listed below:
+    - `Merkle DAG`_ in Git
+    - `Kademlia DHT`_ in BitTorrent
 
-    - `Merkle DAG`_
-    - `DHT`_
+Let's go on a whistlestop tour through DAG & DHT. All aboard!
 
+`:bicyclist:`
 
 Merkle DAG
 ~~~~~~~~~~
-
 .. figure:: /assets/images/merkel.jpg
             :class: full
 
@@ -86,34 +87,42 @@ Merkle DAG
 
 Not invented by the German chancellor, but interesting nonetheless.
 
-The nuance of the naming might not stick the first time; we're not describing a
-Merkle *tree* `typically used`_ to verify data integrity incrementally, we're
-talking about a Merkle *DAG*. The key difference between the two structures is
-that (in the DAG one) any node can potentially hold data and references as well
-as a hash of its parents.
+The nuance of the naming might not stick the first time; there is `a
+distinction`_ between a Merkle **tree** `typically used`_ to incrementally verify
+data integrity and a Merkle **DAG** as used by Git. The key difference between
+the two structures is that (in the more-general DAG one) any node can
+potentially hold data and references as well as a hash of its parents.
+
+.. _`a distinction`: at https://github.com/jbenet/random-ideas/issues/20
+.. _`typically used`: http://www.bittorrent.org/beps/bep_0030.html
 
 This is true of the graph of objects making up the the "main" DAG in everyone's
 Git repos, except that `as far as my understanding goes`_ Git's Merkle DAG is
-used more for high performance addressing rather than ensuring data integrity
-between peers. Git isn't a peer-to-peer thing in the same way as IPFS is.
+used more for high performance addressing and perhaps deduplication rather than
+ensuring data integrity between peers. Git isn't a peer-to-peer thing in the
+same way as IPFS is.
 
+.. _`as far as my understanding goes`: http://giphy.com/gifs/cartoon-network-flying-superman-Uw0Xv5ZKasc0g/fullscreen
+
+Merkle tree
+^^^^^^^^^^^
 Let's look at how a binary Merkle tree is used in peer-to-peer systems to allow
 verification of untrusted data with a high degree of confidence and low
 metadata overhead.
 
-To allow a me to verify the hash of a block I have, I need a trusted root hash
-(a trusted hash of all blocks) and a series of hashes that can be used to
+To be able to verify the hash of a block I have, I need a trusted root hash (a
+trusted hash of all blocks) and a series of hashes that can be used to
 reconstruct the hash tree for the blocks I don't have. Because the hashes are
 in a tree structure, this doesn't necessarily mean the hashes of *all* the
 missing blocks (although that would work too).
 
-In the example below, we have been sent block ``B9`` (red) and the group of
-required "uncle" hashes (blue) by an untrusted peer. We don't have any other
-verified blocks (yellow) and we need to verify the integrity of the block we've
-been sent. To do this we don't need anything apart from the hash of the
-untrusted block (23), the untrusted "uncle" hashes and the trusted root hash
-(green). Calculating the missing nodes in the Merkle tree (pink) by hashing
-the descendants will eventually yield an untrusted hash representing all the
+In the example below, we have been sent block ``B9`` (red) and the required
+"uncle" hashes (blue) by an untrusted peer. We don't have any other verified
+blocks (yellow) and we need to verify the integrity of the block we've been
+sent. To do this we don't need anything apart from the hash of the untrusted
+block (23), the untrusted "uncle" hashes and the trusted root hash (green).
+Calculating the missing nodes in the Merkle tree (pink) by hashing the
+descendants will eventually yield an untrusted hash representing all the
 blocks. This *untrusted* root hash can then be compared to our *trusted* root
 hash to decide whether to keep the block or not (and treat that peer as
 untrustworthy in the future, etc).
@@ -160,8 +169,6 @@ untrustworthy in the future, etc).
         29 [color=lightgrey, fontcolor=lightgrey];
         30 [color=lightgrey, fontcolor=lightgrey];
 
-
-
         // local block
         B9 [fillcolor="#FF4136", style=filled];
         23 [fillcolor=pink, style=filled];
@@ -207,36 +214,109 @@ untrustworthy in the future, etc).
         B16 -> 30 -> 14 [color=lightgrey];
     }
 
-The beauty of this is that there was a lot we didn't need to know (all the grey
-stuff in the diagram). The hashes that make up the tree for the blocks we don't
-yet have can remain unknown because those nodes in the tree are covered by the
-blue "uncle" nodes.
+The efficiency comes from peers not needing to know so much. In fact, there was
+quite a lot we didn't need to know (all the grey stuff in the diagram). The
+hashes that make up the tree for the blocks we don't yet have can remain
+unknown because those nodes in the tree are covered by the blue "uncle" nodes.
 
-IPFS sets out to take advantage of the hash tree for deduplication; same hash
-means same content, we can take advantage of the generally-applied
-characteristics of a Merkle tree to not request data we already have.
+Cool.
 
-However, in Git's object immutibility model even changing a commit message will
-generate a new object, because Git considers a commit message to be part of the
-"content" of a commit (not just the code changes you made). In IPFS the same
-is true, except the data stored in the object is potentially terabytes not the
-few kilobytes it takes to lint some JavaScript. This is where the versioning in
-IPFS will become critical. It shouldn't be the case (for example) if I change
-one line in a 30GB database dump that a new 30GB object will be created,
-instead just the "patch" of my one-liner is saved and can be applied to the
-original data.
+Git's DAG
+^^^^^^^^^
+So we briefly covered the application of a Merkle tree in the context of
+verifying untrusted blocks of files in peer-to-peer systems, but how does that
+apply when we're talking about Git?
 
-There's a good overview of the Merkle DAG in `this issue`_
+Reading Tommi Virtanen's great article `Git for computer scientists`_ is a good
+place to start seeing how Git's DAG works. Taking (some) inspiration from
+`git-big-picture`_ I whipped up `a script`_ to examine Git's DAG. We can see
+how deduplication is handled by addressing content rather than files. Follow
+along with my experiment:
 
-.. [#] The graph representing the revision history seen with 
-       ``git log --graph`` is just the part of the DAG featuring commit
-       objects.
-.. _`typically used`: http://www.bittorrent.org/beps/bep_0030.html
-.. _`as far as my understanding goes`: http://giphy.com/gifs/cartoon-network-flying-superman-Uw0Xv5ZKasc0g/fullscreen
-.. _`this issue`: at https://github.com/jbenet/random-ideas/issues/20
+.. code-block:: shell
 
-DHT
-~~~
+    $ git init
+    $ mkdir A
+    $ touch A/a A/b
+    $ touch B
+    $ tree .
+    .
+    ├── A
+    │   ├── a
+    │   └── b
+    └── B
+
+    1 directory, 3 files
+    $ git add .
+    $ git commit -m 'init'
+    $ git rev-parse HEAD
+    ee8285efa8f43be5a2061c0d2bc79f17c86beeae
+
+Ok, so that's the simplest repo known to man and we have the revision ID. Let's
+look at the what's going on under the hood.
+
+.. image:: /assets/images/ee8285e.svg
+           :class: full
+
+We can see the directory ``A`` and the files ``B``, ``a`` and ``b`` we created.
+Notice that all the files reference that same blob object ``e69de29``, that's
+because they are all empty files (and therefore have the same content,
+nothing). If we alter file ``a`` to not be empty (and therefore have different
+content) like this:
+
+.. code-block:: shell
+
+    $ echo 'hello' > A/a
+    $ git add A/a
+    $ git commit -m 'altered a'
+    $ git rev-parse HEAD
+    437816ad6b9c9495007da9689613484daef8ff28
+
+Not only do we get a new commit ID, but we see the underlying DAG change:
+
+.. image:: /assets/images/437816a.svg
+           :class: full
+
+Both files ``b`` and ``B`` :smile: share a blob, but ``a`` now has a blob of
+its very own. This also demonstrates that in Git's model, blob objects
+correspond to one-to-one with files (sans directory location) which works fine
+if you only want to deduplicate files that have *exactly* the same content, but
+deduplication could be more aggressive if files were split into blocks and
+deduplicated at block-level instead of file-level.
+
+.. dot-graph:: /assets/images/block-level-blog.svg
+
+    digraph {
+        // blocks
+        B1 [fillcolor="#FFDC00", style=filled];
+        B2 [fillcolor="#FFDC00", style=filled];
+        B3 [fillcolor="#FFDC00", style=filled];
+        B4 [fillcolor="pink", style=filled];
+        B5 [fillcolor="pink", style=filled];
+
+        A [fillcolor="#7FDBFF", style=filled];
+        B [fillcolor="#7FDBFF", style=filled];
+
+        B1 -> A;
+        B2 -> A;
+        B3 -> A;
+        B4 -> A;
+
+        B1 -> B;
+        B2 -> B;
+        B3 -> B;
+        B5 -> B;
+    }
+
+Files ``A`` and ``B`` share most blocks (yellow), so blocks 1-3 are used by
+both, only blocks 4 and 5 (pink) are unique to the individual files.
+
+.. _`Git for computer scientists`: http://eagain.net/articles/git-for-computer-scientists/
+.. _`git-big-picture`: https://github.com/esc/git-big-picture
+.. _`a script`: https://github.com/bmcorser/git-little-picture
+
+Kademlia DHT
+~~~~~~~~~~~~
 .. figure:: /assets/images/consistent_hashing.png
             :class: full
 
@@ -265,7 +345,6 @@ direction.
 
 Mutable namespaces
 ~~~~~~~~~~~~~~~~~~
-
 Aside from borrowing ideas from successful applications of DAGs and DHTs, the
 spec has a novel take on the URL. Novel, but apparently just an idea borrowed
 from SFS_, designed for his doctoral thesis in 2000 by David Mazières.
@@ -312,7 +391,6 @@ Layers
 
 Obvious applications
 --------------------
-
 There are several obvious applications that
 
     - `Package manager`_

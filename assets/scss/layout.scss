@@ -6,21 +6,24 @@ $max-width: 30em;
     padding-bottom: 1em / $font-size;
 }
 
-@mixin max-width-pre($font-size) {
-    width: $max-width / $font-size * 1em;
-    padding-top: $font-size / 4;
-    padding-bottom: $font-size / 8;
+header {
+    position: fixed;
+    ul {
+        background-color: white;
+    }
 }
 
-
 .content {
+
+    padding-top: 5em;
+
     .previous-next {
         max-width: $max-width;
         margin: auto;
     }
     .document {
         clear: both;
-        h1, h2, h3, h4, p, blockquote {
+        h1, h2, h3, h4, p, blockquote, pre {
             margin: auto;
         }
         h1 {
@@ -39,7 +42,7 @@ $max-width: 30em;
             font-size: 1.125em;
             @include em-layout(1.125em);
         }
-        p, blockquote, img.full {
+        p, blockquote, img.full, object.full {
             @include em-layout(1em);
             max-height: 400px;
             padding-bottom: 1em;
@@ -50,10 +53,21 @@ $max-width: 30em;
             text-align: justify;
         }
 
+        .highlight {
+            background-color: #f7f7f7;
+            margin-bottom: 1em;
+        }
+
+        tt {
+            background-color: #f3f3f3;
+            padding: 3px;
+        }
+
         pre {
-            @include max-width-pre(1.5em);
+            @include em-layout(1em);
             font-size: 1.5em;
-            padding: 4em;
+            padding-top: 4em;
+            padding-bottom: 4em;
         }
 
         img.dot-graph {
