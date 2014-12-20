@@ -60,9 +60,6 @@ is made out of and imagine some applications of being able "mount the world at
 
 .. _`Juan Batiz-Benet`: http://juan.benet.ai/
 .. _`"acqui-hire"`: http://en.wikipedia.org/wiki/Acqui-hiring
-.. [#] Read "young".
-.. [#] Well, there's a GitHub issue that says someone expressed an interest at
-       https://github.com/jbenet/ipfs/issues/4
 
 Innards
 -------
@@ -249,8 +246,8 @@ along with my experiment:
     1 directory, 3 files
     $ git add .
     $ git commit -m 'init'
-    $ git rev-parse HEAD
-    ee8285efa8f43be5a2061c0d2bc79f17c86beeae
+    $ git rev-parse HEAD | cut -c 1-7
+    ee8285e
 
 Ok, so that's the simplest repo known to man and we have the revision ID. Let's
 look at the what's going on under the hood.
@@ -258,27 +255,28 @@ look at the what's going on under the hood.
 .. image:: /assets/images/ee8285e.svg
            :class: full
 
-We can see the directory ``A`` and the files ``B``, ``a`` and ``b`` we created.
-Notice that all the files reference that same blob object ``e69de29``, that's
-because they are all empty files (and therefore have the same content,
-nothing). If we alter file ``a`` to not be empty (and therefore have different
-content) like this:
+We can see the directory ``A`` (or tree object ``296e560``) and the files
+``B``, ``a`` and ``b`` we created.  Notice that all the files reference that
+same blob object ``e69de29``, that's because they are all empty files (and
+therefore have the same content, nothing). If we alter file ``a`` to not be
+empty (and therefore have different content) like this:
 
 .. code-block:: shell
 
     $ echo 'hello' > A/a
     $ git add A/a
     $ git commit -m 'altered a'
-    $ git rev-parse HEAD
-    437816ad6b9c9495007da9689613484daef8ff28
+    $ git rev-parse HEAD | cut -c 1-7
+    437816a
 
-Not only do we get a new commit ID, but we see the underlying DAG change:
+Not only do we get a new commit ID and commit-tree ID (``e468afd``), but we
+also see the underlying DAG change:
 
 .. image:: /assets/images/437816a.svg
            :class: full
 
-Both files ``b`` and ``B`` :smile: share a blob, but ``a`` now has a blob of
-its very own. This also demonstrates that in Git's model, blob objects
+Both files ``b`` and ``B`` :smile: still share a blob, but ``a`` now has a blob
+of its very own. This also demonstrates that in Git's model, blob objects
 correspond to one-to-one with files (sans directory location) which works fine
 if you only want to deduplicate files that have *exactly* the same content, but
 deduplication could be more aggressive if files were split into blocks and
@@ -311,6 +309,8 @@ deduplicated at block-level instead of file-level.
 Files ``A`` and ``B`` share most blocks (yellow), so blocks 1-3 are used by
 both, only blocks 4 and 5 (pink) are unique to the individual files.
 
+That's enough colourful graphs for now. Let's move on to more serious matters.
+
 .. _`Git for computer scientists`: http://eagain.net/articles/git-for-computer-scientists/
 .. _`git-big-picture`: https://github.com/esc/git-big-picture
 .. _`a script`: https://github.com/bmcorser/git-little-picture
@@ -327,16 +327,46 @@ Kademlia DHT
 One routing mechanism IPFS proposes to use is the "distributed sloppy hash
 table" employed by BitTorrent. The spec also states that the routing layer
 should be "swappable", meaning more traditional (or more exotic) routing could
-be used in place of a DHT. The specific DHT concept mentioned is Kademlia_
-(Petar Maymounkov, David Mazières - 2002) which is a variant of Chord_, with
-nice properties for high-churn applications; that is, nodes becoming available
-and then becoming unavailable a short time later which is something frequently
-seen in existing filesharing spaces (we're all guilty of shutting down μTorrent
-as soon as that latest Linux distro has finished downloading).
+be used in place of a DHT. The specific DHT concept mentioned is Kademlia [#]_,
+intended as a successor to CHORD [#]_, with nice properties for high-churn
+applications; that is, nodes becoming available and then becoming unavailable a
+short time later which is something frequently seen in existing filesharing
+spaces (we're all guilty of shutting down μTorrent as soon as that latest Linux
+distro has finished downloading). Kademlia's design is, in part, informed by
+analysis of data collected from the Gnutella network [#]_.  Remember LimeWire
+and BearShare? They ran on Gnutella.
 
-.. _Kademlia: http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf
-.. _Chord: http://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
+Consistent hashing
+^^^^^^^^^^^^^^^^^^
+In the case of a caching database queries, we can use a key-value store such as
+Redis to store expensive and frequently made queries in RAM. A typical approach
+would be to use a hash of the SQL as the key, so when the same query was made
+frequently the cache would be able to serve the results from RAM without
+repeatedly bothering the disk.
 
+At some point it becomes necessary to scale beyond a single cache server,
+distributing the key-values between the available servers (aka nodes) and using
+the hash of the key to decide which server is responsible for making the value
+available. A naïve approach would be just to say: if there are three nodes,
+each node is responsible for a third of the keyspace, with four each node is
+responsible for a quarter, etc. This makes sense in terms of balancing node
+responsibility, but means that when nodes are removed or added the mapping of
+keyspace to node changes significantly (essentially, changing the number of
+nodes causes mass, unnecessary cache invalidation).
+
+Kademlia presents an algorithm for deriving which node is responsible for a
+given key that is robust in the face of changing node numbers.
+
+One of the prescient features of Kademlia is its application of consistent
+hashing, which is a technique for deciding eg. which cache server (aka. node)
+in a cluster should hold the results of a expensive calculation by redistributing the
+responsibility of nodes in a way that is more performant when more nodes are
+involved. This is a property shared by the BitTorrent protocol as a whole; the
+more people downloading a file, the faster everyone gets it. Notably, the
+opposite is true of the naïve server-client model, where more people trying to
+access the same data leads to everyone experiencing reduced performance.
+
+Kademlia improves upon improves upon 
 
 At least one unrelated thrust (GTP_) has already been made in a similar
 direction. 
@@ -379,8 +409,6 @@ IPFS would also make it impossible to own a domain name, however, since there
 would no longer be "official" nameservers it would be up to the user to decide
 whos mapping of named-reference
 
-.. [#] Probably a dedicated "namespaces" DHT that would store named pointers to
-       objects in the "content" DHT.
 .. _SFS: http://en.wikipedia.org/wiki/Self-certifying_File_System
 .. _`in Git`: https://ariejan.net/2014/06/04/gpg-sign-your-git-commits/
 .. _PGP: http://www.pgp.net/pgpnet/pgp-faq/pgp-faq-security-questions.html#security-how
@@ -413,3 +441,19 @@ secure (`lol, Sony`_) and I trust the owner of that box means me no harm then I
 can safely transfer files in good faith that the content will be what I expect.
 
 .. _`lol, Sony`: http://attrition.org/security/rant/sony_aka_sownage.html
+
+.. [#] Read "young".
+.. [#] Well, there's a GitHub issue that says someone expressed an interest at
+       https://github.com/jbenet/ipfs/issues/4
+.. [#] "Kademlia: A Peer-to-peer Information System Based on the XOR Metric"
+       Petar Maymounkov, David Mazières (2002)
+       http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf
+.. [#] "Chord: A Scalable Peer-to-peer Lookup Protocol for Internet
+       Applications" Ion Stoica, Robert Morris, David Liben-Nowell, David R.
+       Karger, M. Frans Kaashoek, Frank Dabek, Hari Balakrishnan (2001)
+       http://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
+.. [#] "A Measurement Study of Peer-to-Peer File Sharing
+       Systems" Stefan Saroiu, P. Krishna Gummadi, Steven D. Gribble (2001)
+       http://research.microsoft.com/en-us/um/people/ssaroiu/publications/tr/uw/2001/uw-cse-01-06-02.pdf
+.. [#] Probably a dedicated "namespaces" DHT that would store named pointers to
+       objects in the "content" DHT.
