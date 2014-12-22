@@ -11,6 +11,10 @@ assetpaths:
   - assets/js
   - assets/fonts
   - bower_components/lodash/dist/lodash.min.js
+  - bower_components/emojione/lib/js/emojione.min.js
+  - bower_components/emojione/assets/svg
+  - bower_components/emojione/assets/sprites/emojione.sprites.svg
+  - bower_components/emojione/assets/css/emojione.min.css
 
 sassin: assets/scss
 sassout: assets/css
