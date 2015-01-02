@@ -118,8 +118,8 @@ Trust here would be provided by PGP_, which I guess is pretty good :wink:
 .. _`in Git`: https://ariejan.net/2014/06/04/gpg-sign-your-git-commits/
 .. _PGP: http://www.pgp.net/pgpnet/pgp-faq/pgp-faq-security-questions.html#security-how
 
-Security
---------
+Security'n'Privacy
+------------------
 The security of a system such as IPFS presents different problems to
 traditional web security. The normal scenario would be that the trusted DNS
 server gives me the IP for the domain I request, I setup a connection to that
@@ -136,8 +136,27 @@ On the other hand, a peer-to-peer system is much less vunerable to many types
 of attack than a centralised system. Kademlia has some built in stuff for
 dealing with attackers flooding the cluster with new nodes.
 
+
+
 .. _`Merkle tree`: /2014/12/22/merkle-dag.html#merkle-tree
 .. _`lol, Sony`: http://attrition.org/security/rant/sony_aka_sownage.html
+
+Conclusion/conjecture
+---------------------
+Expressed in the most general terms, IPFS proposes an **other web**. It's a
+very different place to the web we know today. Instead of all web traffic being
+mediated by trusted central servers and services and these entities being the
+things that people really look at when they use the web, users of the internet
+would have the opportunity to communicate more directly *with each other*, not
+relying on a third party to securely transmit their messages, documents,
+programmes and images.
+
+The theme of decentralised systems and decentralisation has caught the
+attention of the zeitgeist and if the impact of widespread adoption (after the
+development works are underway) of a public, global, "interplanetary"
+filesystem can be communicated to computer users as a whole, the IPFS could
+become a reality and some pretty exciting stuff would be able to follow.
+
 
 .. [#] Read "young".
 .. [#] Well, there's a GitHub issue that says someone expressed an interest at
