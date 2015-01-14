@@ -40,9 +40,14 @@ footer {
     }
 }
 
+.commit, #copyright {
+    flex: 1 0 0;
+}
+
 .content {
 
     padding-top: 5em;
+    padding-bottom: 5em;
 
 
     .document {
@@ -66,9 +71,11 @@ footer {
             font-size: 1.125em;
             @include em-layout(1.125em);
         }
+        img.full, object.full {
+            max-height: 400px;
+        }
         p, blockquote, img.full, object.full {
             @include em-layout(1em);
-            max-height: 400px;
             padding-bottom: 1em;
             display: block;
             margin: auto;
@@ -102,6 +109,10 @@ footer {
             margin: auto;
         }
 
+        .center {
+            text-align: center;
+        }
+
     }
 
     .previous-post {
@@ -115,5 +126,5 @@ footer {
 }
 
 #copyright {
-    clear: both;
+    text-align: right;
 }
