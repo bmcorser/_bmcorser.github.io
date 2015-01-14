@@ -16,6 +16,9 @@ assetpaths:
   - bower_components/emojione/assets/sprites/emojione.sprites.svg
   - bower_components/emojione/assets/css/emojione.min.css
 
+template_dirs:
+  - ./templates
+
 sassin: assets/scss
 sassout: assets/css
 github: https://github.com/bmcorser/_bmcorser.github.io/

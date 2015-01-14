@@ -1,5 +1,5 @@
-#⃠Je suis Charlie
-##################
+Je suis Charlie
+###############
 
 Blah__, blah__ but keep_ it real_.
 

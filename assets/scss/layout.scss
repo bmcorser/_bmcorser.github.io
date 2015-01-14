@@ -13,14 +13,38 @@ header {
     }
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
+footer {
+    display: flex;
+}
+
+.previous-next {
+    width: $max-width;
+    margin: auto;
+    display: flex;
+    .next-post {
+        flex-grow: 1;
+        text-align: right;
+    }
+    .previous-post {
+        flex-grow: 1;
+        text-align: left;
+    }
+}
+
 .content {
 
     padding-top: 5em;
 
-    .previous-next {
-        max-width: $max-width;
-        margin: auto;
-    }
+
     .document {
         clear: both;
         h1, h2, h3, h4, p, blockquote, pre {

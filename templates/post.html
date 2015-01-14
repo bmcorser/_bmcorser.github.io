@@ -1,10 +1,15 @@
 <%inherit file="base.html"/>
 
 <%block name="content_block">
-    <div class="content">
-        <%include file="prev_next.html" />
-        ${docutils['html_body']}
-        <p class="commit">${commit}</a>
-        <%include file="prev_next.html" />
-    </div>
+  <div class="content">
+    <%include file="prev_next.html" />
+    ${docutils['html_body']}
+  </div>
+</%block>
+<%block name="footer_block">
+  <footer>
+    <a class="commit">${commit}</a>
+    <%include file="prev_next.html" />
+    <div id="copyright">&copy; BM Corser, 2014</div>
+  </footer>
 </%block>
