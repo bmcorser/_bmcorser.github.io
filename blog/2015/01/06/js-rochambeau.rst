@@ -15,7 +15,7 @@ to user's computer and executed there, the server's responsibility likely is
 diminshed to:
 
     a) Serving static assets (inc. JS code)
-    b) Authentication
+    b) Auth'n'perms
     c) Data access
 
 We are left with less to scale on the back end and the computing cost is
@@ -50,7 +50,7 @@ This principle applies in both directions.
 
 If a framework expresses opinions that are outside the scope of my own
 intentions, then it's probably not a good choice – as much as I love jumping
-through hoops
+through hoops.
 
 .. class:: center
 
@@ -109,20 +109,57 @@ Considerations
 
 Cognitive bias
 ~~~~~~~~~~~~~~
-I have a preference for frameworks that are maintained by a small team (or
-even a solo developer),
+That's a lot of barf to get through, so a preference or two might not go amiss.
+I like OSS best when it represents a single person or a very small group.
+
+Think pandas_, celery_, lodash_.
+
+All the above have a real, alive, committed [#]_ and invested individual(s)
+maintaining the codebase *right now*. It also makes me happy to see recent
+commits. At the time of writing, none of the above had been dormant for longer
+than 48 hours [#]_. That's amazing.
+
+When a piece of software represents someone's idea, rather than being the
+accumulation of occasional bursts of interest from developers "just passing
+through" it will always be better software. I cite Bram Moolenaar reviewing all
+patches for Vim.  Software shouldn't necessarily be egalitarian about what it's
+for, it should express an *opinion*. It should do what the author wants it to
+do, not aspire to be all things to all users.
+
+.. _pandas: https://github.com/pydata/pandas/graphs/contributors
+.. _celery: https://github.com/celery/celery/graphs/contributors
+.. _lodash: https://github.com/lodash/lodash/graphs/contributors
 
 
 Method
 ------
-To try and answer the above questions, the best method I could come up with was
+When trying to choose the best option without getting too managerial, I figured
+the best approach would be to just dive right in. In that spirit I resolved to
+implement a toy app in each of the JS frameworks that (after perusing available
+documentation) appeared to be a good fit for the project, which were:
 
+ - Ember.js
+ - Angular.js
+ - Durandal
 
-A challenger appears
---------------------
+My toy app would be contrived to force me to form an opinion on what it is like
+to develop with a given framework whilst bearing in mind the considerations_
+listed above.
+
+The apps will be able to fetch a collection of objects from the backend, show
+the user a list of objects, handle navigation to single object detail pages.
+The apps will also cache data fetched from the backend and perform some
+computation on that data before showing it to the user.
+
+.. class:: center
+
+:fire::triangular_ruler::knife: 
 
 
 .. [#] That is to say, I only care about the *general* principles of
        readability, modularity and single-responsibility.
 .. [#] It's a *chaining-style browser polyfill library*, surely.
 .. [#] It's solved anyway http://stackoverflow.com/a/7062795/3075972
+.. [#] ``#sorrynotsorry``
+.. [#] I also checked the Postgres repo where the last commit was a quarter of
+       an hour ago ... 'nuff said.

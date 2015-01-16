@@ -1,4 +1,4 @@
-What's up?
+What’s up?
 ##########
 
 Pythonista and hipster coder extraordinaire, I know my periwinkle blue caravans
@@ -38,4 +38,5 @@ Things I do in a browser:
 
     - Make my Pull Requests real pretty
     - Wait for Chrome to reopen the 40 tabs I had open
-    - Hang out on ``seclists.org``
+    - Hang out on ``seclists.org/funsec/``
+    - Enthusiastically berate Jenkins
