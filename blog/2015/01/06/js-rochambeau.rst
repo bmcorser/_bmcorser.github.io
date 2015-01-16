@@ -138,8 +138,8 @@ the best approach would be to just dive right in. In that spirit I resolved to
 implement a toy app in each of the JS frameworks [#]_ that (after perusing available
 documentation) appeared to be a good fit for the project, which were:
 
- - Ember.js
- - Angular.js
+ - Ember
+ - Angular
  - Durandal
 
 My toy app would be contrived to force me to form an opinion on what it is like
@@ -152,10 +152,22 @@ listed above. The apps will be able to to the following things:
  - Display detail about a single object
  - Perform some computation on the object before display
 
-Implementing these behaviours should give me a good idea of what it's like to
-write code with each framework, ie. how quickly I can get the behaviour I want,
-are there batteries like that included, do I end up with code I could reuse.
-Let's get to it!
+Implementing this small set of behaviours should give me a good idea of what
+it's like to write code with each framework, ie. how quickly I can get the
+behaviour I want, are there batteries like that included, do I end up with code
+I could reuse.  Let's get to it!
+
+Ember
+-----
+https://github.com/emberjs/ember.js/graphs/contributors
+
+Angular
+-------
+https://github.com/angular/angular.js/graphs/contributors
+
+Durandal
+--------
+https://github.com/BlueSpire/Durandal/graphs/contributors
 
 .. class:: center
 
