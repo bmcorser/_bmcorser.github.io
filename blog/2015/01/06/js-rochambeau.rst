@@ -135,7 +135,7 @@ Method
 ------
 When trying to choose the best option without getting too managerial, I figured
 the best approach would be to just dive right in. In that spirit I resolved to
-implement a toy app in each of the JS frameworks that (after perusing available
+implement a toy app in each of the JS frameworks [#]_ that (after perusing available
 documentation) appeared to be a good fit for the project, which were:
 
  - Ember.js
@@ -144,12 +144,18 @@ documentation) appeared to be a good fit for the project, which were:
 
 My toy app would be contrived to force me to form an opinion on what it is like
 to develop with a given framework whilst bearing in mind the considerations_
-listed above.
+listed above. The apps will be able to to the following things:
 
-The apps will be able to fetch a collection of objects from the backend, show
-the user a list of objects, handle navigation to single object detail pages.
-The apps will also cache data fetched from the backend and perform some
-computation on that data before showing it to the user.
+ - Fetch a collection of objects from the backend
+ - Cache the data
+ - Display a summary of the collection to the user
+ - Display detail about a single object
+ - Perform some computation on the object before display
+
+Implementing these behaviours should give me a good idea of what it's like to
+write code with each framework, ie. how quickly I can get the behaviour I want,
+are there batteries like that included, do I end up with code I could reuse.
+Let's get to it!
 
 .. class:: center
 
@@ -163,3 +169,5 @@ computation on that data before showing it to the user.
 .. [#] ``#sorrynotsorry``
 .. [#] I also checked the Postgres repo where the last commit was a quarter of
        an hour ago ... 'nuff said.
+.. [#] I realise there are notable exceptions such as ReactJS, Polymer and
+       probably a tonne more, but there are only so many hours in the day.
