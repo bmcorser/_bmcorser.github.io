@@ -7,9 +7,9 @@ InterPlanetary Filesystem
 Preamble
 --------
 Last week, dreaming about being able to serve pars_ images using something like
-the BitTorrent protocol from the browser. I asked Jeeves: "Can browsers
-communicate peer-to-peer?" Turns out they can through WebRTC_, released by
-Harald Alvestrand ("on behalf" of Google) in 2011. The WebRTC protocol is
+the BitTorrent protocol from the browser. I asked Jeeves: “Can browsers
+communicate peer-to-peer?” Turns out they can through WebRTC_, released by
+Harald Alvestrand (“on behalf” of Google) in 2011. The WebRTC protocol is
 supported by some major browsers but, disappointingly, interoperability is
 only possible through a polyfill_ and neither Safari or IE have native support
 in any form. It would be possible to implement something like a torrent client
@@ -18,7 +18,7 @@ everything you can think of has already been implemented in JavaScript, and
 sure enough someone has already implemented an in-browser BitTorrent client,
 called webtorrent_.
 
-So that could have gone somewhere, until I was on Dan O'Huiginn's blog and read
+So that could have gone somewhere, until I was on Dan O’Huiginn’s blog and read
 `his overview`_ of the InterPlanetary Filesystem.
 
 It kind of sounded like something I wanted.
@@ -32,8 +32,8 @@ It kind of sounded like something I wanted.
 Introduction
 ------------
 IPFS is being designed primarily by a Stanford CS dude (`Juan Batiz-Benet`_),
-who made a company which sold to Yahoo as an `"acqui-hire"`_ last year. The
-protocol does not appear groundbreaking in itself, on the face of it it's a
+who made a company which sold to Yahoo as an `“acqui-hire”`_ last year. The
+protocol does not appear groundbreaking in itself, on the face of it it’s a
 pretty simple idea. It describes something like a single, global Git repo that
 supports peer-to-peer protocols as well as SSH and HTTP. You can get the data
 you want by cloning the relevant part of the DAG through BitTorrent (like a
@@ -41,7 +41,7 @@ shallow clone in Git). The parts of the repo you have locally would be seeded
 to others in the network who requested them, following similar choking rules to
 BitTorrent.
 
-It's a great idea because it builds on things people are already familiar with
+It’s a great idea because it builds on things people are already familiar with
 that also have mature and and widely successful implementations as well as
 introducing some novel ideas (see `Mutable namespaces`_) and wraps the whole
 lot into a pretty well cohesive whole. The clarity of vision is impressive and
@@ -51,34 +51,34 @@ At least one unrelated thrust (GTP_) has already been made in a similar
 direction, but the project is smaller in scope and seems to be unmaintained.
 
 IPFS also boasts WIP implementations in hipster [#]_ languages like Golang and
-Node.js, someone is even working [#]_ on a Haskell implementation. What's not
+Node.js, someone is even working [#]_ on a Haskell implementation. What’s not
 to like?
 
-However, it's not going to happen tomorrow; IPFS is still just a cool idea.
+However, it’s not going to happen tomorrow; IPFS is still just a cool idea.
 There are no clients, no developer toolchain and of course no native browser
-support. That said, let's look at what IPFS is made of and imagine some
-applications of being able "mount the world at ``/ipfs``".
+support. That said, let’s look at what IPFS is made of and imagine some
+applications of being able “mount the world at ``/ipfs``”.
 
 .. _GTP: https://code.google.com/p/gittorrent/
 .. _`Juan Batiz-Benet`: http://juan.benet.ai/
-.. _`"acqui-hire"`: http://en.wikipedia.org/wiki/Acqui-hiring
+.. _`“acqui-hire”`: http://en.wikipedia.org/wiki/Acqui-hiring
 
 Kademlia DHT
 ------------
 .. figure:: /assets/images/consistent_hashing.png
             :class: full
 
-            Yes, it's that exciting (source__).
+            Yes, it’s that exciting (source__).
 
 .. __: http://offthelip.org/2009/07/19/distributed-hash-tables-part-1/
 
-One routing mechanism IPFS proposes to use is the "distributed sloppy hash
-table" employed by BitTorrent. The spec also states that the routing layer
-should be "swappable", meaning more traditional (or more exotic) routing could
+One routing mechanism IPFS proposes to use is the “distributed sloppy hash
+table” employed by BitTorrent. The spec also states that the routing layer
+should be “swappable”, meaning more traditional (or more exotic) routing could
 be used in place of a DHT. The DHT named in the spec is Kademlia [#]_, intended
 as a successor to CHORD [#]_. It has nice properties for high-churn
-applications [#]_; we're all guilty of shutting down μTorrent as soon as that
-latest Linux distro has finished downloading. Kademlia's design is, in part,
+applications [#]_; we’re all guilty of shutting down μTorrent as soon as that
+latest Linux distro has finished downloading. Kademlia’s design is, in part,
 informed by analysis of data collected from the Gnutella network [#]_. Remember
 LimeWire and BearShare? They ran on Gnutella.
 
@@ -90,7 +90,7 @@ from SFS_, designed for his doctoral thesis in 2000 by David Mazières.
 
 In IPFS, files are addressed by the cryptographic hash of their content and
 meta data, like objects in Git, rather than a file path or web address
-decided by a human, the content-hash becomes a file's "name". This is
+decided by a human, the content-hash becomes a file’s “name”. This is
 convenient for programmatically addressing files, but supremely
 un-human-readable.
 
@@ -105,10 +105,10 @@ The IPFS would interface with DNS to offer domain names and web addresses, or
 in the context of a content-addressed system; *mutable namespaces*. These would
 operate something like a signed ref (tag or branch) `in Git`_, addressed on a
 DHT [#]_ via your public-key. Basically, everyone would get a namespace rooted
-in their key pair, which could be mapped (somehow) to a "proper" domain name in
+in their key pair, which could be mapped (somehow) to a “proper” domain name in
 a DNS record.
 
-In the analogy of the "single global Git repo", this would solve the problems
+In the analogy of the “single global Git repo”, this would solve the problems
 of someone pushing with ``--force`` on to ``master``, everyone wanting a branch
 called ``dev`` as well as making it possible to offer new news on ``news.com``.
 
@@ -118,7 +118,7 @@ Trust here would be provided by PGP_, which I guess is pretty good :wink:
 .. _`in Git`: https://ariejan.net/2014/06/04/gpg-sign-your-git-commits/
 .. _PGP: http://www.pgp.net/pgpnet/pgp-faq/pgp-faq-security-questions.html#security-how
 
-Security'n'Privacy
+Security‘n’Privacy
 ------------------
 The security of a system such as IPFS presents different problems to
 traditional web security. The normal scenario would be that the trusted DNS
@@ -143,7 +143,7 @@ dealing with attackers flooding the cluster with new nodes.
 
 Conclusion/conjecture
 ---------------------
-Expressed in the most general terms, IPFS proposes an **other web**. It's a
+Expressed in the most general terms, IPFS proposes an **other web**. It’s a
 very different place to the web we know today. Instead of all web traffic being
 mediated by trusted central servers and services and these entities being the
 things that people really look at when they use the web, users of the internet
@@ -153,25 +153,25 @@ programmes and images.
 
 The theme of decentralised systems and decentralisation has caught the
 attention of the zeitgeist and if the impact of widespread adoption (after the
-development works are underway) of a public, global, "interplanetary"
+development works are underway) of a public, global, “interplanetary”
 filesystem can be communicated to computer users as a whole, the IPFS could
 become a reality and some pretty exciting stuff would be able to follow.
 
 
-.. [#] Read "young".
-.. [#] Well, there's a GitHub issue that says someone expressed an interest at
+.. [#] Read “young”.
+.. [#] Well, there’s a GitHub issue that says someone expressed an interest at
        https://github.com/jbenet/ipfs/issues/4
-.. [#] "Kademlia: A Peer-to-peer Information System Based on the XOR Metric"
+.. [#] “Kademlia: A Peer-to-peer Information System Based on the XOR Metric”
        Petar Maymounkov, David Mazières (2002)
        http://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf
-.. [#] "Chord: A Scalable Peer-to-peer Lookup Protocol for Internet
-       Applications" Ion Stoica, Robert Morris, David Liben-Nowell, David R.
+.. [#] “Chord: A Scalable Peer-to-peer Lookup Protocol for Internet
+       Applications” Ion Stoica, Robert Morris, David Liben-Nowell, David R.
        Karger, M. Frans Kaashoek, Frank Dabek, Hari Balakrishnan (2001)
        http://pdos.csail.mit.edu/papers/chord:sigcomm01/chord_sigcomm.pdf
 .. [#] http://michaelnielsen.org/blog/consistent-hashing/
-.. [#] "A Measurement Study of Peer-to-Peer File Sharing
-       Systems" Stefan Saroiu, P. Krishna Gummadi, Steven D. Gribble (2001)
+.. [#] “A Measurement Study of Peer-to-Peer File Sharing
+       Systems” Stefan Saroiu, P. Krishna Gummadi, Steven D. Gribble (2001)
        http://research.microsoft.com/en-us/um/people/ssaroiu/publications/tr/uw/2001/uw-cse-01-06-02.pdf
 .. [#] http://en.wikipedia.org/wiki/Hash_function#Uniformity
-.. [#] Probably a dedicated "namespaces" DHT that would store named pointers to
-       objects in the "content" DHT.
+.. [#] Probably a dedicated “namespaces” DHT that would store named pointers to
+       objects in the “content” DHT.
