@@ -157,21 +157,54 @@ it's like to write code with each framework, ie. how quickly I can get the
 behaviour I want, are there batteries like that included, do I end up with code
 I could reuse.  Let's get to it!
 
-Ember
------
-https://github.com/emberjs/ember.js/graphs/contributors
-
-Angular
--------
-https://github.com/angular/angular.js/graphs/contributors
-
-Durandal
---------
-https://github.com/BlueSpire/Durandal/graphs/contributors
-
 .. class:: center
 
 :fire::triangular_ruler::knife: 
+
+Ember_
+------
+I had the impression that Ember was the most venerable of the frameworks I will
+be looking at, but glancing at the contributors graph on GitHub (if that's a
+valid metric) reveals it is a year younger than Angular.
+
+Ember uses what is called "convention over configuration", which means the
+framework will make (what are hopefull) documented assumptions about how your
+project is structured. For example, if you make a definition ``cake`` in the
+router, then the controller called ``CakeController`` will be used, the
+template called ``cake`` will be used, etc. This applies to nested definitions,
+for example if you make a definition in the router scructured like so.
+
+.. code-block:: js
+
+    router: {
+        cake: {
+            slice: {}
+        }
+    }
+
+From this, the framework would infer the following set of identifiers.
+
+.. code-block:: plain
+
+     route              controller        template
+       ↓                    ↓                ↓
+    #/cake       → CakeIndexController → cake/index
+    #/cake/slice → CakeSliceController → cake/slice
+
+So the user hits the ``route`` in their browser, the ``controller`` code will
+be executed and rendered using the ``template``. This would lead to a well
+structured codebase and sane default separation of concerns.
+
+
+.. _Ember: https://github.com/emberjs/ember.js/graphs/contributors
+
+Angular_
+--------
+.. _Angular: https://github.com/angular/angular.js/graphs/contributors
+
+Durandal_
+---------
+.. _Durandal: https://github.com/BlueSpire/Durandal/graphs/contributors
 
 
 .. [#] That is to say, I only care about the *general* principles of
@@ -179,7 +212,7 @@ https://github.com/BlueSpire/Durandal/graphs/contributors
 .. [#] It's a *chaining-style browser polyfill library*, surely.
 .. [#] It's solved anyway http://stackoverflow.com/a/7062795/3075972
 .. [#] ``#sorrynotsorry``
-.. [#] I also checked the Postgres repo where the last commit was a quarter of
-       an hour ago ... 'nuff said.
+.. [#] At the time of writing, the Postgres repo where the last commit was a
+       quarter of an hour ago ... 'nuff said.
 .. [#] I realise there are notable exceptions such as ReactJS, Polymer and
        probably a tonne more, but there are only so many hours in the day.
