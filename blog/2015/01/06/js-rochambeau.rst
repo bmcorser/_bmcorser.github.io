@@ -5,14 +5,13 @@ JavaScript Framework Rochambeau
 ====================
 |
 
-A new year and we’ve got ourselves greenfield OPA/SPA project to kick things
-off. I really like the idea of writing “in-browser” applications, where
-templates are rendered by the user’s computer, routing/navigation is handled
-client side. It’s like getting a distributed computing platform for free. When
-the majority of the behavioural (aka “business”) logic and all of the
-user-interface logic is contained in JavaScript code that is simply transferred
-to user’s computer and executed there, the server’s responsibility likely is
-diminshed to:
+A new year and we’ve got ourselves a greenfield OPA/SPA project. I really like
+the idea of writing “in-browser” applications, where templates are rendered by
+the user’s computer, routing/navigation is handled client side. It’s like
+getting a distributed computing platform for free. When the majority of the
+behavioural (aka “business”) logic and all of the UI logic is contained in
+JavaScript code that is simply transferred to user’s computer and executed
+there, the server’s responsibility is likely diminshed to:
 
     a) Serving static assets (inc. JS code)
     b) Auth‘n’perms
@@ -38,19 +37,18 @@ Criteria
 What even
 ~~~~~~~~~
 
-What even makes a framework good? But before we get to that, we will try to
-answer another question: what even *is* a framework? I find myself convincing
-colleagues that jQuery is not a framework [#]_ then wondering why I bothered.
-Is the distinction even important? The jQuery argument, not so much [#]_, but
-considering how well the *scope* of a framework and its documentation match up
-to the scope of your own project is a first step in assessing whether a certain
-framework will be helpful.
+Before asking what makes a framework good, let’s ask: what even *is* a
+framework? I once spent an hour convincing a colleague that jQuery is not a
+framework [#]_ then wondenered why on earth I bothered. Is the distinction even
+important? The jQuery argument, not so much [#]_, but considering how well the
+*scope* of a framework and its documentation match up to the scope of your own
+project is a first step in assessing whether it will be helpful.
 
 This principle applies in both directions.
 
 If a framework expresses opinions that are outside the scope of my own
 intentions, then it’s probably not a good choice – as much as I love jumping
-through hoops.
+through hoops – there’s going to be a lot of overhead.
 
 .. class:: center
 
@@ -60,18 +58,18 @@ Of course, if the framework doesn’t extend to the full scope of my project, I
 will need to roll my own or integrate a smaller framework to fill the gap in
 the larger framework. I’d rather not do either of those things.
 
-Only considering frameworks that are similar in scope to my own will reduce the
-number of attractive offers, but it’s unlikely that a single framework will
-immediately emerge as the only possibility.
-
-So once we have a set of frameworks which are “good fit”, which criteria are
-useful in finding out whether one framework is more or less useful than
-another.
-
-Here are some general considerations for assessing framework suitability.
 
 Considerations
 ~~~~~~~~~~~~~~
+Only looking at frameworks that are similar in scope to my own will reduce the
+number of attractive offers, but it’s unlikely that a single framework will
+immediately emerge as the only possibility.
+
+Once we have a set of frameworks which are “good fit”, what things might be
+useful in finding out whether one framework is more or less useful than
+another?
+
+Here are some general considerations for assessing framework suitability:
 
   1. Batteries
 
@@ -81,13 +79,13 @@ Considerations
         about
      c. Are there *too many* things bundled
 
-  2. Standards
+  2. Standardness
 
      a. Does the framework make me do weird unidiomatic things
      b. Can I obviously reuse code written here outside the framework
      c. What’s the source code quality like, would I be happy to debug it
 
-  3. Docs/community
+  3. Surroundings
 
      a. Is there sufficient documentation
      b. Are the specific things I want to do documented
@@ -115,16 +113,15 @@ I like OSS best when it represents a single person or a very small group.
 Think pandas_, celery_, lodash_.
 
 All the above have a real, alive, committed [#]_ and invested individual(s)
-maintaining the codebase *right now*. It also makes me happy to see recent
-commits. At the time of writing, none of the above had been dormant for longer
-than 48 hours [#]_. That’s amazing.
+maintaining the codebase *right now*. At the time of writing, none of the above
+had been dormant for longer than 48 hours [#]_. That’s amazing.
 
 When a piece of software represents someone’s idea, rather than being the
 accumulation of occasional bursts of interest from developers “just passing
-through” it will always be better software. I cite Bram Moolenaar reviewing all
-patches for Vim.  Software shouldn’t necessarily be egalitarian about what it’s
-for, it should express an *opinion*. It should do what the author wants it to
-do, not aspire to be all things to all users.
+through” it will always be better software. Bram Moolenaar has personally
+reviewed every patch for Vim. OSS shouldn’t necessarily be egalitarian
+about what it’s for and how it works, it should express an *opinion*. It should
+do what the author wants it to do, not aspire to be all things to all users.
 
 .. _pandas: https://github.com/pydata/pandas/graphs/contributors
 .. _celery: https://github.com/celery/celery/graphs/contributors
@@ -135,8 +132,8 @@ Method
 ------
 When trying to choose the best option without getting too managerial, I figured
 the best approach would be to just dive right in. In that spirit I resolved to
-implement a toy app in each of the JS frameworks [#]_ that (after perusing available
-documentation) appeared to be a good fit for the project, which were:
+implement a toy app in each of the JS frameworks [#]_ that (after perusing
+available documentation) appeared to be a good fit for the project, which were:
 
  - Ember
  - Angular
@@ -155,7 +152,7 @@ listed above. The apps will be able to to the following things:
 Implementing this small set of behaviours should give me a good idea of what
 it’s like to write code with each framework, ie. how quickly I can get the
 behaviour I want, are there batteries like that included, do I end up with code
-I could reuse.  Let’s get to it!
+I could reuse. Let’s get to it!
 
 .. class:: center
 
@@ -167,29 +164,17 @@ I had the impression that Ember was the most venerable of the frameworks I will
 be looking at, but glancing at the contributors graph on GitHub (if that’s a
 valid metric) reveals it is a year younger than Angular.
 
+Source for my toy app in Ember is here_.
+
+.. _Ember: https://github.com/emberjs/ember.js/graphs/contributors
+.. _here: https://github.com/bmcorser/7wonders/tree/master/hamster
+
+
+It’s groovy
+~~~~~~~~~~~
 Ember uses what is called “convention over configuration”, which means the
 framework will make (what are hopefully) documented assumptions about how your
-project code is structured. For example, if you make a definition ``cake`` in
-the router, then the controller called ``CakeController`` will be used, the
-template called ``cake`` will be used, etc. This applies to nested definitions,
-for example if you make a definition in the router structured like so.
-
-.. code-block:: js
-
-    router: {
-        cake: {
-            slice: {}
-        }
-    }
-
-From this, the framework would infer something like the following:
-
-.. code-block:: plain
-
-      path            route          controller        template
-       ↓                ↓                 ↓                ↓
-    #/cake       →  cake.index → CakeIndexController → cake/index
-    #/cake/slice →  cake.slice → CakeSliceController → cake/slice
+project code is structured.
 
 The “convention over configuration” idea is a good one, designed to promote
 testability and separation of concerns. It should lead to a well structured
@@ -209,37 +194,65 @@ are essential, especially if you’re working on someone else’s sucky code.
 .. _Chrome: https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi?hl=en
 .. _Firefox: https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/
 
-I used ember-cli for my toy app, source is here_.
-
-.. _here: https://github.com/bmcorser/7wonders/tree/master/hamster
-
 Not so groovy
 ~~~~~~~~~~~~~
+Ember is a great project, but some of the calling syntax is pretty
+wacky. A typical controller might look something like this:
 
-    - jQuery >:(
-    - HBS syntax is pig ugly
-    - Docs are for Ruby people, "hash" instead of "object"
-    - Generally things appear to be somewhat unidiomatic, are we writing Ruby
-      or JS here?
-    - This is a transition period_?
-    - Configuration by convention extends to the backend!?
-    - ``ember-data`` still in beta, integrating with crudpile will be a chore
-    - The "Ember Way", `case in point`_.
-    - Caremad about some stuffs? (``extends``, etc) Maybe trying to make JS have classes
-    - Djangoey, esp. with ``ember-cli``
+.. code-block:: js
 
-.. _period: http://emberjs.com/guides/deprecations/#toc_more-consistent-handlebars-scope
-.. _`case in point`: http://emblemjs.com/
+    Ember.ObjectController.extend({
+      sum: function () {
+        return this.get('a') + this.get('b');
+      }.property('a', 'b')
+    });
+
+It just feels uncomfortable calling a method on a function definition, and it
+looks damn funky. In the above example, the ``property`` call is declaring the
+dependencies of the function it is being called on, which lets Ember know what
+things it might need to update if they’re changed in function body. It gets
+even more funky when you’re writing controller code for an array, see
+here__.
+
+.. __: http://emberjs.com/guides/object-model/computed-properties-and-aggregate-data/
+
+On the subject of readability, I found Handlebars syntax unweildy. I certainly
+didn’t enjoy typing ``{{/link-to}}`` more than one time.
+
+There is a tonne of official documentation on Ember, which is indicative of the
+size of the framework. Ember’s Ruby roots show through in the writing sometimes
+– there’s no “hash” type in JavaScript!
+
+I found it necessary to go through a good chunk of documentation before I could
+start playing around in Ember. There are a lot of conventions to learn before
+you can start *not* writing configuration code.
+
+Ember is very opinionated. It even wants to tell me how to design my web API,
+which is a bit rich coming from a JavaScript framework. From what I could make
+out, Ember is `basically expecting`_ `“JSON API”`_ on the back end. If I wanted
+to use a more RPC-like interface (which I do), then I would have to work
+against the framework to make that happen. So for Ember, “convention over
+configuration” actually extends well outside the scope of the framework. Not
+cool, guys. Especially since Ember Data is still described_ as being in beta.
+
+.. _`basically expecting`: http://emberjs.com/guides/models/the-rest-adapter/
+.. _`“JSON API”`: http://jsonapi.org/format/
+.. _described: https://github.com/emberjs/data#api-stability
 
 
-.. _Ember: https://github.com/emberjs/ember.js/graphs/contributors
+Without descending into pure facetiousness, Ember just seems caremad about some
+things; all this ``extend`` everywhere, designing my API for me, it feels like
+a worried mum. `So unfair!`_.
+
+.. _`So unfair!`: http://youtu.be/dLuEY6jN6gY
+
 
 Angular_
 --------
 .. _Angular: https://github.com/angular/angular.js/graphs/contributors
 
-Things I didn't like
---------------------
+Things I didn’t like
+~~~~~~~~~~~~~~~~~~~~
 
     - Module definition is not really there; relies on ``(function(){})();``
       closures; we'll still need to use RequireJS/Browserify/CommonJS
@@ -251,7 +264,7 @@ Things I didn't like
       "Angular Way")
 
 Things I kind of liked
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
     - Promotion of HTML to programming language, with ``<div>`` as a primitive
     - With debug dist, tracebacks are not unreasonable
@@ -262,14 +275,14 @@ Durandal_
 .. _Durandal: https://github.com/BlueSpire/Durandal/graphs/contributors
 
 Rusty
------
+~~~~~
 
     - Docs are thin on the ground
     - Knockout is verbose
     - Knockout ``thing().stuff.cake().bread`` is confusing
 
 Shiny
------
+~~~~~
 
     - Focus is on binding scope
     - Idiomatic, rjs
