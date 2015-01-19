@@ -108,7 +108,7 @@ Here are some general considerations for assessing framework suitability:
 Cognitive bias
 ~~~~~~~~~~~~~~
 That’s a lot of barf to get through, so a preference or two might not go amiss.
-I like OSS best when it represents a single person or a very small group.
+All my favourite open source projects *kind of* represent a single person.
 
 Think pandas_, celery_, lodash_.
 
@@ -225,7 +225,7 @@ size of the framework. Ember’s Ruby roots show through in the writing sometime
 
 I found it necessary to go through a good chunk of documentation before I could
 start playing around in Ember. There are a lot of conventions to learn before
-you can start *not* writing configuration code.
+I could being to *not* write any configuration code.
 
 Ember is very opinionated. It even wants to tell me how to design my web API,
 which is a bit rich coming from a JavaScript framework. From what I could make
@@ -249,6 +249,10 @@ a worried mum. `So unfair!`_.
 
 Angular_
 --------
+As a project sponsored, promoted and managed by the Chocolate Factory, it’s
+a dubious claim to being “open source” at all. However, Angular is hugely
+popular [#]_ and seems to have a large and active community.
+
 .. _Angular: https://github.com/angular/angular.js/graphs/contributors
 
 Things I didn’t like
@@ -300,3 +304,4 @@ Shiny
        quarter of an hour ago ... ’nuff said.
 .. [#] I realise there are notable exceptions such as ReactJS, Polymer and
        probably a tonne more, but there are only so many hours in the day.
+.. [#] https://www.google.com/trends/explore?hl=en-US#q=ember.js%2C%20angularjs%2C%20durandal&cmpt=q&tz=
