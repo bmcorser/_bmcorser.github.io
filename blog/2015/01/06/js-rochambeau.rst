@@ -190,9 +190,18 @@ There are versions of “Ember Inspector” for Chrome_ and Firefox_ (but no
 :heart: for IE?). Debugging JS in the browser is always painful so these tools
 are essential, especially if you’re working on someone else’s sucky code.
 
+Another thing I liked about Ember was the explicit support of Promises, which –
+in case you missed it – are totally *the* way to write asynchronous code. Ember
+Data mentions_ they comply with Promises/A+ spec, which is good to read (after
+the jQuery debarcle_). It’s unclear_ whether the main Ember codebase is using
+Promises/A+ of the bastard incarnation.
+
 .. _ember-cli: https://github.com/ember-cli/ember-cli
 .. _Chrome: https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi?hl=en
 .. _Firefox: https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/
+.. _mentions: https://github.com/emberjs/data#ember-data-
+.. _debarcle: https://blog.domenic.me/youre-missing-the-point-of-promises/
+.. _unclear: http://emberjs.com/guides/routing/asynchronous-routing/
 
 Not so groovy
 ~~~~~~~~~~~~~
@@ -241,42 +250,121 @@ cool, guys. Especially since Ember Data is still described_ as being in beta.
 
 
 Without descending into pure facetiousness, Ember just seems caremad about some
-things; all this ``extend`` everywhere, designing my API for me, it feels like
-a worried mum. `So unfair!`_.
+things; all this ``extend`` everywhere, making API design decisions for me, it
+feels like a worried parent looking over my shoulder. `So unfair!`_.
 
 .. _`So unfair!`: http://youtu.be/dLuEY6jN6gY
 
 
 Angular_
 --------
-As a project sponsored, promoted and managed by the Chocolate Factory, it’s
-a dubious claim to being “open source” at all. However, Angular is hugely
-popular [#]_ and seems to have a large and active community.
+As a project sponsored, promoted and managed by the Chocolate Factory, one
+could argue it has a dubious claim over being “free and open source”. However,
+Angular *is* hugely popular [#]_ and does have a very large, active community.
 
-.. _Angular: https://github.com/angular/angular.js/graphs/contributors
-
-Things I didn’t like
-~~~~~~~~~~~~~~~~~~~~
-
-    - Module definition is not really there; relies on ``(function(){})();``
-      closures; we'll still need to use RequireJS/Browserify/CommonJS
-    - Damn this is ugly
-    - So many wheels reinvented; Google NIH syndrome?
-    - Terminology is confusing because it is *confused* (ex. "services",
-      ``.when``)
-    - Feels like it's designed to build one type of app (maybe that's the
-      "Angular Way")
+Its popularity is good for new developers. Stack Overflow is going to be packed
+with newbie questions and answers that will make a great resource for
+interested parties.
 
 Things I kind of liked
 ~~~~~~~~~~~~~~~~~~~~~~
 
-    - Promotion of HTML to programming language, with ``<div>`` as a primitive
-    - With debug dist, tracebacks are not unreasonable
-    - Built in fun, like ``$cacheFactory``
+I was initially put off by the crazy HTML elements and attribute names flying
+around in Angular’s templating system, but its concision can’t be matched by
+Handlebars or Knockout (the other two templating languages I looked at). If you
+can stomach non-standard HTML elements, then directives become a way of
+promoting markup to a kind of programming language. Check it.
+
+.. code-block:: html
+
+    <my-funky-thing funk-level="strong" />
+
+The code above is like calling the function ``my-funky-thing`` with the
+element as the first argument and that element’s attributes as keyword
+arguments. There are convenience methods for getting a grip on binding scope
+too (which is important). Check out `the docs`_ for the lowdown.
+
+Angular’s official docs are good too, especially if you are learning and not
+just using them for reference. Everything has a noob–friendly example, with a
+link to try out the example code in one of those cool dude in–browser IDEs.
+
+There are also `a bunch`_ of useful built in “services” (utility libraries)
+which could hurry development along. Everyone loves some nicely hurried
+development. Angular gets extra points for having the ``$cacheFactory``,
+which was exactly what I was looking for (see Method_).
+
+
+.. _`the docs`: https://docs.angularjs.org/guide/directive
+.. _Angular: https://github.com/angular/angular.js/graphs/contributors
+.. _`a bunch`: https://docs.angularjs.org/api/ng/service
+
+Things I didn’t like
+~~~~~~~~~~~~~~~~~~~~
+
+Module definition in Angular is batshit insane. *Insane.* They are still pretty
+much relying on the ol’ ``(function(){})();`` hack to maintain isolation. As a
+Python developer, I completely fell in love with RequireJS from the moment I
+``define``\’d my first module. I basically got my trusty ``import`` statement
+made available in JavaScript land.  It is possible_ to integrate RequireJS with
+Angular, but you still have to write the Angular “module” bumpf to wire things
+up for the framework. Yes, Angular probably has a super–cool, super–futuristic
+DI system, but it just feels like Google NIH syndrome. RequireJS has been
+around longer than Angular.  Why didn’t they take advantage of that? The upshot
+is that we’re stuck with crazy syntax like this:
+
+.. code-block:: js
+
+    obj.fn('name', ['a', 'b', function (a, b) { }]);
+
+Seriously, *wtf* u guize. Who said “how about a function that takes a name as
+the first argument and an array where the last item is a function with the same
+number of elements as the number of elements in the array that it is in minus
+one because it is in that array as its second argument” and people were like
+“great, sounds great”.
+
+And remember you can’t load CommonJS or AMD modules using Angular’s DI, which
+leads to crazy projects like this__ (bigup Jon Man) just to get scoped access
+to Lodash. Quel ennui …
+
+.. __: https://github.com/rockabox/ng-lodash
+.. _possible: http://developer.telerik.com/featured/requiring-vs-browerifying-angular/
+
+A complaint I saw levelled against Angular a few times is that it uses
+needlessly confusing terminology. There were some pretty empassioned arguments
+on the subject. After all the tears that have been shed, I don’t have any
+sympathy for the confused.  After a few hours with the documentation and
+codebase however, the conclusion I have come to is that the terminology is
+confusing because it is *confused*. The Angular team seem to have appropriated
+terms that already have a set (and useful) meaning. It’s like slang, which is
+weird to see in a *computer code framework*.
+
+I’m sorry, Angular, “services” are `already a thing`__.
+
+I’m afraid ``when`` is also kinda `already a thing`__ [#]_.
+
+Since we’re talking about things that are already things, yes, *“modules”* are
+already a thing__ too__!
+
+.. __: http://martinfowler.com/articles/microservices.html
+.. __: http://api.jquery.com/jquery.when/
+.. __: http://requirejs.org/docs/whyamd.html
+.. __: http://wiki.commonjs.org/wiki/CommonJS
 
 Durandal_
 ---------
 .. _Durandal: https://github.com/BlueSpire/Durandal/graphs/contributors
+
+
+Shiny
+~~~~~
+
+    - Fucking lightweight
+    - Focus is on binding scope
+    - Idiomatic, rjs
+    - Not clever
+    - Fine grain control over application of bindings (performance)
+    - Knockout bindings are quite debuggable
+
 
 Rusty
 ~~~~~
@@ -285,23 +373,14 @@ Rusty
     - Knockout is verbose
     - Knockout ``thing().stuff.cake().bread`` is confusing
 
-Shiny
-~~~~~
-
-    - Focus is on binding scope
-    - Idiomatic, rjs
-    - Not clever
-    - Fine grain control over application of bindings (performance)
-    - Knockout bindings are quite debuggable
-
-
 .. [#] That is to say, I only care about the *general* principles of
        readability, modularity and single-responsibility.
 .. [#] It’s a *chaining-style browser polyfill library*, surely.
 .. [#] It’s solved anyway http://stackoverflow.com/a/7062795/3075972
 .. [#] ``#sorrynotsorry``
-.. [#] At the time of writing, the Postgres repo where the last commit was a
+.. [#] At the time of writing, the last commit on the Postgres repo was a
        quarter of an hour ago ... ’nuff said.
 .. [#] I realise there are notable exceptions such as ReactJS, Polymer and
        probably a tonne more, but there are only so many hours in the day.
 .. [#] https://www.google.com/trends/explore?hl=en-US#q=ember.js%2C%20angularjs%2C%20durandal&cmpt=q&tz=
+.. [#] To a lesser degree, granted, but it’s already a *JavaScript* thing.
