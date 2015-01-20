@@ -354,16 +354,24 @@ Durandal_
 ---------
 .. _Durandal: https://github.com/BlueSpire/Durandal/graphs/contributors
 
+*Over the horizon, a challenger appears. The mighty sword of the ancients
+(well, Rob Eisenberg) is held aloft. Sunlight glints off its keen blade. The
+trumpets sound, calling the righteous to battle.*
 
-Shiny
-~~~~~
+.. class:: center
 
-    - Fucking lightweight
-    - Focus is on binding scope
-    - Idiomatic, rjs
-    - Not clever
-    - Fine grain control over application of bindings (performance)
-    - Knockout bindings are quite debuggable
+`:sunrise_over_mountains:`
+
+A challenger appears
+~~~~~~~~~~~~~~~~~~~~
+Durandal is a youngest framework I looked at by a few years, which is
+significant when the average age is around four. However, it’s coming from a
+programmer who has been in the field a long time and has something of a history
+of building frameworks [#]_ and a rep in the weird world of commercial web
+development.
+
+Something struck me immediately in how Durandal described itself, and reminded
+of Pyramid – a Python web framework with similar heritage [#]_
 
 
 Rusty
@@ -384,3 +392,5 @@ Rusty
        probably a tonne more, but there are only so many hours in the day.
 .. [#] https://www.google.com/trends/explore?hl=en-US#q=ember.js%2C%20angularjs%2C%20durandal&cmpt=q&tz=
 .. [#] To a lesser degree, granted, but it’s already a *JavaScript* thing.
+.. [#] Some stuffs for .Net or C＃ or something?
+.. [#] Pyramid grew out of Zope/Plone
