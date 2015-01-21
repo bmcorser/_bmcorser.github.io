@@ -10,13 +10,17 @@ strong {
     font-weight: normal;
 }
 
-em {
+em, blockquote {
     font-family: 'latin_modern_roman10_italic';
     font-style: normal;
 }
 
 strong em {
-    font-family: 'latin_modern_roman10_bolditalic';
+    font-family: 'latin_modern_roman10BdIt';
     font-style: normal;
     font-weight: normal;
+}
+
+p.quote {
+    font-family: 'latin_modern_roman10_italic';
 }

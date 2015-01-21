@@ -83,7 +83,12 @@ footer {
         p {
             text-align: justify;
         }
-
+        p.quote {
+            @include em-layout(1.2em);
+            font-size: 1.2em;
+            text-align: center;
+            padding-bottom: 1em;
+        }
         .highlight {
             background-color: #f7f7f7;
             margin-bottom: 1em;

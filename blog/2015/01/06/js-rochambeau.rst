@@ -41,8 +41,8 @@ Before asking what makes a framework good, let’s ask: what even *is* a
 framework? I once spent an hour convincing a colleague that jQuery is not a
 framework [#]_ then wondenered why on earth I bothered. Is the distinction even
 important? The jQuery argument, not so much [#]_, but considering how well the
-*scope* of a framework and its documentation match up to the scope of your own
-project is a first step in assessing whether it will be helpful.
+*scope* of a framework matches up to the scope of your own project is a first
+step in assessing whether it will be helpful.
 
 This principle applies in both directions.
 
@@ -56,20 +56,20 @@ through hoops – there’s going to be a lot of overhead.
 
 Of course, if the framework doesn’t extend to the full scope of my project, I
 will need to roll my own or integrate a smaller framework to fill the gap in
-the larger framework. I’d rather not do either of those things.
+the larger framework.
+
+I’d rather not do either of those things.
 
 
 Considerations
 ~~~~~~~~~~~~~~
-Only looking at frameworks that are similar in scope to my own will reduce the
-number of attractive offers, but it’s unlikely that a single framework will
+Only looking at frameworks that have the “right” scope will reduce the number
+of attractive offers, but it’s unlikely that a single framework will
 immediately emerge as the only possibility.
 
-Once we have a set of frameworks which are “good fit”, what things might be
+Once we have a set of frameworks which are a good fit, what things might be
 useful in finding out whether one framework is more or less useful than
 another?
-
-Here are some general considerations for assessing framework suitability:
 
   1. Batteries
 
@@ -81,8 +81,9 @@ Here are some general considerations for assessing framework suitability:
 
   2. Standardness
 
-     a. Does the framework make me do weird unidiomatic things
-     b. Can I obviously reuse code written here outside the framework
+     a. Does the framework make me do weird things which I see as being
+        unidiomatic
+     b. Can I obviously reuse code written here *outside* the framework
      c. What’s the source code quality like, would I be happy to debug it
 
   3. Surroundings
@@ -101,7 +102,7 @@ Here are some general considerations for assessing framework suitability:
 
   5. Composability
 
-     a. How much framework-specific boilerplate to I need to write
+     a. How much framework-specific boilerplate do I need to write
      b. Is a highly opinionated structure enforced
      c. How readily can I reuse code *inside* the framework
 
@@ -118,10 +119,11 @@ had been dormant for longer than 48 hours [#]_. That’s amazing.
 
 When a piece of software represents someone’s idea, rather than being the
 accumulation of occasional bursts of interest from developers “just passing
-through” it will always be better software. Bram Moolenaar has personally
-reviewed every patch for Vim. OSS shouldn’t necessarily be egalitarian
-about what it’s for and how it works, it should express an *opinion*. It should
-do what the author wants it to do, not aspire to be all things to all users.
+through” it will always be better software. Since 1991 Bram Moolenaar has
+personally reviewed every patch for Vim.  OSS shouldn’t necessarily be
+egalitarian about what it’s for and how it works, it should express an
+*opinion*. It should do what the author wants it to do, not aspire to be all
+things to all users.
 
 .. _pandas: https://github.com/pydata/pandas/graphs/contributors
 .. _celery: https://github.com/celery/celery/graphs/contributors
@@ -164,10 +166,11 @@ I had the impression that Ember was the most venerable of the frameworks I will
 be looking at, but glancing at the contributors graph on GitHub (if that’s a
 valid metric) reveals it is a year younger than Angular.
 
-Source for my toy app in Ember is here_.
-
 .. _Ember: https://github.com/emberjs/ember.js/graphs/contributors
-.. _here: https://github.com/bmcorser/7wonders/tree/master/hamster
+
+Source for my toy app in Ember is here__.
+
+.. __: https://github.com/bmcorser/7wonders/tree/master/hamster
 
 
 It’s groovy
@@ -251,20 +254,25 @@ cool, guys. Especially since Ember Data is still described_ as being in beta.
 
 Without descending into pure facetiousness, Ember just seems caremad about some
 things; all this ``extend`` everywhere, making API design decisions for me, it
-feels like a worried parent looking over my shoulder. `So unfair!`_.
+feels like a worried parent looking over my shoulder. `So unfair!`_
 
 .. _`So unfair!`: http://youtu.be/dLuEY6jN6gY
 
 
 Angular_
 --------
-As a project sponsored, promoted and managed by the Chocolate Factory, one
-could argue it has a dubious claim over being “free and open source”. However,
-Angular *is* hugely popular [#]_ and does have a very large, active community.
+As a project sponsored, promoted and managed by the Chocolate Factory
+workers, one could argue it has a dubious claim over being “free and open
+source”. However, Angular *is* hugely popular [#]_ and does have a very large,
+active community.
 
 Its popularity is good for new developers. Stack Overflow is going to be packed
 with newbie questions and answers that will make a great resource for
 interested parties.
+
+Source for my toy app in Angular is here__.
+
+.. __: https://github.com/bmcorser/7wonders/tree/master/triforce
 
 Things I kind of liked
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -370,9 +378,17 @@ programmer who has been in the field a long time and has something of a history
 of building frameworks [#]_ and a rep in the weird world of commercial web
 development.
 
-Something struck me immediately in how Durandal described itself, and reminded
-of Pyramid – a Python web framework with similar heritage [#]_
+Something struck me about how Durandal described itself, and reminded of
+Pyramid – a Python web framework with similar heritage [#]_ to Durandal.
 
+I started hacking on Python web stuff with CherryPy (I liked the name), did a
+year’s grind in Django and finally wound up with Pyramid. I didn’t miss Django
+at all. Not even Django admin, nor Django form validation, nor Django anything
+else really. It’s not that I never had a use for these things
+
+Source for my toy app in Durandal is here__.
+
+.. __: https://github.com/bmcorser/7wonders/tree/master/cutter
 
 Rusty
 ~~~~~
@@ -393,4 +409,5 @@ Rusty
 .. [#] https://www.google.com/trends/explore?hl=en-US#q=ember.js%2C%20angularjs%2C%20durandal&cmpt=q&tz=
 .. [#] To a lesser degree, granted, but it’s already a *JavaScript* thing.
 .. [#] Some stuffs for .Net or C＃ or something?
-.. [#] Pyramid grew out of Zope/Plone
+.. [#] Pyramid grew out of Zope/Plone into Pylons before becoming Pyramid. It’s
+       maintained by early Python adopters.
