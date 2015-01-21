@@ -381,10 +381,27 @@ development.
 Something struck me about how Durandal described itself, and reminded of
 Pyramid – a Python web framework with similar heritage [#]_ to Durandal.
 
-I started hacking on Python web stuff with CherryPy (I liked the name), did a
-year’s grind in Django and finally wound up with Pyramid. I didn’t miss Django
-at all. Not even Django admin, nor Django form validation, nor Django anything
-else really. It’s not that I never had a use for these things
+I started hacking on Python web stuff with CherryPy (I liked the name, it also
+turned out to be pretty awesome), did a year’s grind in Django and finally
+wound up with Pyramid. I didn’t miss Django at all. Not even Django admin, nor
+Django forms, nor Django anything else really. It’s not that I never had a use
+for these things, but more the layering with plugins we needed to make those
+“batteries-included” modules work the way we wanted them to got pretty
+oh-tee-tee. It got so it felt that the only thing we were using Django for was
+upholding the models/views/urls structure of the project. That could have
+happened in code review – even in a big organisation with many developers.
+
+I learnt a lot about how to write good Python from Django, their source is high
+quality, but I didn’t want to use what I had learnt to write Django apps.
+Pyramid was a revelation in this respect, it is very light on concepts and a
+lot smaller than Django. It gave me HTTP/WSGI stuff, a request-response cycle
+and moreover testability. Anything else I need I have a library for or would
+rather write myself.
+
+Durandal looks like the same thing as Pyramid, but in JavaScript. The famework
+code doesn’t do more than it needs to. For modules, RequireJS. For templating
+and data-binding, KnockoutJS. The framework pretty much does 
+
 
 Source for my toy app in Durandal is here__.
 
@@ -410,4 +427,4 @@ Rusty
 .. [#] To a lesser degree, granted, but it’s already a *JavaScript* thing.
 .. [#] Some stuffs for .Net or C＃ or something?
 .. [#] Pyramid grew out of Zope/Plone into Pylons before becoming Pyramid. It’s
-       maintained by early Python adopters.
+       maintained by early Python adopters aka. generally cool dudes.
