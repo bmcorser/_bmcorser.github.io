@@ -375,9 +375,13 @@ A challenger appears
 Durandal is a youngest framework I looked at by a few years, which is
 significant when the average age is around four. However, it’s coming from a
 programmer who has been in the field a long time and has something of a history
-of building frameworks [#]_ and a rep in the weird world of commercial web
-development.
+of building frameworks [#]_ and a rep in the weird world of .NET and
+Silverlight web development.
 
+Source for my toy app in Durandal is here__.
+
+Shiny
+~~~~~
 Something struck me about how Durandal described itself, and reminded of
 Pyramid – a Python web framework with similar heritage [#]_ to Durandal.
 
@@ -394,16 +398,18 @@ happened in code review – even in a big organisation with many developers.
 I learnt a lot about how to write good Python from Django, their source is high
 quality, but I didn’t want to use what I had learnt to write Django apps.
 Pyramid was a revelation in this respect, it is very light on concepts and a
-lot smaller than Django. It gave me HTTP/WSGI stuff, a request-response cycle
-and moreover testability. Anything else I need I have a library for or would
-rather write myself.
+lot smaller than Django. It gave me WSGI stuff, a request-response cycle and
+some great tooling for writing tests. It does this by basically providing a
+recommended pattern for using WebOb_ and Venusian_, (almost) everything else is
+left up to the developer.
 
-Durandal looks like the same thing as Pyramid, but in JavaScript. The famework
-code doesn’t do more than it needs to. For modules, RequireJS. For templating
-and data-binding, KnockoutJS. The framework pretty much does 
+Durandal does the same thing for JavaScript. It provides a recommended (not
+enforced) pattern for using RequireJS and KnockoutJS to build SPAs by offering
+a small collection of custom KnockoutJS bindings.
 
+.. _Venusian: http://venusian.readthedocs.org/en/latest/
+.. _WebOb: https://webob.readthedocs.org/en/latest/reference.html#introduction
 
-Source for my toy app in Durandal is here__.
 
 .. __: https://github.com/bmcorser/7wonders/tree/master/cutter
 
