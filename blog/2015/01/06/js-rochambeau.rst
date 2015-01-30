@@ -380,6 +380,8 @@ Silverlight web development.
 
 Source for my toy app in Durandal is here__.
 
+.. __: https://github.com/bmcorser/7wonders/tree/master/cutter
+
 Shiny
 ~~~~~
 Something struck me about how Durandal described itself, and reminded of
@@ -392,8 +394,9 @@ Django forms, nor Django anything else really. It’s not that I never had a use
 for these things, but more the layering with plugins we needed to make those
 “batteries-included” modules work the way we wanted them to got pretty
 oh-tee-tee. It got so it felt that the only thing we were using Django for was
-upholding the models/views/urls structure of the project. That could have
-happened in code review – even in a big organisation with many developers.
+upholding the ``models``/``views``/``urls`` structure of the project. That
+could have happened in code review – even in a big organisation with many
+developers.
 
 I learnt a lot about how to write good Python from Django, their source is high
 quality, but I didn’t want to use what I had learnt to write Django apps.
@@ -403,22 +406,16 @@ some great tooling for writing tests. It does this by basically providing a
 recommended pattern for using WebOb_ and Venusian_, (almost) everything else is
 left up to the developer.
 
-Durandal does the same thing for JavaScript. It provides a recommended (not
-enforced) pattern for using RequireJS and KnockoutJS to build SPAs by offering
-a small collection of custom KnockoutJS bindings.
+Durandal does the same thing for the SPA. It provides a recommended, but not so
+strictly enforced pattern for using RequireJS_ and KnockoutJS_ to build SPAs by
+offering a small collection of custom KnockoutJS bindings and an (admittedly
+terse) documentation set.
 
 .. _Venusian: http://venusian.readthedocs.org/en/latest/
 .. _WebOb: https://webob.readthedocs.org/en/latest/reference.html#introduction
+.. _RequireJS: http://requirejs.org/
+.. _KnockoutJS: http://knockoutjs.com/
 
-
-.. __: https://github.com/bmcorser/7wonders/tree/master/cutter
-
-Rusty
-~~~~~
-
-    - Docs are thin on the ground
-    - Knockout is verbose
-    - Knockout ``thing().stuff.cake().bread`` is confusing
 
 .. [#] That is to say, I only care about the *general* principles of
        readability, modularity and single-responsibility.
