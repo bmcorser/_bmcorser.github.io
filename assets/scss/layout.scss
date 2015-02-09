@@ -71,7 +71,7 @@ footer {
             font-size: 1.125em;
             @include em-layout(1.125em);
         }
-        img.full, object.full {
+        object.full {
             max-height: 400px;
         }
         p, blockquote, img.full, object.full {
