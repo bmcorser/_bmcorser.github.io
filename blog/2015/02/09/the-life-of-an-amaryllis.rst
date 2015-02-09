@@ -20,4 +20,7 @@ The life of an amaryllis
 .. figure:: /assets/images/amaryllis-fall.jpg
             :class: full
 
-*Maybe too fast. That’s what made me fall.*
+*Maybe too fast*
+
+.. figure:: /assets/images/amaryllis-fall.jpg
+            :class: full
