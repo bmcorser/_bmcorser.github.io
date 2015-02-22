@@ -31,3 +31,8 @@ The life of an amaryllis
 
 .. figure:: /assets/images/amaryllis-head.jpg
             :class: full
+
+*Then I get sleepy.*
+
+.. figure:: /assets/images/amaryllis-sleepy.jpg
+            :class: full
