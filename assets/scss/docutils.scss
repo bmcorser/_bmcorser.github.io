@@ -45,8 +45,6 @@ div.abstract p.topic-title {
 
 div.admonition, div.attention, div.caution, div.danger, div.error,
 div.hint, div.important, div.note, div.tip, div.warning {
-  margin: 2em ;
-  border: medium outset ;
   padding: 1em }
 
 div.admonition p.admonition-title, div.hint p.admonition-title,
@@ -58,9 +56,13 @@ div.tip p.admonition-title {
 div.attention p.admonition-title, div.caution p.admonition-title,
 div.danger p.admonition-title, div.error p.admonition-title,
 div.warning p.admonition-title, .code .error {
-  color: red ;
+  color: #FF4136 ;
   font-weight: bold ;
   font-family: sans-serif }
+
+div.warning {
+  background: lavenderblush;
+}
 
 /* Uncomment (and remove this text!) to get reduced vertical space in
    compound paragraphs.
