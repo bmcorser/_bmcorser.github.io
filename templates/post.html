@@ -8,7 +8,10 @@
 </%block>
 <%block name="footer_block">
   <footer>
-    <a class="commit">${commit}</a>
+    <script type="text/javascript">
+      var COMMIT_HISTORY = ${commits};
+    </script>
+    <div class="commits"></div>
     <%include file="prev_next.html" />
     <div id="copyright">&copy; BM Corser, 2014</div>
   </footer>

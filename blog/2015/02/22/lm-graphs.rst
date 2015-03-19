@@ -2,8 +2,8 @@ Graphing sensor data with Python
 ################################
 |
 
-Doing the library dance with to draw graphs of what’s going on inside the box
-whilst writing as little of my own code as possible.
+Doing the library dance to draw graphs of what’s going on inside the box whilst
+writing as little of my own code as possible.
 
 .. figure:: /assets/images/lm-graphs.png
             :class: full
@@ -59,11 +59,35 @@ You'll also need sqlite_, unless you intend to use a more serious database.
 
 Recording some data
 ===================
-We can’t draw a graph
+We can’t draw a graph without any data, so let’s take some readings to play
+with. The script ``main.py`` is set up to create tables for the classes that
+Py3Sensors exposes. The table below roughly shows how code maps to the schema:
+
+.. code-block:: plain
+
+    code                  | schema
+    ----------------------|-------
+    Chip                  | Chip
+    Feature               | Sensor
+    Feature.get_value()   | Reading
+
+Once the tables are in place, lm-sensors will be polled every second and the
+table of ``Reading`` objects will begin to be populated. Go and make another
+cup of tea at let it gather some data.
+
+`:coffee:`
+
+Graphing
+========
+Now the exciting part, drawing some graphs! Register with plot.ly_ and go
+through the setup_ stuff. They let us just chuck data up and draw graphs from
+it.
+
+.. _setup: https://plot.ly/python/getting-started/
 
 Just like snowflakes, all computers are different. You need to figure out which
 sensors you have available and which of those you interested in. Run
-``sensors`` and you’ll get some output like this:
+``sensors`` in your terminal and you’ll get some output like this:
 
 
 .. code-block:: plain
@@ -103,4 +127,20 @@ won’t make sense graphed together.
 
 In the graph at the top of the post, I graphed ``temp1`` and ``temp2`` from the
 ISA adapter and ``temp1`` from the PCI adapter.
+
+The ``plot.py`` script is set up to render a graph for a selection of sensors
+referenced by ID. You can see which IDs got assigned to which sensor by
+querying the database directly:
+
+.. code-block:: shell
+
+    $ sqlite3 lm-sqla.db 'select id, chip, label from sensor;'
+
+Grab the IDs for the sensor you want to graph and replace in `the script`_ and
+run it. It will spit out a URL to a plot.ly graph. Presto!
+
+.. _`the script`: https://github.com/bmcorser/lm-graphs/blob/master/plot.py#L22
+
+.. figure:: /assets/images/lm-graphs-later.png
+            :class: full
 
