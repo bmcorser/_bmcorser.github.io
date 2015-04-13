@@ -17,7 +17,8 @@ To cook up a graph like the one above, the ingredients are as follows:
  - SQLAlchemy_: I don’t touch a database without it.
  - Pandas_: Magic library for all sorts of data-munging tasks. Here we just use
    it to resample timeseries data and interpret annotated Numpy arrays.
- - SciPy_: Giant, high-performace library for doing science. It’s only used here for the `Butterworth filter`_.
+ - SciPy_: Giant, high-performace library for doing science. It’s only used
+   here for the `Butterworth filter`_.
  - plot.ly_: Graph-rendering service. A touch prettier than vanilla matplotlib.
 
 .. _lm-sensors: http://www.lm-sensors.org/
@@ -143,4 +144,3 @@ run it. It will spit out a URL to a plot.ly graph. Presto!
 
 .. figure:: /assets/images/lm-graphs-later.png
             :class: full
-
