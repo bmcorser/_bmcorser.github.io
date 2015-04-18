@@ -32,7 +32,11 @@ Other repos
       icons in a GitHub style
     - `:rabbit2:` toyrabbit_ A tiny and very unstable message bus in Python that
       uses RabbitMQ.
+    - `:sparkles:` py-multihash_ Python implementation of Multihash_, for those
+      future-proof hashes
 
 .. _git-little-picture: https://github.com/bmcorser/git-little-picture
 .. _fontawesome-markdown: https://github.com/bmcorser/fontawesome-markdown
 .. _toyrabbit: https://github.com/bmcorser/toyrabbit
+.. _py-multihash: https://github.com/bmcorser/py-multihash
+.. _Multihash: https://github.com/jbenet/multihash
