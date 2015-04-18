@@ -8,14 +8,13 @@ $max-width: 30em;
 
 header {
     position: fixed;
-    ul {
-        background-color: white;
-    }
+    padding: 8px;
 }
 
 body {
     display: flex;
     flex-direction: column;
+    margin: 0;
 }
 
 .content {
@@ -23,6 +22,7 @@ body {
 }
 
 footer {
+    padding: 8px;
     display: flex;
 }
 

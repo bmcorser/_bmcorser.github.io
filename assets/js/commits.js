@@ -18,5 +18,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
   });
   commitHeadElement.addEventListener('click', function () {
     commitHistoryElement.classList.toggle('hidden');
+    commitHistoryElement.style.marginTop = -commitHistoryElement.clientHeight;
   });
 });
