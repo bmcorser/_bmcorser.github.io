@@ -78,4 +78,4 @@ little ``namedtuple`` magic to get prettier calling syntax, like this:
         x = getters.get_x()
         # ...
 
-This way, we get more saner calling syntax. Wonderful!
+This way, we get more saner calling syntax. Wunderbar!
