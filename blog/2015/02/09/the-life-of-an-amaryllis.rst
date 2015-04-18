@@ -1,13 +1,13 @@
 Ridicule
 ########
 
-The life of an amaryllis
-========================
+The life of an hippeastrum
+==========================
 |
 
-*I am an amaryllis. This is my story.*
+*I am an hippeastrum. This is my story.*
 
-*An amaryllis, like all things, must begin humbly.*
+*An hippeastrum, like all things, must begin humbly.*
 
 .. figure:: /assets/images/amaryllis-bulb.jpg
             :class: full
