@@ -72,7 +72,7 @@ little ``namedtuple`` magic to get prettier calling syntax, like this:
             'get_y': get_y,
             'get_z': get_z,
         }
-        return collections.namedtuple('getters', dict_.keys(), **dict_)
+        return collections.namedtuple('getters', dict_.keys())(**dict_)
 
     def test_more_things(getters):
         x = getters.get_x()
