@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function(event) { 
-  var commitsElement = document.querySelector('.commits');
-  // commitsElement.innerHTML = COMMIT_HISTORY[0].hash;
+  var commitHeadElement = document.querySelector('.commit-head');
+  commitHeadElement.innerHTML = COMMIT_HISTORY[0].hash;
+  var commitHistoryElement = document.querySelector('.commit-history');
+  commitHistoryElement.classList.add('hidden');
   _.map(COMMIT_HISTORY, function (commit) {
     var commitElement = document.createElement('div');
     commitElement.classList.add('commit');
@@ -12,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
     subjectElement.classList.add('subject');
     commitElement.appendChild(hashElement);
     commitElement.appendChild(subjectElement);
-    commitsElement.appendChild(commitElement);
+    commitHistoryElement.appendChild(commitElement);
+  });
+  commitHeadElement.addEventListener('click', function () {
+    commitHistoryElement.classList.toggle('hidden');
   });
 });

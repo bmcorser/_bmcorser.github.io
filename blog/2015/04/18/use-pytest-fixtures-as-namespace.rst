@@ -1,7 +1,7 @@
 Using ``namedtuple`` to group py.test fixtures
 ##############################################
 
-Everyone loves a good `py.test fixture`. Those things are so flexible.
+Everyone loves a good `py.test fixture`_. Those things are so flexible.
 Sometimes it’s desirable to have a fixture return a function, like this:
 
 .. _`py.test fixture`: https://pytest.org/latest/fixture.html
@@ -78,4 +78,4 @@ little ``namedtuple`` magic to get prettier calling syntax, like this:
         x = getters.get_x()
         # ...
 
-Wonderful!
+This way, we get more saner calling syntax. Wonderful!
