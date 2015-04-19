@@ -1,0 +1,20 @@
+.commit-head {
+    cursor: pointer;
+}
+.commit-history {
+    background: white;
+    padding-left: 8px;
+    .hidden {
+        display: none;
+    }
+    .commit {
+        .hash {
+            font-size: 9px;
+            padding-right: 5px;
+            font-family: monospace;
+        }
+        .subject {
+            font-size: 9px;
+        }
+    }
+}
