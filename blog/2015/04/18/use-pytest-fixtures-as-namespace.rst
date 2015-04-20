@@ -35,7 +35,7 @@ where our test function signatures start to get a bit over the top:
         z = get_z()
         assert x, y, z == 1, 2, 3
 
-Because py.test fixtures are can return everything and also `support
+Because py.test fixtures can return arbitrary Python objects and also `support
 dependencies`_ on other fixtures (fixture functions support the same injection
 syntax as test functions), we can just use a Python datastructure of some type
 to group our ``get_*`` functions into a single fixture. The “grouping” fixture
@@ -79,4 +79,5 @@ little ``namedtuple`` magic to get prettier calling syntax, like this:
         x = getters.get_x()
         # ...
 
-This way, we get more saner calling syntax. Wunderbar!
+This way, we get saner calling syntax and don’t have to worry about unpacking
+our groups in every test function. Wunderbar!
