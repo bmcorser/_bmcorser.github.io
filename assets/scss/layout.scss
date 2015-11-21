@@ -12,6 +12,7 @@ header {
 }
 
 body {
+    display: flex;
     flex-direction: column;
     margin: 0;
     zoom: 75%;
@@ -74,7 +75,7 @@ footer {
         object.full {
             max-height: 400px;
         }
-        p, blockquote, img.full, object.full {
+        p, blockquote, img.full, object.full, svg.maths-eqtexsvg {
             @include em-layout(1em);
             padding-bottom: 1em;
             display: block;
@@ -106,7 +107,7 @@ footer {
             padding-bottom: 4em;
         }
 
-        img.dot-graph {
+        .dot-graph {
             max-height: 30em;
             max-width: 40em;
             padding-bottom: 1em;

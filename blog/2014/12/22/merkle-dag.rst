@@ -48,7 +48,7 @@ blocks. This *untrusted* root hash can then be compared to our *trusted* root
 hash to decide whether to keep the block or not (and treat that peer as
 untrustworthy in the future, etc).
 
-.. dot-graph:: /assets/images/merkle-tree.svg
+.. dot-graph::
 
     digraph merkle {
 
@@ -206,7 +206,7 @@ if you only want to deduplicate files that have *exactly* the same content, but
 deduplication could be more aggressive if files were split into blocks and
 deduplicated at block-level instead of file-level.
 
-.. dot-graph:: /assets/images/block-level-blog.svg
+.. dot-graph::
 
     digraph {
         // blocks
