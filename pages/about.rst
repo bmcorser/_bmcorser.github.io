@@ -1,17 +1,19 @@
 What’s up?
 ##########
 
-Pythonista and hipster coder extraordinaire, I know my periwinkle blue caravans
-and can get my groove on from the bottom of the stack to the top.
+Pythonista and hipster coder extraordinaire (that means I write JavaScript as
+well as SQL), I know my periwinkle blue caravans and can get my groove on from
+the bottom of the stack to the top.
 
 `:cake: :custard: :shaved_ice: :doughnut:`
 
 Things I do outside Vim:
 
     - Run ``salt`` commands
+    - ``tmux`` for my life!
     - Poke around in PostgreSQL databases
     - Profile that last line of code
-    - ``git rebase -i``
+    - ``git rebase -i`` [#]_
 
 `:pear: :fish_cake: :fried_shrimp: :sushi:`
 
@@ -39,4 +41,6 @@ Things I do in a browser:
     - Make my Pull Requests real pretty
     - Wait for Chrome to reopen the 40 tabs I had open
     - Hang out on ``seclists.org/funsec/``
-    - Enthusiastically berate Jenkins
+    - Enthusiastically berate Jenkins, Buildbot, Travis
+
+.. [#] What was Linus smoking? http://typicalprogrammer.com/linus-torvalds-goes-off-on-linux-and-git/
