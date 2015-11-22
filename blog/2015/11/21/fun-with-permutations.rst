@@ -1,17 +1,19 @@
 Fun with permutations
 =====================
 
+A permutation is a bijective mapping of a set to itself. For example, if we had
+the set defined as :maths:`S = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \}`, just the
+numbers from one to ten (we can also call it :maths:`S_{10}` for brevity), then
+a permutation :maths:`\alpha` mapping :maths:`S` to itself (written
+:maths:`\alpha : S \rightarrow S`) could be represented as follows:
+
 .. maths::
 
     $
-    % S = { 1 2 3 4 5 6 7 8 9 10 }
-    % ((1,), (2, 3, 4, 5, 6, 7, 8, 9, 10))
-    \alpha = \bigl(
-        \begin{smallmatrix}
-            1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
-            1 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 2 \\
-        \end{smallmatrix}
-    \bigr)
+    B =  \begin{pmatrix}
+        1 & 2 & 3 \\
+        3 & 2 & 1
+    \end{pmatrix}
     $
 
 .. maths::
@@ -75,10 +77,9 @@ Fun with permutations
     % \beta ((1, 2, 3, 4, 5, 6, 7, 8, 9), (10,))
     % \gamma ((1,), (2, 3, 4), (5,), (6,), (7,), (8,), (9,), (10,))
     % \delta ((1,), (2,), (3,), (4, 5, 6), (7,), (8,), (9,), (10,))
-    (\alpha \o \beta \bullet \gamma \bullet \delta)^{12} = \bigl(
-        \begin{smallmatrix}
+    (\alpha \circ \beta \circ \gamma \circ \delta)^{12} =
+        \begin{pmatrix}
             1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
             1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
-        \end{smallmatrix}
-    \bigr)
+        \end{pmatrix}
     $
