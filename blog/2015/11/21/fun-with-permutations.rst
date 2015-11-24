@@ -1,5 +1,9 @@
 Fun with permutations
-=====================
+#####################
+
+`:snake:`
+=========
+|
 
 A permutation is a bijective_ mapping of a set to itself. For example, if we had
 the set defined as :maths:`S = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \}`, just the
@@ -244,60 +248,210 @@ just like we do in the notation above. Perhaps something like:
 
 .. code-block:: python
 
-    A = (1, 7, 8, 9)(2, 3, 4)(5, 6)
+    α = (1, 7, 8, 9)(2, 3, 4)(5, 6)
 
 Unfortunately, the above would interfere with the calling syntax and require me
-to override ``__call__`` on the ``tuple`` builtin (which I’m not even sure is
-possible). Instead I would be happy to settle for something like:
+to override the ``tuple`` builtin (which I’m not even sure is possible).
+Besides which, we can’t use non-ASCII characters in identifiers in Python.
+Instead I would be happy to settle for something like:
 
 .. code-block:: python
 
-    A = Permutation((
+    class Permutation(object):
+
+        def __init__(self, orbits):
+            pass
+
+    a = Permutation((
         (1, 7, 8, 9), (2, 3, 4), (5, 6)
     ))
 
-I’d then like to be able to do something like:
+There’s something missing in the constructor for our permutation, however.
+Right at the beginning of the post, we defined :maths:`\alpha` as a permutation
+mapping :maths:`S` to :maths:`S` (which we wrote :maths:`\alpha : S \rightarrow
+S`). The thing that our permutation is a *permutation of* is not mentioned in
+our Python, so lets add a ``mapping`` argument to our constructor function’s
+signature to tell the instance what set it is operating on. In the constructor
+function below, I’ve also added ``name`` so we can use a non-ASCII identifier.
+
 
 .. code-block:: python
 
-    >>> A(1)
-    7
+    class Permutation(object):
 
-The code for cycling through orbits should be pretty straightforward:
+        def __init__(self, name, mapping, orbits):
+            pass
+
+    a = Permutation('α', S, (
+        (2, 7, 5),
+    ))
+
+Hurrah! We’ve defined half of a permutation in Python. Pity it doesn’t actually
+do anything. What do permutations do? Well in terms of our definition above,
+they just return the “next” thing for one of their orbits.
+
+The code for cycling through an orbit (the handful of tuples passed to our
+``Permutation`` constructor above) should be pretty straightforward. We just
+need to return the next number or loop back to the first:
 
 .. code-block:: python
 
-    def cycle_orbit(orbit, num):
+    def follow_orbit(orbit, num):
+        'Follow an orbit one step from the passed number'
         index = orbit.index(num) + 1
         if len(orbit) == index:
             return orbit[0]
         return orbit[index]
 
+I’d then like to be able call my permutation in the same way I
+show application happening in my notation. Thusly;
+
 .. code-block:: python
 
-    import operator
-    import itertools
+    >>> a(2)
+    7
+
+To do this, we can define the “dunder” method ``__call__`` on our class, which
+will be the method that is called when the class instance is called (``a``
+above is a class instance). Our ``__call__`` method here  would just use the
+``follow_orbit`` function to return the appropriate number. Let’s put it all
+together:
+
+.. code-block:: python
 
     class Permutation(object):
 
-        def __init__(self, on, name, orbits):
-            self.on = on
+        def __init__(self, name, mapping, orbits):
             self.name = name
+            self.mapping = mapping
             self.orbits = orbits
 
         def __call__(self, num):
             for orbit in self.orbits:
                 if num in orbit:
-                    index = orbit.index(num) + 1
-                    if len(orbit) == index:
-                        return orbit[0]
-                    return orbit[index]
-            return num
+                    return follow_orbit(orbit, num)
+            return num  # not changed in the permutation
 
-        def __repr__(self):
-            return repr_permutation(self.name, self)
+    a = Permutation('α', S, (
+        (2, 7, 5),
+    ))
 
-        @property
-        def identity(self):
-            result = zip(self.on, map(self, self.on))
-            return all(itertools.starmap(operator.eq, result))
+    a(2) == 7  # True
+
+
+To calculate :maths:`\alpha^2(2)` using our Python code above, we would have to
+write:
+
+.. code-block:: python
+
+    a(a(2)) == 5  # True
+
+This isn’t particularly useful if we need to raise our permutation to the 100th
+power. Suppose we wanted to write :maths:`(\alpha\circ\beta)^4(2)` using our
+Python class, we would have to write:
+
+.. code-block:: python
+
+    b(a(b(a(b(a(b(a(2)))))))) ===  # ???
+
+The first thing to realise is that in this situation, “raising to a power” is
+equivalent to composing a permutation with itself, I claim :maths:`\alpha^2 =
+\alpha\circ\alpha` and :maths:`\alpha\circ\alpha^2 =
+(\alpha\circ\alpha)\circ(\alpha\circ\alpha)`. So we have it that “raising to a
+power” is just a special case of composition.
+
+That said, until we come up with a way of representing composition in our code,
+our ``Permutation`` class is pretty useless.  Python being Python, there’s
+exactly what we need `in the standard lib`_ in the form of
+``functools.reduce``. Before we can enjoy the stdlib goodness, and we need to
+define a function that composes two functions, which is pretty simple:
+
+.. _`in the standard lib`: https://docs.python.org/3/library/functools.html#functools.reduce
+
+.. code-block:: python
+
+    def compose_left_right(left, right):
+        return lambda x: left(right(x))
+
+The above function just takes two functions and returns a closure that will
+call ``left`` with the return value of ``right``. Let’s put it into action with
+a simple composition:
+
+.. code-block:: python
+
+    def add_two(num):
+        return num + 2
+
+    def multiply_two(num):
+        return num * 2
+
+    multiply_then_add = compose_left_right(add_two, multiply_two)
+
+    multiply_then_add(2) == 6  # True
+
+The above can be generalised from two functions (``left`` and ``right``), to
+*n* functions by using ``functools.reduce`` and a little ``*`` magic:
+
+.. code-block:: python
+
+    def compose(*functions):
+        return functools.reduce(compose_left_right, functions)
+
+Now to define our special case of composition “raising to a power”, which is
+just composing a function with itself a given number of times:
+
+.. code-block:: python
+
+    def power(fn, to):
+        return compose(*[fn] * to)
+
+Wait, we’re not done yet! We need one more function to test whether or not some
+permutation (or a composition of permutations raised to a power) is the
+identity of a set. Let’s dip into the standard lib once_ more_ and fish out
+``itertools.starmap`` and ``operator.eq``:
+
+.. code-block:: python
+
+    def identity(of, permutation):
+        result = zip(of, map(permutation, of))
+        return all(itertools.starmap(operator.eq, result))
+
+The variable ``result`` above will be a list of 2-tups just like our very first
+representation of a permutation. Once we have that, all that remains to be done
+is make a pairwise comparison per tuple (that’s where ``itertools.starmap``
+and ``operator.eq`` come in); if ``all`` the pairwise comparisons come back
+``True``, then we have our identity.
+
+.. _once: https://docs.python.org/3/library/itertools.html#itertools.starmap
+.. _more: https://docs.python.org/3/library/operator.html#operator.eq
+
+Making use of the Python code we’ve written, we can find the order of the
+composition of the permutations we have defined above
+:maths:`\alpha\circ\beta\circ\gamma`:
+
+.. code-block:: python
+
+    S = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+
+    a = Permutation('α', S, (
+        (2, 7, 5),
+    ))
+
+    b = Permutation('β', S, (
+        (1, 2, 3, 4, 5, 6, 7, 8, 9),
+    ))
+
+    c = Permutation('γ', S, (
+        (1, 7), (3, 6, 10, 9),
+    ))
+
+    abc = compose(a, b, c)
+
+    to = 1
+
+    while not identity(S, power(abc, to)):
+        to += 1
+
+    print("Order is {0}!".format(to))
+
+Running the above code is left as an exercise to the reader.
