@@ -7,11 +7,12 @@ Fun with permutations
 
 A permutation is a bijective_ mapping of a set to itself. For example, if we had
 the set defined as :maths:`S = \{1, 2, 3, 4, 5, 6, 7, 8, 9, 10 \}`, just the
-numbers from one to ten, then a permutation :maths:`\alpha` mapping :maths:`S`
-to itself (written :maths:`\alpha : S \rightarrow S`) could be represented as
-follows:
+`natural numbers`_ from one to ten, then the permutation :maths:`\alpha`
+mapping :maths:`S` to itself (written :maths:`\alpha : S \rightarrow S`) could
+be represented as follows:
 
 .. _bijective: https://en.wikipedia.org/wiki/Bijection
+.. _`natural numbers`: https://en.wikipedia.org/wiki/Natural_number
 
 .. maths::
 
@@ -76,9 +77,9 @@ thing out as follows:
     $
 
 Not so different. Quite some of :maths:`\beta` seems preserved; 7 maps to 8 in
-the same way. Let’s think about our permutations slightly differently. Let’s
-apply our first permutation *to itself* (we write this :maths:`\alpha^2` for
-brevity) and see what happens.  Remembering that first permutation:
+the same way. Let’s apply our first permutation *to itself* (we write this
+:maths:`\alpha^2` for brevity) and see what happens.  Remembering that first
+permutation:
 
 .. maths::
 
@@ -117,17 +118,19 @@ What happens if we keep going?
 
 Ah ha! The cycle is complete; we started at 2 and got back there. It’s easy to
 see if we keep raising :maths:`\alpha` to higher powers we will repeat
-ourselves every third power. We can show this cycle more clearly if we use a
+ourselves every third power. Let’s think about our permutations slightly
+differently. We can show the cycle we have observed more clearly if we use a
 different notation for our permutation:
 
 .. maths::
 
     $ \alpha = (2 \ 7 \ 5) $
 
-That just means 2 maps to 7 maps to 5 and then back to 2. Everything else just
-maps to itself. With the above notation, we can clearly see that the *orbit*
-has a length of three, interesting that we got 2 to map back to itself at the
-third power. Let’s write out :maths:`\beta` in the same way:
+That just means 2 maps to 7 maps to 5 and then back to 2. Anything not
+mentioned just maps to itself (nothing interesting happens). With the above
+notation, we can clearly see that the *orbit* has a length of three.
+It’s interesting that we got 2 to map back to itself at the third power. Let’s
+write out :maths:`\beta` in the same way:
 
 .. maths::
 
@@ -169,9 +172,9 @@ for brevity. This is what we mean:
     \end{align*}
 
 We also say that :maths:`\beta` has an *order* of nine, that is that we will
-find the identity at the ninth power. In the case that a permutation only has
-one orbit, the order of that permutation is simply the cardinality (length) of
-its single orbit.
+find the identity :maths:`S` at the ninth power of :maths:`\beta`. In the case
+that a permutation only has one orbit, the order of that permutation is simply
+the cardinality (length) of its (single) orbit.
 
 What happens if we have a permutation with more than one orbit? Let’s introduce
 another permutation that has two orbits:
@@ -185,7 +188,7 @@ another permutation that has two orbits:
     \end{pmatrix}
     $
 
-Exciting! But let’s write that out in our other notation, to be clear:
+Exciting! But let’s write that out in our “cycle” notation, to be clear:
 
 .. maths::
 
@@ -250,40 +253,20 @@ just like we do in the notation above. Perhaps something like:
 
     α = (1, 7, 8, 9)(2, 3, 4)(5, 6)
 
-Unfortunately, the above would interfere with the calling syntax and require me
-to override the ``tuple`` builtin (which I’m not even sure is possible).
-Besides which, we can’t use non-ASCII characters in identifiers in Python.
-Instead I would be happy to settle for something like:
+Unfortunately, the above would interfere with the calling syntax of Python and
+require me to override the ``tuple`` builtin (which I’m not even sure is
+possible).  Besides which, we can’t use non-ASCII characters in identifiers in
+Python.  Instead I would be happy to settle for something like:
 
 .. code-block:: python
 
     class Permutation(object):
 
-        def __init__(self, orbits):
+        def __init__(self, name, orbits):
             pass
 
-    a = Permutation((
+    a = Permutation('α', (
         (1, 7, 8, 9), (2, 3, 4), (5, 6)
-    ))
-
-There’s something missing in the constructor for our permutation, however.
-Right at the beginning of the post, we defined :maths:`\alpha` as a permutation
-mapping :maths:`S` to :maths:`S` (which we wrote :maths:`\alpha : S \rightarrow
-S`). The thing that our permutation is a *permutation of* is not mentioned in
-our Python, so lets add a ``mapping`` argument to our constructor function’s
-signature to tell the instance what set it is operating on. In the constructor
-function below, I’ve also added ``name`` so we can use a non-ASCII identifier.
-
-
-.. code-block:: python
-
-    class Permutation(object):
-
-        def __init__(self, name, mapping, orbits):
-            pass
-
-    a = Permutation('α', S, (
-        (2, 7, 5),
     ))
 
 Hurrah! We’ve defined half of a permutation in Python. Pity it doesn’t actually
@@ -292,7 +275,7 @@ they just return the “next” thing for one of their orbits.
 
 The code for cycling through an orbit (the handful of tuples passed to our
 ``Permutation`` constructor above) should be pretty straightforward. We just
-need to return the next number or loop back to the first:
+need to return the “next” number, looping if we reach the end of the tuple:
 
 .. code-block:: python
 
@@ -321,9 +304,8 @@ together:
 
     class Permutation(object):
 
-        def __init__(self, name, mapping, orbits):
+        def __init__(self, name, orbits):
             self.name = name
-            self.mapping = mapping
             self.orbits = orbits
 
         def __call__(self, num):
@@ -332,7 +314,7 @@ together:
                     return follow_orbit(orbit, num)
             return num  # not changed in the permutation
 
-    a = Permutation('α', S, (
+    a = Permutation('α', (
         (2, 7, 5),
     ))
 
@@ -352,7 +334,7 @@ Python class, we would have to write:
 
 .. code-block:: python
 
-    b(a(b(a(b(a(b(a(2)))))))) ===  # ???
+    a(b(a(b(a(b(a(b(2)))))))) ===  # ???
 
 The first thing to realise is that in this situation, “raising to a power” is
 equivalent to composing a permutation with itself, I claim :maths:`\alpha^2 =
@@ -364,7 +346,7 @@ That said, until we come up with a way of representing composition in our code,
 our ``Permutation`` class is pretty useless.  Python being Python, there’s
 exactly what we need `in the standard lib`_ in the form of
 ``functools.reduce``. Before we can enjoy the stdlib goodness, and we need to
-define a function that composes two functions, which is pretty simple:
+define a function that composes just two functions, which is pretty simple:
 
 .. _`in the standard lib`: https://docs.python.org/3/library/functools.html#functools.reduce
 
@@ -373,8 +355,8 @@ define a function that composes two functions, which is pretty simple:
     def compose_left_right(left, right):
         return lambda x: left(right(x))
 
-The above function just takes two functions and returns a closure that will
-call ``left`` with the return value of ``right``. Let’s put it into action with
+The above function just takes a pair and returns a closure that will call
+``left`` with the return value of ``right``. Let’s put it into action with
 a simple composition:
 
 .. code-block:: python
@@ -389,8 +371,10 @@ a simple composition:
 
     multiply_then_add(2) == 6  # True
 
-The above can be generalised from two functions (``left`` and ``right``), to
-*n* functions by using ``functools.reduce`` and a little ``*`` magic:
+We can see that the multiplication happened first, we would have got 8 if the
+addition happened first. The above can be generalised from two functions
+(``left`` and ``right``), to *n* functions by using ``functools.reduce`` and a
+little ``*`` magic:
 
 .. code-block:: python
 
@@ -427,21 +411,22 @@ and ``operator.eq`` come in); if ``all`` the pairwise comparisons come back
 
 Making use of the Python code we’ve written, we can find the order of the
 composition of the permutations we have defined above
-:maths:`\alpha\circ\beta\circ\gamma`:
+:maths:`\alpha\circ\beta\circ\gamma` without having to do much more than
+describe the permutation in Python’s terms:
 
 .. code-block:: python
 
     S = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-    a = Permutation('α', S, (
+    a = Permutation('α', (
         (2, 7, 5),
     ))
 
-    b = Permutation('β', S, (
+    b = Permutation('β', (
         (1, 2, 3, 4, 5, 6, 7, 8, 9),
     ))
 
-    c = Permutation('γ', S, (
+    c = Permutation('γ', (
         (1, 7), (3, 6, 10, 9),
     ))
 
@@ -454,4 +439,7 @@ composition of the permutations we have defined above
 
     print("Order is {0}!".format(to))
 
-Running the above code is left as an exercise to the reader.
+Running the above code is left as an exercise to the reader, it’s also
+available `on GitHub`_.
+
+.. _`on GitHub`: https://github.com/bmcorser/_bmcorser.github.io/blob/master/blog/2015/11/21/order-of-composed-permutations.py
