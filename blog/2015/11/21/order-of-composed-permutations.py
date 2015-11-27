@@ -47,7 +47,7 @@ def identity(of, permutation):
     return all(itertools.starmap(operator.eq, result))
 
 
-S = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+S = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
 a = Permutation('α', (
     (2, 7, 5),

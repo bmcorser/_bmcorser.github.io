@@ -192,7 +192,7 @@ Exciting! But let’s write that out in our “cycle” notation, to be clear:
 
 .. maths::
 
-    $\gamma = (1 \ 7)(3 \ 6 \ 10 \ 9)$
+    $\gamma = (1 \ 7)\circ(3 \ 6 \ 10 \ 9)$
 
 The order of a permutation with more than one orbit will be the lowest common
 multiple of the cardinalities of its orbits (which are 2 and 4). Since 2 is a
@@ -216,10 +216,6 @@ Let’s write out their composition again, as above:
 
 .. maths::
 
-
-    % Orbits:
-    % \alpha (2, 7, 5),)
-    % \beta = B ((1, 2, 3, 4, 5, 6, 7, 8, 9), (10,))
     $
     \alpha \circ \beta = \begin{pmatrix}
         1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
@@ -231,7 +227,7 @@ But let’s also write the orbits out in cycle notation:
 
 .. maths::
 
-    $\alpha\circ\beta = (1 \ 7 \ 8 \ 9)(2 \ 3 \ 4)( 5 \ 6 )$
+    $\alpha\circ\beta = (1 \ 7 \ 8 \ 9)\circ(2 \ 3 \ 4)\circ( 5 \ 6 )$
 
 We can see that the permutation :maths:`\alpha\circ\beta` has three orbits with
 cardinalities 4, 3 and 2. The lowest common multiple of these numbers is 12, so
@@ -416,7 +412,7 @@ describe the permutation in Python’s terms:
 
 .. code-block:: python
 
-    S = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    S = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 
     a = Permutation('α', (
         (2, 7, 5),
