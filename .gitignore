@@ -1,3 +1,4 @@
+.bade-cache
 bower_components/*
 _build/*
 *.pyc
