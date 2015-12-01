@@ -48,6 +48,7 @@ footer {
 
 
     .document {
+
         clear: both;
         h1, h2, h3, h4, p, blockquote, pre {
             margin: auto;
@@ -114,6 +115,13 @@ footer {
         .center {
             text-align: center;
         }
+        table {
+            margin: 0 auto;
+            td, th {
+                padding: 3px;
+            }
+        }
+
 
     }
 
