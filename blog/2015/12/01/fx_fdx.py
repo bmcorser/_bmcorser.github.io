@@ -19,7 +19,7 @@ fx_fdx = {
 hash_map = {}
 for fx, fdx in fx_fdx.items():
     # write f(x) to file
-    fx_hash = hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
+    fx_hash = 'q:' + hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
     fx_svg = eqtexsvg("\\( {0} \\)".format(fx), inline=False)
     with open(fx_hash, 'w') as fx_fh:
         fx_fh.write(fx_svg)
