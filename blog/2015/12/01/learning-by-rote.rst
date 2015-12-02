@@ -10,7 +10,7 @@ those formulae must be committed to memory. I remember remembering
 would I ever be able to reproduce something so arcane just *from memory*? After
 I looked again, it didn’t seem so bad.
 
-After a few days, I had it down pat.
+After a period, I had it down pat.
 
 Because these were the GCSE days, when much learning seemed like repetition
 “until it sinks in” without really understanding the significance of the thing,
@@ -82,14 +82,14 @@ ImageMagick that can do what we want.
 
 The behaviour is going to be dead simple; when a new shell is invoked, open a
 window showing a random SVG of some :maths:`f(x)`, wait for the window to be
-closed, wait for some LaTeX input, check input against the expected value. If
-the answer is correct, exit. If the answer is wrong then show the correct
-answer along with the question :maths:`f(x) = f'(x)`, wait for the window to be
-closed, exit.
+closed, wait for some LaTeX input, check aforementioned input against the
+expected value. If the answer is correct, exit. If the answer is wrong then
+show the correct answer along with the question :maths:`f(x) = f'(x)`, wait for
+the window to be closed, exit.
 
-First job is to put together a table of questions, answers in LaTeX markup and
-render SVGs for the questions :maths:`f(x)` and the questions with their
-answers :maths:`f(x) = f'(x)`.
+The first job we have is to put together a table of questions, answers in LaTeX
+markup and render SVGs for the questions :maths:`f(x)` and the questions with
+their answers :maths:`f(x) = f'(x)`.
 
 ====================  =============================
 ``f(x)``              ``f'(x)``
@@ -236,9 +236,9 @@ answers, so let’s write a function taking a file name:
 
 This function doesn’t actually need to return anything, since we just halt
 execution whilst the user (me) looks at the image being flashed up. Again,
-getting input from the user is just `:pasta:` from the docs. I won’t reproduce
+getting input from the user is just `:spaghetti:` from the docs. I won’t reproduce
 it here. Once we have the answer provided, we need to hash it and compare the
-obtained hash with the expected hash. Another tiny function:
+obtained hash with the expected hash. Another tiny function, writ large:
 
 .. code-block:: rust
 
