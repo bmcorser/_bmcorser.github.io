@@ -169,6 +169,9 @@ Easy-peasy. A bunch of files just got written to `the directory`_ we ran `the
 script`_ in and the script printed a pretty map that tells us about the
 associations between the files that were written:
 
+.. _`the directory`: https://github.com/bmcorser/_bmcorser.github.io/tree/master/blog/2015/12/01
+.. _`the script`: https://github.com/bmcorser/_bmcorser.github.io/blob/master/blog/2015/12/01/fx_fdx.py
+
 .. code-block:: bash
 
     q-189199f c65ec7a
@@ -190,17 +193,53 @@ question (ie. :maths:`\sin x \rightarrow \cos x \rightarrow -\sin x`).
 Now to write the program to flash these images and check answers. Because this
 is going to frequently interrupt me whilst I am doing things, it needs to be
 pretty snappy if it’s not going to be get on my nerves. So, let’s write it in
-Rust. 
+Rust. We can do that by mostly copy‘n’pasting code from documentation.
+
+Let’s represent our above associations between question and answer with a
+``std::collections::HashMap``, almost as nice as writing a literal `:wink:`
+
+.. code-block:: rust
+
+    let mut fx_fdx = HashMap::new();
+
+    fx_fdx.insert("q-0741fac", "e9e9dc6");
+    // ...
+    fx_fdx.insert("q-d6d9338", "5edd4ce");
+
+We also need to randomly select from the above, there’s code in the crate
+`docs`_ for doing that, and we can has a destructuring assignment like Python
+and ES6:
 
 .. code-block:: rust
 
     extern crate rand;
-    extern crate sha1;
-
-    use std::process::Command;
-    use std::collections::HashMap;
-    use std::io;
     use rand::{thread_rng, sample};
+
+    let mut rng = thread_rng();
+    let (fx, fdx) = sample(&mut rng, fx_fdx, 1).pop().unwrap();
+
+Next we need to flash images using ``rsvg-view-3``, for which we use
+``std::process::Command`` in Rust. We’ll need to do this for both questions and
+answers, so let’s write a function taking a file name:
+
+.. code-block:: rust
+
+    fn view (name: &str) -> () {
+        Command::new("rsvg-view-3")
+            .arg("-b").arg("white").arg(name)
+            .output()
+            .unwrap_or_else(|e| { panic!("{}", e) });
+    }
+
+This function doesn’t actually need to return anything, since we just halt
+execution whilst the user (me) looks at the image being flashed up. Again,
+getting input from the user is just `:pasta:` from the docs. I won’t reproduce
+it here. Once we have the answer provided, we need to hash it and compare the
+obtained hash with the expected hash. Another tiny function:
+
+.. code-block:: rust
+
+    extern crate sha1;
     use sha1::Sha1;
 
     fn compare (input: String, fdx: &str) -> bool {
@@ -209,38 +248,25 @@ Rust.
         fdx.as_bytes() == input_sha1.hexdigest()[..7].as_bytes()
     }
 
-    fn main () {
-        let mut fx_fdx = HashMap::new();
+This is where my Rust gets a little hazy. Should I cast both things to bytes
+here? I don’t know, please feel free to `PR against this post`_ if there’s a
+suggestion!
 
-        fx_fdx.insert("q-0741fac", "e9e9dc6");
-        fx_fdx.insert("q-1624dce", "1624dce");
-        fx_fdx.insert("q-189199f", "c65ec7a");
-        fx_fdx.insert("q-26d1990", "566261d");
-        fx_fdx.insert("q-3ad999b", "d339226");
-        fx_fdx.insert("q-43630ee", "61d8e53");
-        fx_fdx.insert("q-4f1ae87", "2ba2cbb");
-        fx_fdx.insert("q-5600f00", "d849a01");
-        fx_fdx.insert("q-67fd40d", "5600f00");
-        fx_fdx.insert("q-a297bb9", "b82f717");
-        fx_fdx.insert("q-bd04e97", "d261fd4");
-        fx_fdx.insert("q-d6d9338", "5edd4ce");
+.. _`PR against this post`: https://github.com/bmcorser/_bmcorser.github.io/edit/master/blog/2015/12/01/learning-by-rote.rst
 
-        let mut rng = thread_rng();
-        let (fx, fdx) = sample(&mut rng, fx_fdx, 1).pop().unwrap();
+Now we have everything we need and just need to write the logic combining our
+``compare`` and ``view`` functiongs for showing the answer (in case of an
+incorrect answer) or just exiting:
 
-        Command::new("rsvg-view-3")
-            .arg("-b").arg("white").arg(fx)
-            .output()
-            .unwrap_or_else(|e| { panic!("{}", e) });
+.. code-block:: rust
 
-        let mut input = String::new();
-        match io::stdin().read_line(&mut input) {
-            Ok(_) => {},
-            Err(error) => println!("error: {}", error),
-        }
+    match compare(input, fdx) {
+        true => {},
+        false => view(fdx)
+    };
 
-        match compare(input, fdx) {
-            true => println!("Correct"),
-            false => println!("Incorrect"),
-        };
-    }
+Look `on GitHub`_ to see the whole thing put together. I simply add a line to
+my ``~/.bashrc`` to execute the binary every time a new shell boots up and
+there we have it, auto-revision!
+
+.. _`on GitHub`: https://github.com/bmcorser/_bmcorser.github.io/blob/master/blog/2015/12/01/fx_fdx/src/main.rs

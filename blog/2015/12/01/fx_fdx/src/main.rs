@@ -13,6 +13,13 @@ fn compare (input: String, fdx: &str) -> bool {
     fdx.as_bytes() == input_sha1.hexdigest()[..7].as_bytes()
 }
 
+fn view (name: &str) {
+    Command::new("rsvg-view-3")
+        .arg("-b").arg("white").arg(name)
+        .output()
+        .unwrap_or_else(|e| { panic!("{}", e) });
+    }
+
 fn main () {
     let mut fx_fdx = HashMap::new();
 
@@ -34,10 +41,7 @@ fn main () {
 
     // println!("{:#?}, {:#?}", fx, fdx);
 
-    Command::new("rsvg-view-3")
-        .arg("-b").arg("white").arg(fx)
-        .output()
-        .unwrap_or_else(|e| { panic!("{}", e) });
+    view(fx);
 
     let mut input = String::new();
     match io::stdin().read_line(&mut input) {
@@ -46,7 +50,7 @@ fn main () {
     }
 
     match compare(input, fdx) {
-        true => println!("Correct"),
-        false => println!("Incorrect"),
+        true => {},
+        false => view(fdx)
     };
 }
