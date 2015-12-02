@@ -15,7 +15,7 @@ we learned by rote. This was before the politics of *how* something was learned
 would have struck any kind of chord with us; we just wanted to be outside.
 
 It seems the time for learning by rote has come round again, this time with a
-vengeance. Now I need to get down not one, not two, but eleven formulae
+vengeance. Now I need to get down not one, not two, but twelve formulae
 (granted, they are simple compared to the quadratic formula, but still). 
 
 .. maths::

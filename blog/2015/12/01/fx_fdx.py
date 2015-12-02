@@ -20,13 +20,13 @@ hash_map = {}
 for fx, fdx in fx_fdx.items():
     # write f(x) to file
     fx_hash = hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
-    fx_svg = eqtexsvg("${0}$".format(fx))
+    fx_svg = eqtexsvg("\\( {0} \\)".format(fx), inline=False)
     with open(fx_hash, 'w') as fx_fh:
         fx_fh.write(fx_svg)
 
     # write f(x) = f'(x) to file
     fdx_hash = hashlib.sha1(fdx.encode('utf8')).hexdigest()[:7]
-    fdx_svg = eqtexsvg("${0} = {1}$".format(fx, fdx))
+    fdx_svg = eqtexsvg("${0} = {1}$".format(fx, fdx), inline=False)
     with open(fdx_hash, 'w') as fdx_fh:
         fdx_fh.write(fdx_svg)
 
