@@ -273,7 +273,7 @@ my ``~/.zshrc`` to execute the binary every time a new shell boots up and
 there we have it, auto-revision!
 
 
-.. figure:: /2015/12/01/learning-by-rote.gif
+.. figure:: /assets/images/learning-by-rote.gif
             :class: full
 
 .. _`on GitHub`: https://github.com/bmcorser/_bmcorser.github.io/blob/master/blog/2015/12/01/fx_fdx/src/main.rs
