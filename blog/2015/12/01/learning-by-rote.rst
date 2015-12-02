@@ -71,9 +71,9 @@ productivity if I didn’t start learning ...
 
 *Challenge accepted!*
 
-The issue is that if I’m being asked the question in the terminal, then either
-I’ll have to cope with doing the translation of the LaTeX markup in my head. It
-would be quite nice to display a little X window with a nice rendered SVG.
+The issue is that if I’m being asked the question in the terminal, then I’ll
+have to cope with doing the translation of the LaTeX markup in my head. It
+would be quite nice to display a little X window with a pretty, rendered SVG.
 
 Unix philosophy to the rescue; there’s `a little binary`_ that comes with
 ImageMagick that can do what we want.

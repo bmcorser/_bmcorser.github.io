@@ -20,4 +20,6 @@ document.addEventListener('DOMContentLoaded', function(event) {
     commitHistoryElement.classList.toggle('hidden');
     commitHistoryElement.style.marginTop = -commitHistoryElement.clientHeight;
   });
+  var doneEvent = new Event('commitsDone');
+  document.dispatchEvent(doneEvent);
 });
