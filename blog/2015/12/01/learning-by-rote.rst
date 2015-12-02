@@ -210,6 +210,8 @@ We also need to randomly select from the above, there’s code in the crate
 `docs`_ for doing that, and we can has a destructuring assignment like Python
 and ES6:
 
+.. _`docs`: https://doc.rust-lang.org/rand/rand/fn.sample.html
+
 .. code-block:: rust
 
     extern crate rand;
