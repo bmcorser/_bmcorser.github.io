@@ -16,10 +16,11 @@ fx_fdx = {
     '\\arctan x':        '\\frac{1}{1 + x^2}',
 }
 
-hash_map = {}
+hashes = {}
+
 for fx, fdx in fx_fdx.items():
     # write f(x) to file
-    fx_hash = 'q:' + hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
+    fx_hash = 'q-' + hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
     fx_svg = eqtexsvg("\\( {0} \\)".format(fx), inline=False)
     with open(fx_hash, 'w') as fx_fh:
         fx_fh.write(fx_svg)
@@ -31,7 +32,7 @@ for fx, fdx in fx_fdx.items():
         fdx_fh.write(fdx_svg)
 
     # remember association of hashes
-    hash_map[fx_hash] = fdx_hash
+    hashes[fx_hash] = fdx_hash
 
-from pprint import pprint
-pprint(hash_map)
+for fx_hash, fdx_hash in hashes.items():
+    print("{0} {1}".format(fx_hash, fdx_hash))
