@@ -141,44 +141,48 @@ need:
         '\\arctan x':        '\\frac{1}{1 + x^2}',
     }
 
-    hash_map = {}
+    hashes = {}
+
     for fx, fdx in fx_fdx.items():
         # write f(x) to file
-        fx_hash = hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
-        fx_svg = eqtexsvg("${0}$".format(fx))
+        fx_hash = 'q-' + hashlib.sha1(fx.encode('utf8')).hexdigest()[:7]
+        fx_svg = eqtexsvg("\\( {0} \\)".format(fx), inline=False)
         with open(fx_hash, 'w') as fx_fh:
             fx_fh.write(fx_svg)
 
         # write f(x) = f'(x) to file
         fdx_hash = hashlib.sha1(fdx.encode('utf8')).hexdigest()[:7]
-        fdx_svg = eqtexsvg("${0} = {1}$".format(fx, fdx))
+        fdx_svg = eqtexsvg("${0} = {1}$".format(fx, fdx), inline=False)
         with open(fdx_hash, 'w') as fdx_fh:
             fdx_fh.write(fdx_svg)
 
         # remember association of hashes
-        hash_map[fx_hash] = fdx_hash
+        hashes[fx_hash] = fdx_hash
 
-    from pprint import pprint
-    pprint(hash_map)
+    for fx_hash, fdx_hash in hashes.items():
+        print("{0} {1}".format(fx_hash, fdx_hash))
 
 Easy-peasy. A bunch of files just got written to `the directory`_ we ran `the
 script`_ in and the script printed a pretty map that tells us about the
 associations between the files that were written:
 
-.. code-block:: python
+.. code-block:: bash
 
-    {'0741fac': 'e9e9dc6',
-     '1624dce': '1624dce',
-     '189199f': 'c65ec7a',
-     '26d1990': '566261d',
-     '3ad999b': 'd339226',
-     '43630ee': '61d8e53',
-     '4f1ae87': '2ba2cbb',
-     '5600f00': 'd849a01',
-     '67fd40d': '5600f00',
-     'a297bb9': 'b82f717',
-     'bd04e97': 'd261fd4',
-     'd6d9338': '5edd4ce'}
+    q-189199f c65ec7a
+    q-5600f00 d849a01
+    q-67fd40d 5600f00
+    q-a297bb9 b82f717
+    q-43630ee 61d8e53
+    q-26d1990 566261d
+    q-1624dce 1624dce
+    q-bd04e97 d261fd4
+    q-d6d9338 5edd4ce
+    q-0741fac e9e9dc6
+    q-4f1ae87 2ba2cbb
+    q-3ad999b d339226
+
+The ``q-`` prefix is to cover the case where an answer is the same as the
+question (ie. :maths:`\sin x \rightarrow \cos x \rightarrow -\sin x`).
 
 Now to write the program to flash these images and check answers. Because this
 is going to frequently interrupt me whilst I am doing things, it needs to be

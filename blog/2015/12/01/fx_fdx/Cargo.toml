@@ -1,0 +1,8 @@
+[package]
+name = "fx_fdx"
+version = "0.1.0"
+authors = ["bmcorser <bmcorser@gmail.com>"]
+
+[dependencies]
+rand = "0.3"
+sha1 = "0.1.1"
