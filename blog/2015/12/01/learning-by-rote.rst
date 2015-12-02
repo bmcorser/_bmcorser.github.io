@@ -75,15 +75,14 @@ The issue is that if I’m being asked the question in the terminal, then either
 I’ll have to cope with doing the translation of the LaTeX markup in my head. It
 would be quite nice to display a little X window with a nice rendered SVG.
 
-Unix philosophy to the rescue; there’s `a package`_ ``librsvg2-bin`` that provides
-`a binary`_ that does just that and nothing more: ``rsvg-view-3``
+Unix philosophy to the rescue; there’s `a little binary`_ that comes with
+ImageMagick that can do what we want.
 
-.. _`a package`: http://www.linuxfromscratch.org/blfs/view/svn/general/librsvg.html
-.. _`a binary`: http://manpages.ubuntu.com/manpages/lucid/man1/rsvg-view.1.html
+.. _`a little binary`: http://www.imagemagick.org/script/display.php
 
 The behaviour is going to be dead simple; when a new shell is invoked, open a
 window showing a random SVG of some :maths:`f(x)`, wait for the window to be
-closed, wait for some LaTeX input, check input against the expected value.  If
+closed, wait for some LaTeX input, check input against the expected value. If
 the answer is correct, exit. If the answer is wrong then show the correct
 answer along with the question :maths:`f(x) = f'(x)`, wait for the window to be
 closed, exit.
@@ -220,15 +219,17 @@ and ES6:
     let mut rng = thread_rng();
     let (fx, fdx) = sample(&mut rng, fx_fdx, 1).pop().unwrap();
 
-Next we need to flash images using ``rsvg-view-3``, for which we use
+Next we need to flash images using ``display``, for which we use
 ``std::process::Command`` in Rust. We’ll need to do this for both questions and
 answers, so let’s write a function taking a file name:
 
 .. code-block:: rust
 
-    fn view (name: &str) -> () {
-        Command::new("rsvg-view-3")
-            .arg("-b").arg("white").arg(name)
+    fn display (name: &str) {
+        Command::new("display")
+            .arg("-border").arg("10")
+            .arg("-bordercolor").arg("white")
+            .arg(name)
             .output()
             .unwrap_or_else(|e| { panic!("{}", e) });
     }
@@ -257,18 +258,18 @@ suggestion!
 .. _`PR against this post`: https://github.com/bmcorser/_bmcorser.github.io/edit/master/blog/2015/12/01/learning-by-rote.rst
 
 Now we have everything we need and just need to write the logic combining our
-``compare`` and ``view`` functiongs for showing the answer (in case of an
+``compare`` and ``display`` functiongs for showing the answer (in case of an
 incorrect answer) or just exiting:
 
 .. code-block:: rust
 
     match compare(input, fdx) {
         true => {},
-        false => view(fdx)
+        false => display(fdx)
     };
 
 Look `on GitHub`_ to see the whole thing put together. I simply add a line to
-my ``~/.bashrc`` to execute the binary every time a new shell boots up and
+my ``~/.zshrc`` to execute the binary every time a new shell boots up and
 there we have it, auto-revision!
 
 

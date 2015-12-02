@@ -9,13 +9,15 @@ use sha1::Sha1;
 
 fn compare (input: String, fdx: &str) -> bool {
     let mut input_sha1 = Sha1::new();
-    input_sha1.update(input.as_bytes());
+    input_sha1.update(input.trim().as_bytes());
     fdx.as_bytes() == input_sha1.hexdigest()[..7].as_bytes()
 }
 
-fn view (name: &str) {
-    Command::new("rsvg-view-3")
-        .arg("-b").arg("white").arg(name)
+fn display (name: &str) {
+    Command::new("display")
+        .arg("-border").arg("10")
+        .arg("-bordercolor").arg("white")
+        .arg(name)
         .output()
         .unwrap_or_else(|e| { panic!("{}", e) });
     }
@@ -41,16 +43,16 @@ fn main () {
 
     // println!("{:#?}, {:#?}", fx, fdx);
 
-    view(fx);
+    display(fx);
 
     let mut input = String::new();
     match io::stdin().read_line(&mut input) {
-        Ok(_) => {},
+        Ok(_) => {},  // println!("'{}'", input.trim()),
         Err(error) => println!("error: {}", error),
     }
 
     match compare(input, fdx) {
         true => {},
-        false => view(fdx)
+        false => display(fdx)
     };
 }
