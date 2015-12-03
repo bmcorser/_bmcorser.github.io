@@ -17,6 +17,7 @@ fn display (name: &str) {
     Command::new("display")
         .arg("-border").arg("10")
         .arg("-bordercolor").arg("white")
+        .arg("-density").arg("200")
         .arg(name)
         .output()
         .unwrap_or_else(|e| { panic!("{}", e) });
