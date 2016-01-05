@@ -24,17 +24,18 @@ Things I do inside Vim without a browser open:
     - Wrap things in ``@click.command``
     - Make data dance with Pandas
     - Hammer out Salt states
+    - Automate all the things [#]_
 
 `:dango: :watermelon: :rice: :herb:`
 
 Things I do inside Vim with a browser open:
 
     - Either ``{{ x }}`` or ``${y}``
-    - Keep it real with Durandal and RequireJS
-    - Just loads of ``_.chain`` and ``_.reduce`` (it's a low dash)
+    - Prototype unicorns with JSPM and Vue.js
+    - Just loads of ``_.chain`` and ``_.reduce`` (it’s a low dash)
     - Occasionally shuffle about in Django
 
-`:beer: :racehorse: :birthday: :tropical_drink:`
+`:beer: :runner: :birthday: :tropical_drink:`
 
 Things I do in a browser:
 
@@ -44,3 +45,4 @@ Things I do in a browser:
     - Enthusiastically berate Jenkins, Buildbot, Travis
 
 .. [#] What was Linus smoking? http://typicalprogrammer.com/linus-torvalds-goes-off-on-linux-and-git/
+.. [#] Including your pesky front end build process!
