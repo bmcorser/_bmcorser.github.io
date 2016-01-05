@@ -5,6 +5,14 @@ Things I've made. They live on GitHub_ and PyPI.
 
 .. _GitHub: https://github.com/bmcorser
 
+`:construction_site:` bmu_
+==========================
+
+Work-in-progress integrating GitHub and BuildBot, taking much inspiration from
+Homu and making it possible to control Buildbot from comments and labels in
+PRs.
+
+
 `:rainbow:` expr_
 =================
 
@@ -17,6 +25,7 @@ A small command line utility to allow the user to maintain a simple HTML
 website and weblog using only plaintext rST for their content, best of all ...
 it's documented_!
 
+.. _bmu: https://github.com/bmcorser/bmu
 .. _expr: https://pypi.python.org/pypi/expr
 .. _`expression graph`: https://code.google.com/p/pydot/
 .. _`small datasets`: http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.html

@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function(event) { 
+var attachHistory = function (commits) {
+  commitHeadElement.innerHTML = commits[0].hash;
   var commitHeadElement = document.querySelector('.commit-head');
-  commitHeadElement.innerHTML = COMMIT_HISTORY[0].hash;
   var commitHistoryElement = document.querySelector('.commit-history');
   commitHistoryElement.classList.add('hidden');
-  _.map(COMMIT_HISTORY, function (commit) {
+  _.map(commits, function (commit) {
     var commitElement = document.createElement('div');
     commitElement.classList.add('commit');
     var hashElement = document.createElement('span');
@@ -20,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function(event) {
     commitHistoryElement.classList.toggle('hidden');
     commitHistoryElement.style.marginTop = -commitHistoryElement.clientHeight;
   });
-  var doneEvent = new Event('commitsDone');
-  document.dispatchEvent(doneEvent);
+};
+document.addEventListener('DOMContentLoaded', function(event) { 
+  var commits = typeof COMMIT_HISTORY == 'undefined' ? null : COMMIT_HISTORY;
+  if (commits) attachHistory(commits);
+  document.dispatchEvent(new Event('commitsDone'));
 });
