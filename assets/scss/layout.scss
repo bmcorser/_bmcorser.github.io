@@ -72,11 +72,14 @@ footer {
         object.full {
             max-height: 400px;
         }
-        p, blockquote, img.full, object.full, svg.maths-eqtexsvg {
+        p, ol, blockquote, img.full, object.full, svg.maths-eqtexsvg {
             @include em-layout(1em);
             padding-bottom: 1em;
             display: block;
             margin: auto;
+        }
+        ol li {
+            padding: 1em 0;
         }
         p {
             text-align: justify;

@@ -1,8 +1,8 @@
 var attachHistory = function (commits) {
-  commitHeadElement.innerHTML = commits[0].hash;
   var commitHeadElement = document.querySelector('.commit-head');
   var commitHistoryElement = document.querySelector('.commit-history');
   commitHistoryElement.classList.add('hidden');
+  commitHeadElement.innerHTML = commits[0].hash;
   _.map(commits, function (commit) {
     var commitElement = document.createElement('div');
     commitElement.classList.add('commit');
