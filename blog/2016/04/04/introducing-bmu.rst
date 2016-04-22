@@ -1,3 +1,5 @@
+.. role:: strike
+
 Introducing ``bmu``
 ###################
 
@@ -33,11 +35,10 @@ Eagle-eyed readers may spot some similarity between ``bmu`` and Homu_, in fact
 I only started writing ``bmu`` after reading the `Rust infrastructure can be
 your infrastructure`_ blog post. ``bmu`` is quite different to Homu, which
 automates the discipline of “test before merge” very nicely. ``bmu`` doesn’t
-make any near as much effort to keep track of state as Homu does (with its
+make :strike:`anywhere near` [#]_ as much effort to keep track of state as Homu does (with its
 PostgreSQL backend), we use mostly use GitHub to keep track of what has been
-run or not. The initial idea with ``bmu`` is to allow developers to run
+run or not . The initial idea with ``bmu`` is to allow developers to run
 specific test suites in a visible manner that was integrated with GitHub.
-
 
 .. _Homu: https://github.com/barosl/homu
 .. _`Rust infrastructure can be your infrastructure`: http://huonw.github.io/blog/2015/03/rust-infrastructure-can-be-your-infrastructure/
@@ -114,11 +115,26 @@ as follows
  - ``bmu/sys/regression``
  - ``bmu/sys/ux``
 
- There is a label for every node in the tree, where leaves represent test
- suites and the the application of a non-leaf node would result in more than
- one test suite being run. **NB:** The label above named “``bmu``” represents
- the root node and applying this label will result in all test suites being
- run.
+There is a label for every node in the tree, where leaves represent test suites
+and the the application of a non-leaf node would result in more than one test
+suite being run. **NB:** The label above named “``bmu``” represents the root
+node and applying this label will result in all test suites being run.
+
+As such, ``bmu`` would expect to find builders, each with a ``ForceScheduler``
+to allow it to be triggered from the outside, with the following names i.e.
+corresponding to the leaf nodes above:
+
+ - ``js/unit``
+ - ``js/functional``
+ - ``py/unit``
+ - ``py/functional``
+ - ``sys/functional``
+ - ``sys/regression``
+ - ``sys/ux``
+
+The only two things that need to be configured are the heirarchy in ``bmu``’s
+config and the corresponding builder names in Buildbot; the rest is handled
+automatically.
 
 Typical process
 ~~~~~~~~~~~~~~~
@@ -148,3 +164,4 @@ of ``bmu`` in use.
 5. ???
 6. Profit!
 
+.. [#] I made a first pass at adding slightly better state tracking in ``bmu``, see https://github.com/bmcorser/bmu/commit/3f6307aa37620d951f2eb91604cb653314dd42db
