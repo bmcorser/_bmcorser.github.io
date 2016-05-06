@@ -17,9 +17,10 @@ CPU architectures.
 
 So, I thought, why not use Travis CI’s VMs to compile for Linux and OSX for me?
 
-Hencewith, `travis-compile`_ was born.
+Hencewith, |travis_compile|_ was born.
 
-.. _`travis-compile`: https://github.com/bmcorser/travis-compile
+.. |travis_compile| replace:: ``travis-compile``
+.. _`travis_compile`: https://github.com/bmcorser/travis-compile
 
 What is it?
 -----------
@@ -40,14 +41,17 @@ How does it work?
 -----------------
 *A secret blend of 11 ngrok instances and Flask apps.* Not really. Well, sort
 of. If you haven’t seen ngrok before, `check it out`_, it’s a handy thing to
-have in the toolbox. The main script takes the following inputs:
+have in the toolbox.
+
+But, back to the matter at hand. The main script ``travis-compile.py`` takes
+the following inputs:
 
  - The path to a Cargo project
  - A GitHub user and their personal access token
 
 It then runs as follows:
 
- #. Create a temporary branch in the ``travis-compile`` repo
+ #. Create a temporary branch in the |travis_compile|_ repo
  #. Grab the Rust source code from the passed directory
  #. Start an ngrok server, get its URL
  #. Write out ``.travis.yml`` with ngrok URL and Cargo metadata
