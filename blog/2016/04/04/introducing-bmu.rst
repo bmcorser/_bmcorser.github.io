@@ -164,4 +164,9 @@ of ``bmu`` in use.
 5. ???
 6. Profit!
 
+You can see the source code of ``bmu`` `here`_ on GitHub. Docs aren’t great
+right now.
+
+.. _`here`: https://github.com/bmcorser/bmu
+
 .. [#] I made a first pass at adding slightly better state tracking in ``bmu``, see https://github.com/bmcorser/bmu/commit/3f6307aa37620d951f2eb91604cb653314dd42db
