@@ -50,8 +50,8 @@ ambitious, yes sir.
 At least one unrelated thrust (GTP_) has already been made in a similar
 direction, but the project is smaller in scope and seems to be unmaintained.
 
-IPFS also boasts WIP implementations in hipster [#]_ languages like Golang and
-Node.js, someone is even working [#]_ on a Haskell implementation. What’s not
+IPFS also boasts WIP implementations in hipster\ [#]_ languages like Golang and
+Node.js, someone is even working\ [#]_ on a Haskell implementation. What’s not
 to like?
 
 However, it’s not going to happen tomorrow; IPFS is still just a cool idea.
@@ -75,11 +75,11 @@ Kademlia DHT
 One routing mechanism IPFS proposes to use is the “distributed sloppy hash
 table” employed by BitTorrent. The spec also states that the routing layer
 should be “swappable”, meaning more traditional (or more exotic) routing could
-be used in place of a DHT. The DHT named in the spec is Kademlia [#]_, intended
-as a successor to CHORD [#]_. It has nice properties for high-churn
-applications [#]_; we’re all guilty of shutting down μTorrent as soon as that
+be used in place of a DHT. The DHT named in the spec is Kademlia\ [#]_, intended
+as a successor to CHORD\ [#]_. It has nice properties for high-churn
+applications\ [#]_; we’re all guilty of shutting down μTorrent as soon as that
 latest Linux distro has finished downloading. Kademlia’s design is, in part,
-informed by analysis of data collected from the Gnutella network [#]_. Remember
+informed by analysis of data collected from the Gnutella network\ [#]_. Remember
 LimeWire and BearShare? They ran on Gnutella.
 
 Mutable namespaces
@@ -104,7 +104,7 @@ change every time an event was reported.
 The IPFS would interface with DNS to offer domain names and web addresses, or
 in the context of a content-addressed system; *mutable namespaces*. These would
 operate something like a signed ref (tag or branch) `in Git`_, addressed on a
-DHT [#]_ via your public-key. Basically, everyone would get a namespace rooted
+DHT\ [#]_ via your public-key. Basically, everyone would get a namespace rooted
 in their key pair, which could be mapped (somehow) to a “proper” domain name in
 a DNS record.
 

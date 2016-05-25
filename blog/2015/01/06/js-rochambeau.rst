@@ -26,7 +26,7 @@ optimisation.
 
 I’ve never written a considerable amount of JavaScript and don’t have strong
 JS-specific opinions about what constitutes idiomatic code or a sane project
-structure [#]_. I’m also happy to steal ideas from other developers. That means
+structure\ [#]_. I’m also happy to steal ideas from other developers. That means
 it’s framework selection time.
 
 Let the rochambeau commence!
@@ -39,8 +39,8 @@ What even
 
 Before asking what makes a framework good, let’s ask: what even *is* a
 framework? I once spent an hour convincing a colleague that jQuery is not a
-framework [#]_ then wondenered why on earth I bothered. Is the distinction even
-important? The jQuery argument, not so much [#]_, but considering how well the
+framework\ [#]_ then wondenered why on earth I bothered. Is the distinction even
+important? The jQuery argument, not so much\ [#]_, but considering how well the
 *scope* of a framework matches up to the scope of your own project is a first
 step in assessing whether it will be helpful.
 
@@ -113,9 +113,9 @@ All my favourite open source projects *kind of* represent a single person.
 
 Think pandas_, celery_, lodash_.
 
-All the above have a real, alive, committed [#]_ and invested individual(s)
+All the above have a real, alive, committed\ [#]_ and invested individual(s)
 maintaining the codebase *right now*. At the time of writing, none of the above
-had been dormant for longer than 48 hours [#]_. That’s amazing.
+had been dormant for longer than 48 hours\ [#]_. That’s amazing.
 
 When a piece of software represents someone’s idea, rather than being the
 accumulation of occasional bursts of interest from developers “just passing
@@ -134,7 +134,7 @@ Method
 ------
 When trying to choose the best option without getting too managerial, I figured
 the best approach would be to just dive right in. In that spirit I resolved to
-implement a toy app in each of the JS frameworks [#]_ that (after perusing
+implement a toy app in each of the JS frameworks\ [#]_ that (after perusing
 available documentation) appeared to be a good fit for the project, which were:
 
  - Ember
@@ -263,7 +263,7 @@ Angular_
 --------
 As a project sponsored, promoted and managed by the Chocolate Factory
 workers, one could argue it has a dubious claim over being “free and open
-source”. However, Angular *is* hugely popular [#]_ and does have a very large,
+source”. However, Angular *is* hugely popular\ [#]_ and does have a very large,
 active community.
 
 Its popularity is good for new developers. Stack Overflow is going to be packed
@@ -348,7 +348,7 @@ weird to see in a *computer code framework*.
 
 I’m sorry, Angular, “services” are `already a thing`__.
 
-I’m afraid ``when`` is also kinda `already a thing`__ [#]_.
+I’m afraid ``when`` is also kinda `already a thing`__\ [#]_.
 
 Since we’re talking about things that are already things, yes, *“modules”* are
 already a thing__ too__!
@@ -375,7 +375,7 @@ A challenger appears
 Durandal is a youngest framework I looked at by a few years, which is
 significant when the average age is around four. However, it’s coming from a
 programmer who has been in the field a long time and has something of a history
-of building frameworks [#]_ and a rep in the weird world of .NET and
+of building frameworks\ [#]_ and a rep in the weird world of .NET and
 Silverlight web development.
 
 Source for my toy app in Durandal is here__.
@@ -385,7 +385,7 @@ Source for my toy app in Durandal is here__.
 Shiny
 ~~~~~
 Something struck me about how Durandal described itself, and reminded of
-Pyramid – a Python web framework with similar heritage [#]_ to Durandal.
+Pyramid – a Python web framework with similar heritage\ [#]_ to Durandal.
 
 I started hacking on Python web stuff with CherryPy (I liked the name, it also
 turned out to be pretty awesome), did a year’s grind in Django and finally

@@ -35,7 +35,7 @@ Eagle-eyed readers may spot some similarity between ``bmu`` and Homu_, in fact
 I only started writing ``bmu`` after reading the `Rust infrastructure can be
 your infrastructure`_ blog post. ``bmu`` is quite different to Homu, which
 automates the discipline of “test before merge” very nicely. ``bmu`` doesn’t
-make :strike:`anywhere near` [#]_ as much effort to keep track of state as Homu does (with its
+make :strike:`anywhere \ ear`\ [#]_ as much effort to keep track of state as Homu does (with its
 PostgreSQL backend), we use mostly use GitHub to keep track of what has been
 run or not . The initial idea with ``bmu`` is to allow developers to run
 specific test suites in a visible manner that was integrated with GitHub.

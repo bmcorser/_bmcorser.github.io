@@ -2,11 +2,15 @@
     import calendar
     import hashlib
 %>
+.. class:: blogtree
+
 % for year, months in blogtree.items():
 ${year}
 ${''.join('#' for _ in range(len(str(year))))}
 
 % for month, posts in months.items():
+.. class:: blogtree
+
 ${calendar.month_name[month]}
 ${''.join('=' for _ in range(len(calendar.month_name[month])))}
 
