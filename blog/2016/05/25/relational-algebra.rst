@@ -367,6 +367,15 @@ Division
 --------
 This one I leave as an excercise.\ [#]_
 
+Fin
+***
+I started reading_ about relational algebra because Richard sent me a link to
+this `little treat`_.
+
+.. class:: center
+
+`:hand_splayed:`
+
 .. [#] In relational algebra “relation” does not refer to the concept of
        `binary relation`_.
 .. [#] I say “basic” here, because our algebraic treatment of the database
@@ -379,3 +388,5 @@ This one I leave as an excercise.\ [#]_
 .. _here: https://en.wikipedia.org/wiki/Relational_algebra#Division
 .. _`binary relation`: https://en.wikipedia.org/wiki/Binary_relation
 .. _roles: https://www.postgresql.org/docs/current/static/user-manag.html
+.. _reading: https://en.wikipedia.org/wiki/Relational_algebra
+.. _`little treat`: https://dbis-uibk.github.io/relax/calc.htm
