@@ -74,6 +74,8 @@ most venerable free software project, PostgreSQL_\ [#]_. Perhaps it seems a
 little morbid to be considering the death of a project just as it is coming to
 into being, but from a practical standpoint one simply must.
 
+.. _PostgreSQL: https://github.com/postgres/postgres/graphs/contributors
+
 Elm’s creator, Evan Czaplicki, spoke about where he saw the project going
 `a few years ago`_.
 
@@ -109,26 +111,24 @@ to ``update.py`` which validates package names, then clones or updates the repo
 and finally the Rust binary ``repo-commits`` reads repository histories and
 outputs JSON that we can graph against, in ``package-histories.json``.
 
+So here it is, a graph showing cumulative sum of number of commits grouped by
+contributor across all Elm repositories; core, community and those listed on
+http://package.elm-lang.org/
+
 .. raw:: html
 
+    <div id="plotly-plot" style="width: 50em; height: 50em; margin: 2em auto"></div>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="/assets/html/elm-packages/plot.js"></script>
 
+This data was collected on the 5th of May 2016.  I will update the data
+periodically. If you want to see  create `an issue`_ if you want me to do it
+sooner.
 
-.. raw:: html
+You can also see the graph out of context here_.
 
-    <div id="plotly-plot" style="width: 50em; height: 15em; margin: 2em auto"></div>
-    <script type="text/javascript">
-      var plotElem = document.getElementById('plotly-plot');
-      Plotly.plot(
-        plotElem,
-        [{x: [1, 2, 3, 4, 5], y: [1, 2, 4, 8, 16] }],
-        {margin: {t: 0}}
-      );
-    </script>
-
-.. _PostgreSQL: https://github.com/postgres/postgres/graphs/contributors
-
-
+.. _`an issue`: https://github.com/bmcorser/_bmcorser.github.io/issues/new
+.. _here: https://bmcorser.github.io/assets/html/elm-packages/
 
 
 .. _DuckDuckGo: https://duck.co/blog/post/297/help-for-programmers

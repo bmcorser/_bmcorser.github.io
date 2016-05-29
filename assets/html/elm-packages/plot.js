@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', function(event) { 
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'package-histories.json', true);
+  xhr.open('GET', '/assets/html/elm-packages/package-histories.json', true);
   xhr.send(null);
   xhr.onreadystatechange = function (event) {
     if (xhr.readyState == 4) {
       drawPlot(JSON.parse(event.target.responseText));
     }
   };
-  var resolution = 50;
-  var aggCommits = function (acc, item, index, history) {
+  var resolution = 20;
+  var aggCount = function (acc, item, index, history) {
     if (index === 0 || index === history.length - 1 || index % resolution === 0) {
       acc.push(index + 1);
       return acc;
@@ -16,38 +16,29 @@ document.addEventListener('DOMContentLoaded', function(event) {
     acc[acc.length - 1] += 1;
     return acc;
   };
-  var aggHistory = function (acc, item, index) {
+  var aggTime = function (acc, item, index) {
     if (index === 0 || index === history.length - 1 || index % resolution === 0) {
       acc.push(new Date(item * 1000))
     }
     return acc;
   };
-
-  var packageGroup = function (fragment, name, packages) {
-    var outer = {name: name, history: []};
-    _.map(packages, function (inner, index) {
-      if (inner && inner.name.startsWith(fragment)) {
-        outer.history = outer.history.concat(inner.history);
-        delete packages[index];
-      }
-    });
-    return outer;
-  };
-  var drawPlot = function (packages) {
+  var drawPlot = function (contributors) {
     var plotElem = document.querySelector('#plotly-plot');
-    packages.push(packageGroup('repos/elm-lang', 'elm-lang', packages));
-    packages.push(packageGroup('repos/elm-community', 'elm-community', packages));
-    var pkgPlots = _.reduce(_.sortBy(packages, 'name'), function (acc, pkg) {
-      if (pkg) {
+    var plots = _.reduce(contributors, function (acc, history, name) {
+      if (history.length > 100) {
         acc.push({
-          name: pkg.name.replace('repos/', ''),
-          x: _.reduce(pkg.history.sort(), aggHistory, []),
-          y: _.reduce(pkg.history.sort(), aggCommits, []),
+          name: name,
+          x: _.reduce(history, aggTime, []),
+          y: _.reduce(history, aggCount, []),
           type: 'scatter',
+          mode: 'lines',
+          line: {
+            shape: 'spline',
+          }
         });
       }
       return acc;
     }, []);
-    Plotly.newPlot(plotElem, pkgPlots);
+    Plotly.newPlot(plotElem, _.sortBy(plots, function (plot) { return -plot.x.length }));
   };
 });

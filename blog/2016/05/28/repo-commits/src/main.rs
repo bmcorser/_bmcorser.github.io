@@ -9,33 +9,29 @@ use std::thread;
 use git2::{Repository, Oid};
 use rustc_serialize::json::{self, ToJson, Json};
 
-#[derive(RustcEncodable, Debug)]
-struct RepoJson {
-    name: String,
-    history: Vec<i64>,
-}
-
 fn main() {
     let stdin = io::stdin();
     let input = stdin.lock().lines();
-    let mut children = HashMap::new();
+    let mut histories: HashMap<String, Vec<i64>> = HashMap::new();
     for line in input {
-        let name = line.unwrap();
-        children.insert(name.clone(), thread::spawn(move || {
-            let repo = Repository::open(name.clone()).unwrap();
-            let mut revwalk = repo.revwalk().unwrap();
-            let mut repo_json = RepoJson { name: name.clone(), history: vec![] };
-            revwalk.push_head();
-            for oid in revwalk {
-                let time = repo.find_commit(oid).unwrap().time().seconds();
-                repo_json.history.push(time);
+        let repo_path = line.unwrap();
+        let repo = Repository::open(repo_path).unwrap();
+        let mut revwalk = repo.revwalk().unwrap();
+        revwalk.push_head();
+        for oid in revwalk {
+            let commit = repo.find_commit(oid).unwrap();
+            let name = String::from(commit.author().name().unwrap());
+            let time = commit.time().seconds();
+            if time > 1388534400 { // start around Jan 2014
+                if histories.contains_key(&name) {
+                    let contrib_history = histories.get_mut(&name).unwrap();
+                    contrib_history.sort();
+                    contrib_history.push(time);
+                } else {
+                    histories.insert(name, vec![time]);
+                }
             }
-            repo_json
-        }));
+        }
     }
-    let mut output = vec![];
-    for (name, repo_thread) in children {
-        output.push(repo_thread.join().unwrap());
-    }
-    println!("{}", json::encode(&output).unwrap());
+    println!("{}", json::encode(&histories).unwrap());
 }
