@@ -95,14 +95,36 @@ and clone out the actual repos.
 
 A quick ``df -h`` to see if I have enough space on my pathetic MacBook SSD::
 
-    df -h
     Filesystem      Size  Used Avail Use% Mounted on
     /dev/disk1      112G  109G  3.4G  97% /
 
 Meh, it’s probably enough. Elm’s packages page is an Elm app (of course!) so
 let’s scrape using CasperJS and grab all the repos using Python. We’ll traverse
-each repo we’ve got our hands on with Rust and spit out some JSON 
+each repo we’ve got our hands on with Rust and spit out some JSON detailing
+its history. So, let’s pipe the list of packages through our rickety collection
+of code.
 
+Running ``scrape.js`` with CasperJS gets an outer list of packages, pipe that
+to ``update.py`` which validates package names, then clones or updates the repo
+and finally the Rust binary ``repo-commits`` reads repository histories and
+outputs JSON that we can graph against, in ``package-histories.json``.
+
+.. raw:: html
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+.. raw:: html
+
+    <div id="plotly-plot" style="width: 50em; height: 15em; margin: 2em auto"></div>
+    <script type="text/javascript">
+      var plotElem = document.getElementById('plotly-plot');
+      Plotly.plot(
+        plotElem,
+        [{x: [1, 2, 3, 4, 5], y: [1, 2, 4, 8, 16] }],
+        {margin: {t: 0}}
+      );
+    </script>
 
 .. _PostgreSQL: https://github.com/postgres/postgres/graphs/contributors
 
