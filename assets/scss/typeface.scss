@@ -40,3 +40,12 @@ p.quote {
     bottom: 1em;
     font-size: 0.5em;
 }
+
+.docutils.footnote.active {
+    background: #FFDC00;
+}
+
+.footnote-container {
+    width: 30em;
+    margin: auto;
+}

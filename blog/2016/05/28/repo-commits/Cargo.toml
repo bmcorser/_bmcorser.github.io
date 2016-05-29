@@ -1,0 +1,8 @@
+[package]
+name = "repo-commits"
+version = "0.1.0"
+authors = ["bmcorser <bmcorser@gmail.com>"]
+
+[dependencies]
+git2 = "0.3"
+rustc-serialize = "0.3.19"
