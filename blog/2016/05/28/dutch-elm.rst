@@ -106,10 +106,33 @@ each repo we’ve got our hands on with Rust and spit out some JSON detailing
 its history. So, let’s pipe the list of packages through our rickety collection
 of code.
 
-Running ``scrape.js`` with CasperJS gets an outer list of packages, pipe that
-to ``update.py`` which validates package names, then clones or updates the repo
-and finally the Rust binary ``repo-commits`` reads repository histories and
-outputs JSON that we can graph against, in ``package-histories.json``.
+I’ll do it in three steps to make things clearer, but you can just pipe from
+one script to the next; errors are reported on stderr.
+
+Running ``scrape.js`` with CasperJS gets an outer list of packages.
+
+.. code-block:: bash
+
+    casperjs --engine=slimerjs scrape.js > packages
+
+Pipe that to ``update.py`` which validates package names, then clones or
+updates each repo repo.
+
+.. code-block:: bash
+
+    cat packages|python update.py > package_repos
+
+Finally the Rust binary ``repo-commits`` reads repository histories and
+outputs JSON that we can graph against, in ``package-histories.json``. I
+compile it first.
+
+.. code-block:: bash
+
+    pushd repo-commits
+    cargo build
+    cp target/debug/repo-commits ../
+    popd
+    cat pacage_repos | ./repo-commits > package-histories.json
 
 So here it is, a graph showing cumulative sum of number of commits grouped by
 contributor across all Elm repositories; core, community and those listed on
@@ -121,8 +144,8 @@ http://package.elm-lang.org/
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="/assets/html/elm-packages/plot.js"></script>
 
-This data was collected on the 5th of May 2016.  I will update the data
-periodically. If you want to see  create `an issue`_ if you want me to do it
+This data was collected on the 6th of June 2016.  I will update the data
+periodically. If you want to see create `an issue`_ if you want me to do it
 sooner.
 
 You can also see the graph out of context here_.
@@ -137,9 +160,8 @@ You can also see the graph out of context here_.
 .. [#] Briefly, Elm is a really nice functional language that compiles to
        JavaScript and has libraries for generating HTML. Whilst that might
        sound like a toy project, it lets you write functional programs that
-       describe real browser applications that run in real browsers. More
-       here_.
-.. _here: http://elm-lang.org/
+       describe real browser applications that run in real browsers, see
+       http://elm-lang.org/
 .. [#] In particular, putting API change tracking into package management
        system seemed pretty revolutionary. I don’t think even Rust does that.
 .. [#] As the saying goes; a ``WebComponent`` by any other name ...
