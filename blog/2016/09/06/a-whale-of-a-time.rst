@@ -5,9 +5,21 @@ A whale of a time
 ==========
 |
 
-I finally got the legitimate chance to enter the happy world of LXC in a
-professional context. Whilst I realise I am somewhat late to the party\ [#]_
+I finally got the legitimate chance to enter the happy world of LXC_ in a
+professional context. Whilst I realise I am somewhat late to the party\ [#]_,
+the experience was pretty great (even on a Mac) so I thought I would share my
+thoughts.
 
-.. [#] The project is about `three years`_ old now.
+Begin\ `!`
+**********
+Before anyone gets excited, I’m not writing application code that calls LXC
+libs directly; although, being a well-backed\ [#]_ project, there are bindings
+for Python\ [#]_ so that notionwouldn’t be too far from the realms of reality.
+No, I’m going through Docker_ like everyone else.
 
-.. _`three years`: https://github.com/docker/docker/graphs/contributors
+.. _LXC: https://en.wikipedia.org/wiki/LXC
+.. _Docker: https://www.docker.com/
+
+.. [#] According to Wikipedia, LXC found its first release about 8 years ago.
+.. [#] Google, IBM, et al
+.. [#] https://linuxcontainers.org/lxc/documentation/#python
