@@ -72,11 +72,11 @@ like this:
 
     project(R, ['a', 'b', 'c'])
 
-We would describe the Python function as being binary (or variadic if we used
-``*attrs`` instead of passing a list), but we describe our algebraic operation
-as unary — the non-relation arguments are considered part of the definition of
-the operation, not as true arguments. You may wish to refer back to these
-comments as you read on.
+We would most likely describe the Python function as being binary\ [#]_ (or
+variadic\ [#]_ if we used ``*attrs`` instead of passing a list), but we
+describe our algebraic operation as unary\ [#]_ — the non-relation arguments
+are considered part of the definition of the operation, not as true arguments.
+You may wish to refer back to these comments as you read on.
 
 
 Projection
@@ -381,6 +381,9 @@ this `little treat`_.
 .. [#] I say “basic” here, because our algebraic treatment of the database
        doesn’t consider more practical functionality, such as roles_ in
        PostgreSQL.
+.. [#] That is, taking two arguments; Wikipedia__.
+.. [#] Taking a variable number of arguments; Wikipedia__.
+.. [#] Taking a single argument; Wikipedia__.
 .. [#] For a left semijoin anyway, one would project the right operands
        attribute names for a right semijoin.
 .. [#] Or you can read about it here_.
@@ -390,3 +393,7 @@ this `little treat`_.
 .. _roles: https://www.postgresql.org/docs/current/static/user-manag.html
 .. _reading: https://en.wikipedia.org/wiki/Relational_algebra
 .. _`little treat`: https://dbis-uibk.github.io/relax/calc.htm
+
+.. __: https://en.wikipedia.org/wiki/Variadic_function
+.. __: https://en.wikipedia.org/wiki/Binary_function
+.. __: https://en.wikipedia.org/wiki/Unary_function
