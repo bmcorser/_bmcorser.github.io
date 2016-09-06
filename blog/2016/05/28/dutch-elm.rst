@@ -130,9 +130,10 @@ compile it first.
 
     pushd repo-commits
     cargo build
-    cp target/debug/repo-commits ../
     popd
-    cat pacage_repos | ./repo-commits > package-histories.json
+    cat package_repos \
+        | repo-commits/target/debug/repo-commits \
+        > package-histories.json
 
 So here it is, a graph showing cumulative sum of number of commits grouped by
 contributor across all Elm repositories; core, community and those listed on
@@ -144,7 +145,7 @@ http://package.elm-lang.org/
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="/assets/html/elm-packages/plot.js"></script>
 
-This data was collected on the 6th of June 2016.  I will update the data
+This data was collected on the 6th of September 2016.  I will update the data
 periodically. If you want to see create `an issue`_ if you want me to do it
 sooner.
 
