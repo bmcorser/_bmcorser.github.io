@@ -5,10 +5,12 @@ A whale of a time
 ==========
 |
 
-I finally got the legitimate chance to enter the happy world of LXC_ in a
-professional context. Whilst I realise I am somewhat late to the party\ [#]_,
-and the experience was pretty great (even on a Mac) so I thought I would share my
-thoughts as we go on a whirlwind tour of some container-based highjinks.
+I finally got a plausibly deniable reasons to enter the happy world of LXC_ in
+a professional context. Whilst I realise I am somewhat late to the party\ [#]_,
+and the experience was pretty great (even on a Mac) so I thought I would share
+my thoughts as we go on a whirlwind tour of some container-based highjinks.
+
+.. [#] According to Wikipedia, LXC found its first release about 8 years ago.
 
 Begin\ `!`
 **********
@@ -58,11 +60,19 @@ running ``Python/3.5.2``.
 
 Seems legit.
 
+
+Going off piste
+***************
+
+When encountering new and unfamiliar technology, like being presented with a
+spork for the first time, my first impulse is obviously to use it to do
+something it wasn’t designed for; vis-à-vis the previous example this would be
+sticking it in an electric socket. Let’s do that with Docker.
+
 .. _HTTPie: https://httpie.org/
 
 .. _LXC: https://en.wikipedia.org/wiki/LXC
 .. _Docker: https://www.docker.com/
 
-.. [#] According to Wikipedia, LXC found its first release about 8 years ago.
 .. [#] Google, IBM, et al
 .. [#] https://linuxcontainers.org/lxc/documentation/#python
