@@ -1,0 +1,9 @@
+docker run -d --name casperjs-daemon -v $(pwd):/home/casperjs-tests --restart always vitr/casperjs
+docker exec casperjs-daemon casperjs scrape.js > packages
+cat packages|python update.py > package_repos
+pushd repo-commits
+cargo build
+popd
+cat package_repos \
+    | repo-commits/target/debug/repo-commits \
+    > package-histories.json
