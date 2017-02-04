@@ -1,4 +1,4 @@
-build: ../bmcorser.github.io
+build: /build
 pages:
   - pages/projects
   - pages/about
