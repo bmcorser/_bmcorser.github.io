@@ -8,6 +8,8 @@ Prüfer
 In this article I will make an interactive presentation of part of Prüfer’s
 proof (cough) of Cayley’s theorem on the enumeration of labelled trees.
 
+**tldr;** skip to the fun_ bit
+
 First things first
 ******************
 
@@ -134,8 +136,21 @@ until we have two numbers remaining in our list :maths:`1, 2, \dots, n`
 between the vertices labelled by those two remaining numbers. Bingo, we’ve got
 a labelled tree.
 
+.. _fun:
 
 The fun bit
 ***********
-Now we know what’s going on ...
+Now we’ve got Prüfer sequences in hand, it’s time for some fun. Type a
+sequence of integers into the box below and watch the worst graph layout algo
+draw a tree, just for you\ `!`
+
+.. raw:: html
+
+    <div id="main" style="width: 30em; margin: 0 auto;">
+    <script src="/assets/js/prufer.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(event) { 
+            Elm.Main.embed(document.getElementById('main'));
+        });
+    </script>
 

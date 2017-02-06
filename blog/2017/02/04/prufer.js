@@ -8826,7 +8826,7 @@ var _user$project$Main$vertexDegreeLayout = F3(
 	function (_p9, degree, _p8) {
 		var _p10 = _p9;
 		var _p11 = _p8;
-		var arc = (2 * _elm_lang$core$Basics$pi) / _elm_lang$core$Basics$toFloat(degree + 1);
+		var arc = (2 * _elm_lang$core$Basics$pi) / _elm_lang$core$Basics$toFloat(degree + 4);
 		var indexth = _elm_lang$core$Basics$toFloat(_p11._0 + 1) * arc;
 		var dx = _elm_lang$core$Basics$sin(indexth);
 		var dy = _elm_lang$core$Basics$cos(indexth);
@@ -8990,20 +8990,6 @@ var _user$project$Main$constructEdges = F3(
 			}
 		}
 	});
-var _user$project$Main$canvas = function (children) {
-	return A2(
-		_elm_lang$svg$Svg$svg,
-		{
-			ctor: '::',
-			_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 100 100'),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$svg$Svg_Attributes$width('700px'),
-				_1: {ctor: '[]'}
-			}
-		},
-		children);
-};
 var _user$project$Main$inputLabel = F2(
 	function (n, string) {
 		var _p27 = _elm_lang$core$String$toInt(string);
@@ -9011,7 +8997,7 @@ var _user$project$Main$inputLabel = F2(
 			return _elm_lang$core$Result$Err(_p27._0);
 		} else {
 			var _p28 = _p27._0;
-			return (_elm_lang$core$Native_Utils.cmp(_p28, n) > 0) ? _elm_lang$core$Result$Err('Invalid Prüfer sequence') : _elm_lang$core$Result$Ok(_p28);
+			return (_elm_lang$core$Native_Utils.cmp(_p28, n) > 0) ? _elm_lang$core$Result$Err('Invalid Prüfer sequence.') : (_elm_lang$core$Native_Utils.eq(_p28, 0) ? _elm_lang$core$Result$Err('I don’t do zeros.') : _elm_lang$core$Result$Ok(_p28));
 		}
 	});
 var _user$project$Main$handleInput = F2(
@@ -9043,14 +9029,7 @@ var _user$project$Main$handleInput = F2(
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p30 = msg;
-		switch (_p30.ctor) {
-			case 'Input':
-				return A2(_user$project$Main$handleInput, model, _p30._0);
-			case 'Start':
-				return model;
-			default:
-				return model;
-		}
+		return A2(_user$project$Main$handleInput, model, _p30._0);
 	});
 var _user$project$Main$Model = F3(
 	function (a, b, c) {
@@ -9058,19 +9037,19 @@ var _user$project$Main$Model = F3(
 	});
 var _user$project$Main$model = A3(
 	_user$project$Main$Model,
-	'1231',
+	'4332',
 	{
 		ctor: '::',
-		_0: 1,
+		_0: 4,
 		_1: {
 			ctor: '::',
-			_0: 2,
+			_0: 3,
 			_1: {
 				ctor: '::',
 				_0: 3,
 				_1: {
 					ctor: '::',
-					_0: 1,
+					_0: 2,
 					_1: {ctor: '[]'}
 				}
 			}
@@ -9195,58 +9174,33 @@ var _user$project$Main$constructTree = F2(
 		}
 	});
 var _user$project$Main$drawInner = function (model) {
-	var list = A2(
-		_elm_lang$core$List$range,
-		1,
-		_elm_lang$core$String$length(model.input) + 2);
-	var tree = A2(
-		_user$project$Main$constructTree,
-		A3(
-			_user$project$Main$constructEdges,
+	if (_elm_lang$core$Native_Utils.eq(model.error, '') && (!_elm_lang$core$Native_Utils.eq(
+		model.prufer,
+		{ctor: '[]'}))) {
+		var list = A2(
+			_elm_lang$core$List$range,
+			1,
+			_elm_lang$core$String$length(model.input) + 2);
+		var tree = A2(
+			_user$project$Main$constructTree,
+			A3(
+				_user$project$Main$constructEdges,
+				{ctor: '[]'},
+				list,
+				model.prufer),
+			_elm_lang$core$Maybe$Nothing);
+		return _user$project$Main$drawTree(
+			{
+				ctor: '_Tuple2',
+				_0: {ctor: '_Tuple2', _0: 50, _1: 50},
+				_1: tree
+			});
+	} else {
+		return A2(
+			_elm_lang$svg$Svg$g,
 			{ctor: '[]'},
-			list,
-			model.prufer),
-		_elm_lang$core$Maybe$Nothing);
-	return _user$project$Main$drawTree(
-		{
-			ctor: '_Tuple2',
-			_0: {ctor: '_Tuple2', _0: 50, _1: 50},
-			_1: tree
-		});
-};
-var _user$project$Main$drawOuter = function (model) {
-	return (_elm_lang$core$Native_Utils.eq(model.error, '') && (!_elm_lang$core$Native_Utils.eq(
-		model.prufer,
-		{ctor: '[]'}))) ? _user$project$Main$canvas(
-		{
-			ctor: '::',
-			_0: _user$project$Main$drawInner(model),
-			_1: {ctor: '[]'}
-		}) : A2(
-		_elm_lang$html$Html$span,
-		{ctor: '[]'},
-		{ctor: '[]'});
-};
-var _user$project$Main$Reset = {ctor: 'Reset'};
-var _user$project$Main$Start = {ctor: 'Start'};
-var _user$project$Main$startButton = function (model) {
-	return (_elm_lang$core$Native_Utils.eq(model.error, '') && (!_elm_lang$core$Native_Utils.eq(
-		model.prufer,
-		{ctor: '[]'}))) ? A2(
-		_elm_lang$html$Html$button,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Start),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html$text('Start'),
-			_1: {ctor: '[]'}
-		}) : A2(
-		_elm_lang$html$Html$span,
-		{ctor: '[]'},
-		{ctor: '[]'});
+			{ctor: '[]'});
+	}
 };
 var _user$project$Main$Input = function (a) {
 	return {ctor: 'Input', _0: a};
@@ -9301,7 +9255,22 @@ var _user$project$Main$view = function (model) {
 							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _user$project$Main$drawOuter(model),
+								_0: A2(
+									_elm_lang$svg$Svg$svg,
+									{
+										ctor: '::',
+										_0: _elm_lang$svg$Svg_Attributes$viewBox('0 0 100 100'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$svg$Svg_Attributes$width('30em'),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _user$project$Main$drawInner(model),
+										_1: {ctor: '[]'}
+									}),
 								_1: {ctor: '[]'}
 							}),
 						_1: {ctor: '[]'}

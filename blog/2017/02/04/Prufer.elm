@@ -38,7 +38,7 @@ type alias Forest = List Tree
 
 model : Model
 
-model = Model "1231" [1,2,3,1] ""
+model = Model "4332" [4,3,3,2] ""
 
 inputLabel : Int -> String -> Result String Int
 inputLabel n string =
@@ -46,7 +46,9 @@ inputLabel n string =
         Err msg -> Err msg
         Ok int ->
             if int > n then
-                Err "Invalid Prüfer sequence"  -- TODO: Explain why
+                Err "Invalid Prüfer sequence."
+            else if int == 0 then
+                Err "I don’t do zeros."
             else
                 Ok int
 
@@ -67,28 +69,15 @@ handleInput model input =
 -- UPDATE
 
 
-type Msg
-    = Input String
-    | Start
-    | Reset
+type Msg = Input String
 
 
 update : Msg -> Model -> Model
 update msg model =
   case msg of
     Input input -> handleInput model input
-    Start -> model
-    Reset -> model
 
 -- VIEW
-
-startButton : Model -> Html.Html Msg
-startButton model =
-    if model.error == "" && model.prufer /= [] then
-        Html.button [ onClick Start ] [ Html.text "Start" ]
-    else
-        Html.span [] []
-
 
 view : Model -> Html.Html Msg
 view model =
@@ -97,32 +86,24 @@ view model =
     , Html.div [] [ Html.text model.error ]
     , Html.div [] [ Html.text <| toString model.prufer ]
     -- , startButton model
-    , Html.div [] [ drawOuter model ]
+    , Html.div [] [
+        Svg.svg [ Svg.Attributes.viewBox "0 0 100 100"
+                , Svg.Attributes.width "30em"
+                ] [ drawInner model ]
     ]
-
-
-drawOuter : Model -> Html.Html Msg
-drawOuter model =
-    if model.error == "" && model.prufer /= [] then
-        canvas [ drawInner model ]
-    else
-        Html.span [] []
-
-
-canvas : List (Svg.Svg Msg) -> Svg.Svg Msg
-canvas children =
-    Svg.svg [ Svg.Attributes.viewBox "0 0 100 100"
-            , Svg.Attributes.width "700px"
-            ] children
+    ]
 
 
 drawInner : Model -> Svg.Svg Msg
 drawInner model =
-    let
-        list = List.range 1 <| (String.length model.input) + 2
-        tree = constructTree (constructEdges [] list model.prufer) Nothing
-    in
-        drawTree ((50, 50), tree)
+    if model.error == "" && model.prufer /= [] then
+        let
+            list = List.range 1 <| (String.length model.input) + 2
+            tree = constructTree (constructEdges [] list model.prufer) Nothing
+        in
+            drawTree ((50, 50), tree)
+    else
+        Svg.g [] []
 
 
 constructEdges : List (Int, Int) -> List Int -> List Int -> List (Int, Int)
@@ -230,7 +211,7 @@ edgeLength = 10.0
 vertexDegreeLayout : V -> Int -> (Int, Tree) -> (V, Tree)
 vertexDegreeLayout (x, y) degree (index, tree) =
     let
-        arc = (2 * pi) / toFloat (degree + 1)
+        arc = (2 * pi) / toFloat (degree + 4)
         indexth = toFloat (index + 1) * arc
         dx = sin indexth
         dy = cos indexth
