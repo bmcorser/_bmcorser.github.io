@@ -9,56 +9,106 @@ From the ground up
     not your thing, please leave immediately.
 
 Developers often talk about building games from the ground up. This turn of
-phrase doesn’t usually imply the involvement of any actual ground. Not so with
-this project, the first step of configuring the build environment was laying
-and levelling slabs.
+phrase doesn’t usually imply the involvement of any actual ground. *Not so*
+with this project, the first step of configuring the build environment was
+laying and levelling slabs for Paul’s shed that would serve as the place of
+work.
+
+**21st of June**
 
 .. raw:: html
 
     <a href="https://youtu.be/8-aBIdLRiEM"><img alt="Spirit level" class="full" src="/assets/images/gifs/20170621110412.gif" width="480" height="270" /></a>
 
 By the time the wood arrived (it was `this kit`_, in case anyone is interested)
-our foundation was looking stable.
+the foundation was walkable, as demonstrated below.
 
 .. _`this kit`: https://billyoh.com/logcabins/garden-log-cabins
+
+**24th of June**
 
 .. raw:: html
 
     <a href="https://youtu.be/rxam_YF5ud0"><img alt="Walking on level ground" class="full" src="/assets/images/gifs/20170624130826.gif" width="480" height="270" /></a>
 
-What is Urho3D, why did I choose it
+
+After considering Godot_ as potential engine because GDScript looked similar to
+Python, I opted to use a C++ as the language for the project -- the library
+ecosystem is enormous. Unfortunately, I didn’t feel Rust’s ecosystem was mature
+enough to support game development by the novice.
+
+The framework I finally settled on to offer education on standards and
+conventions in game program design was Urho3D. I wanted to steer well clear of
+monsters like Unity and Unreal 4\ [#]_ with their “user-friendliness”,
+corporate backing, fee structures and abhorrent *popularity*. I needed
+something open-source, reasonably mature, not too enormous and accompanied by
+some degree of documentation. Urho3D_ fits the bill for all these.
+
+It’s a framework put together by a crazy Russian dude, `@cadaver`_, latterly
+joined by a crazy Chinese dude, `@weitjong`_. The codebase has the benefit of 6
+`6 years`_ of fairly constant development.  There’s an ample amount of
+`narrative documentation`_ along with just-about-passable automatic
+documentation.
+
+Urho3D also runs an event loop at its core, which appealed to my experience
+with Celery and Salt\ [#]_. The framework ties together a good bunch of
+features:
+
+    - Build toolchain supporting compilation for Windows, Linux, macOS, iOS,
+      tvOSnew, Android, Raspberry Pi and even Web targets
+    - Physics simulation
+    - DirectX and OpenGL pipeline
+    - Networking
+
+Also, it has full Unicode support 🐕
+
+.. _Godot: https://godotengine.org/
+.. _Urho3D: https://urho3d.github.io/
+.. _`@cadaver`: https://github.com/cadaver
+.. _`@weitjong`: https://github.com/weitjong
+.. _`6 years`: https://github.com/urho3d/Urho3D/graphs/contributors
+.. _`narrative documentation`: https://urho3d.github.io/documentation/HEAD/index.html
+
+.. [#] Although Aaron McLeran’s talk “The Future of Audio in Unreal Engine”
+    (https://www.youtube.com/watch?v=ErejaBCicds) did pique my interest.
+.. [#] My pun is intended in the worst way.
+
+**24th of June**
 
 .. raw:: html
 
     <a href="https://youtu.be/PdS1PRah3qo"><img alt="Approaching a small dog" class="full" data-src="/assets/images/gifs/20170624130840.gif" width="480" height="270" /></a>
 
-It’s good to have friends.
+It’s good to have friends, Urho3D has a project scaffolding system that makes
+it reasonable to set up new projects without getting bogged down in framework
+specifics.
 
-.. raw:: html
+In another thread, the log cabin had developed walls and a roof and doors and
+windows which was pretty exciting.
 
-    <center>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/HmbhXfPKSTk" frameborder="0" allowfullscreen></iframe>
-    </center>
-
-The car breaking down gave me a minute, mention Urho3D scaffolding
-
-.. raw:: html
-
-    <a href=""><img alt="A wild shed appears" class="full" data-src="/assets/images/gifs/20170629193548.gif" width="480" height="270" /></a>
+**29th of June**
 
 A wild shed appears\ *!* You choose to step inside.
 
 .. raw:: html
 
-    <a href=""><img alt="Creep" class="full" data-src="/assets/images/gifs/20170701212208.gif" width="480" height="270" /></a>
+    <a href=""><img alt="A wild shed appears" class="full" data-src="/assets/images/gifs/20170629193548.gif" width="480" height="270" /></a>
+
+**1st of July**
 
 Monsters lurk outside...
 
 .. raw:: html
 
-    <a href=""><img alt="Swarm" class="full" data-src="/assets/images/gifs/20170702081734.gif" width="480" /></a>
+    <a href=""><img alt="Creep" class="full" data-src="/assets/images/gifs/20170701212208.gif" width="480" height="270" /></a>
+
+**2nd of July**
 
 At daybreak, the bees swarm.
+
+.. raw:: html
+
+    <a href=""><img alt="Swarm" class="full" data-src="/assets/images/gifs/20170702081734.gif" width="480" /></a>
 
 .. raw:: html
 
