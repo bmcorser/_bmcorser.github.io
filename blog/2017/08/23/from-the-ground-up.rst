@@ -45,7 +45,7 @@ something open-source, reasonably mature, not too enormous and accompanied by
 some degree of documentation. Urho3D_ fits the bill for all these.
 
 It’s a framework put together by a crazy Russian dude, `@cadaver`_, latterly
-joined by a crazy Chinese dude, `@weitjong`_. The codebase has the benefit of 6
+joined by a crazy Chinese dude, `@weitjong`_. The codebase has the benefit of
 `6 years`_ of fairly constant development.  There’s an ample amount of
 `narrative documentation`_ along with just-about-passable automatic
 documentation.
@@ -94,40 +94,16 @@ A wild shed appears\ *!* You choose to step inside.
 
     <a href=""><img alt="A wild shed appears" class="full" data-src="/assets/images/gifs/20170629193548.gif" width="480" height="270" /></a>
 
-**1st of July**
-
-Monsters lurk outside...
-
-.. raw:: html
-
-    <a href=""><img alt="Creep" class="full" data-src="/assets/images/gifs/20170701212208.gif" width="480" height="270" /></a>
-
-**2nd of July**
-
-At daybreak, the bees swarm.
-
-.. raw:: html
-
-    <a href=""><img alt="Swarm" class="full" data-src="/assets/images/gifs/20170702081734.gif" width="480" /></a>
-
-.. raw:: html
-
-    <a href=""><img alt="Light horror" class="full" data-src="/assets/images/gifs/20170702131836.gif" width="480" height="270" /></a>
+We set computers and desks and whiteboards up
 
 Minimal Urho3D project up and running, figuring out how to arrange C++ project
 files to avoid insanity, introduction to Urho3D components
 
-.. raw:: html
-
-    <a href=""><img alt="Wet hat" class="full" data-src="/assets/images/gifs/20170702175816.gif" width="480" height="270" /></a>
-
 Explain entrypoint and aspects idea
 
-.. raw:: html
-
-    <a href=""><img alt="Moon landing" class="full" data-src="/assets/images/gifs/20170703211622.gif" width="480" height="270" /></a>
-
 Explain colour cycle idea, hook up to shader parameter, control with gamepad
+
+**6th of July**
 
 .. raw:: html
 
@@ -147,14 +123,6 @@ Common aspect
 
     <a href=""><img alt="Fuel" class="full" data-src="/assets/images/gifs/20170708173226.gif" width="480" height="270" /></a>
 
-
-.. raw:: html
-
-    <a href=""><img alt="Light" class="full" data-src="/assets/images/gifs/20170717185744.gif" width="480" height="270" /></a>
-
-.. raw:: html
-
-    <a href=""><img alt="Painting" class="full" data-src="/assets/images/gifs/20170717190048.gif" width="480" height="270" /></a>
 
 .. raw:: html
 
