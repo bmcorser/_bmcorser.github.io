@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', function(event) {
   var onscroll = function(event) {
     for (var i = 0; i < images.length; i++) {
       if (onscreen(images[i])) {
-        if (images[i].dataset.src) images[i].src = images[i].dataset.src;
+        if (images[i].dataset.src && !images[i].src)
+          images[i].src = images[i].dataset.src;
       }
     }
   };
