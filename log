@@ -1,0 +1,723 @@
+commit b92e60ffb2fad4caa2103c94995a51829980849b
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170628
+
+    Clean slate
+
+commit e5f9f32668525535e0d74a40678f8af0d91fb4af
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170702
+
+    Something running
+
+commit 94c9615baad8e664cda81d6f06345643fb4d4bb7
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170702
+
+    Figuring how to do modules, add unfiltered data
+
+commit 577262296be91c2e663cc397467f0e1832cf378b
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170702
+
+    More generic name
+
+commit 0bf8015a632367602df9cf1326e68bb318d0a38f
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170702
+
+    Remove superflous source file, move to Source dir
+
+commit 1065363cfdf9929b44d62af8f1df3968b640bc4b
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170702
+
+    A talking component
+
+commit 8de1d022824ec55a6cc51d80c90214208b832d89
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170703
+
+    Instantiating chosen component
+
+commit 5e5829d59e4fa70c93e629f0c710422accd99129
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170703
+
+    Render text for components
+
+commit 9cd9bc106fe59461f3cac2214590f5e61a75663b
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170703
+
+    Call demos "aspects", start Gamepad component
+
+commit 86a816f5bab55e7f44e683967e94120c8518f41e
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170703
+
+    Start on GamepadTest aspect
+
+commit d2647feb91b444e8755b6e1484afe559f85fb697
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170704
+
+    Gamepad test, a bit dodgy
+
+commit 0c880ec18551783d9baa54e0939e874a3d4a2fac
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170705
+
+    Start of Synth class
+
+commit 23a2c7b13abfaeab5b1265483d8dc3b417e1491d
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170705
+
+    Trying to get things to compile
+
+commit 9b3440337bfb456ee6e9806397375f65171927a1
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170705
+
+    colour cycle startings
+
+commit 9e1f39bda5961d4281b25a5cffa1981ab3db02fa
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170705
+
+    RegisterObject for Synth, fix ColourCycle
+
+commit 36547a7a36d49d93c465ab4c62f9074b243aa5f0
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Hue cycle
+
+commit 60f05422ff44f82cd14837edb66f22e1de0fdecf
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Relearning
+
+commit 90bafb072d32ba0eb5c2167429d2355da25f7bee
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Remove inner cycle for now
+
+commit 94cc48c3fcd5f1ec14573dd1ab9e3aad4893472f
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Common aspect with mouse/keyboard navigation
+
+commit 09bfd2216ad38f690be2c0ab03cec7880236bb41
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Separate Urho and non-Urho components
+
+commit f832fd26849ab0fef889414406221b8434b9360c
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170706
+
+    start of filter with sound controll working
+
+commit d50c3516a71a2e83e1d11fd5c79f8d1ab6eea8c6
+Merge: 09bfd22 f832fd2
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Merge remote-tracking branch 'origin/paul/synth'
+
+commit 62ba9edff7cddf3660d96a051baaced6ddde6984
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170706
+
+    Tidying
+
+commit 8a978775ab3fda3a3d9df15124125050b2aaae6a
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170708
+
+    Compiles
+
+commit 0f363cff0507c7d0ed47fb487ddd5f2afb90b714
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170708
+
+    Gamepad aspect uses CommonAspect
+
+commit 46132e39775b22fb050646ecd5277538609b6f54
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170708
+
+    Dancing teapot
+
+commit 78260324dea78e3242709a2031a8804a5bb64a49
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170708
+
+    Quat debug
+
+commit 0e74e33a0121efb7f2a7de5d24df6668ed3b7b1d
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170708
+
+    Start of filters - not sure if working, but does something.
+
+commit 7c1274b9acb673677820debea9d2d529cc45f878
+Merge: 7826032 0e74e33
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170708
+
+    Merge remote-tracking branch 'origin/paul/filterstuffs'
+
+commit 97f15f2b0cca56f634f8f0311642f6edf3ab8faf
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170708
+
+    Add debug to SynthTest
+
+commit 9c82fb2710cdf03c4b5b7eb620fae84a1e392ce0
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170712
+
+    Triple damnation
+
+commit 281c2211938ffa551b42a35c02d1ac7b7273cfba
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170712
+
+    quickly!!!!
+
+commit d221abb232f8c1e0cd312af0a1f861735910e08b
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170712
+
+    again
+
+commit ab8b105715876e17bae02c410cd0988fb25e4698
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170712
+
+    Use the DebugRenderer to do quat debugging
+
+commit fd506951abfbf21f8f763437d8ec3ef60fdd68ca
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170712
+
+    Deleting unused things and doing some other things
+
+commit f17aa2fe5580b9e85ce9739cc1e489dec3b6472b
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170713
+
+    Brush and sweep
+
+commit 1a4fbb3e40adb6456939d1f45a9e34919c810128
+Merge: ab8b105 f17aa2f
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170713
+
+    Merge branch 'paul/things-ben-needs'
+
+commit ecdbe4613cdd0461a61a55685581c405c242dbec
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170713
+
+    tided up osc synth synth test
+
+commit 393bce6d7783440ec999581058507c4f987c534f
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170713
+
+    Bent envelope
+
+commit 93927ac1c29a26873c37adb4481bc09f5a9bdce7
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170713
+
+    Something like an envelope
+
+commit 6435863471ab4cc094f2ea19ce236d10cc7aba8b
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170714
+
+    Working in the worst way
+
+commit 2a2d9129a9f5c5078c4516ff84c91226d86d8d27
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170714
+
+    oscillator now has a working freqence.
+
+commit 5a000fa41a271772ff51e5aae81777ce69b5cbbc
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170714
+
+    Windowed
+
+commit b6b76696da31414ed3a59f2de40a64178cb90fde
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170714
+
+    Sliders
+
+commit 68fb6be34b7e610f099f5af5ba4413a7b2354764
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170715
+
+    i rebased and meraged. hopfully like a g
+
+commit 82a16d749d58e0b31aa38aaeb17eaca99dccfb37
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170715
+
+    im trying to rebase
+
+commit 6806fd97175104b3770fd221e91d0788164282b9
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170717
+
+    start soft clip and step seqencer
+
+commit 29ed81b22307a1c33ac5bcf2361c393efd51f8da
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170717
+
+    Teapot chaser simulator 2017
+
+commit 6f7319c199021cd018f37e832e526db89ef82526
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170718
+
+    Dump in CustomGeo and test it
+
+commit 61befd51f75412e0ac23f3c7c382d0060a7e2a21
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170719
+
+    MrWhippy
+
+commit 3d3c8fb178b02c5174bc4ae19500c63dd50edd5a
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170720
+
+    Add ShedData, update CommonAspect
+    
+     - Camera in CommonAspect can have initial rotation set by inheriting
+       Aspect code
+
+commit 70c99033760641ecc5a02d7f41745738f8e4c896
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170720
+
+    Something with physics, some sort of shader
+
+commit e8570c9df0802aa6258f575dbeacc9a22ff34511
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170720
+
+    fixed delay, fixed ladder filter by removing resonence, soft clipper working.
+
+commit 503baf5f173f8a41d09b9c61b44d0df0934be387
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170720
+
+    Synth n all
+
+commit 85a99dffa046377e01e35854cda586472ee0036d
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170720
+
+    Noises
+
+commit 00199d9d6261f5fbf46d16e4556abbde49b4d52f
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170722
+
+    Shader fail, draw a square with dupe vertices
+
+commit e2865ba9aecea7944bec71057f3b3ae609c39693
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170722
+
+    Segfault something something
+
+commit 0a883fd235ae223562e1126ba2fa000bda1475b2
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170722
+
+    Quit on ((vec3, vec3) -> array -> matrix) :(
+
+commit 948a3ae54c3ade44ef093193e66d32fe60b8c12c
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170724
+
+    Debugging
+
+commit 980728a05ed87a0aab94918ceb1f5a19845ce0e1
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170724
+
+    Almost doing something
+
+commit 1afe13014cce0ec4e18edb31b1aab4ecb260a129
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170724
+
+    Debugging in place
+
+commit eb491fc3a059db65bf15bb717e90962c048dedaa
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170725
+
+    Before restart
+
+commit 896af29dd9dce4623d04b9f000e6251c1ff8b733
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170725
+
+    Draw based on quads
+
+commit 057a80b1b6069d11a95d54a9b42de88efc7a1a71
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170725
+
+    Wave sim 2017
+
+commit 29324d19bbc09b89d2038348c9ca92aaf9941acd
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170726
+
+    Why not have a quick segfault break?
+
+commit e8757954631985ee19300aef9c79a62906cd8518
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170726
+
+    Zoom
+
+commit c187c2cab3b1d857d47703c3ae737aeb7c952e1e
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170726
+
+    Something
+
+commit d0188bd63a74ff60d522266bcf125c6a2cbf6a89
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170727
+
+    Going for hex mesh
+
+commit 3270f609a5721d02c7e3c7661b15fa8aec570f3a
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170728
+
+    Hexygons
+
+commit 5f335cb94dfc73ef1aeadae04236c58129451a87
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170729
+
+    Some normal calculation
+
+commit 9b4cca1560c865309508a0bc25395808c562cb1c
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170729
+
+    Beer time
+
+commit 349fea472e932157f730c1fa67d022b758ff7bb5
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170729
+
+    resolved conflict for reebase
+
+commit 897d83bfe2982d60ae5a269d2952cdeb70372fcd
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170729
+
+    sequencer works
+
+commit b4e08379da24e65b2f65c1edd97d8c1535e578c2
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170730
+
+    Getting a bit tired
+
+commit 137513963fd191d528b23b52acee5b4fb5fc400d
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170730
+
+    Name calling
+
+commit 1e2f020864377cc027a9a856d5d297c27b265086
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170731
+
+    FM beginnings
+
+commit cab443e579f090754317db48c1fcd3c6a277fe4f
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170801
+
+    line object and percussion started
+
+commit 0f5551a5df5cc62fe20386196779789222de6214
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170802
+
+    build works on my machine now
+
+commit f522fec00d2105cb15933c9509f6938f0a731d57
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170802
+
+    Future codes
+
+commit 0f2d8a7df7d7ab9068a4debbf3389781baff7648
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170802
+
+    Some things to pick up tomorrow
+
+commit 52352090c304999882f70d085af5fed173587520
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170803
+
+    Hex generation done, ready to test normal calc
+
+commit 14e55c1c6de40fc11d9220b48394cb7198aa3d84
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170803
+
+    Broken vertex buffer
+
+commit f900fe813f8de6bd7fc475fb747c9ede4ea96959
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170803
+
+    Add alll
+
+commit ad9eac7d9c35576fdf6ff1602945c4ebb81cfef0
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170804
+
+    Bloom added from samples
+
+commit 7fd180182ba15debcfa619517ec05455d2fa5148
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170804
+
+    Moew fum
+
+commit a28a5d65897ab897d60741abb7b5b82f6d53956b
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170804
+
+    shaders
+
+commit cfdb72d22f79a5827a9d8bd335228c367f23b3dc
+Merge: a28a5d6 7fd1801
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170804
+
+    Merge branch 'master' of https://github.com/steadysupply/game
+
+commit db10c5ea87277f60023911ae493b338394ed84b0
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170804
+
+    Smooth
+
+commit 2fe5a69c95f05362c2a70341904f41bbdb475b41
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170804
+
+    Bosh
+
+commit 37a326cb9a2f1ebffc764ecf1e5b7cca48a92b1d
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170804
+
+    trying to add bloom to triangles
+
+commit db7585088a1a64a8a9ccbe9a9c47d30b3ff4c4af
+Merge: 37a326c 2fe5a69
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170804
+
+    Merge branch 'master' of https://github.com/steadysupply/game
+
+commit a7ed08fd3839a1b4b97a18cfd43f0c2767e9352a
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170805
+
+    before merging stash
+
+commit 3bed8615930926fdc3276050901f0d395795e809
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170805
+
+    got filter back
+
+commit ead63b028515c0925a4156c54f4268c533e48c3a
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170805
+
+    Wallpaper
+
+commit 3aeabf6b51f4c689ac5e8c2a81287096be65a244
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170805
+
+    Tubular space sufer
+
+commit 99fe5ae7c62df4c713d5893f68a63531afd05e76
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170805
+
+    Ready to start again
+
+commit 0f4125fbec3eb95b2f28e49d0dcfe189ad107a8a
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170805
+
+    Disco simulator 2017
+
+commit aec16694c6de776ac662e46070d9c99bed11c473
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170808
+
+    Hexmesh starts
+
+commit eadaf6de0febc872ed820a32d6e8bd8bee1dc4c9
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170808
+
+    Attributes only on things that require it
+
+commit c512ba147caaef1c48f19a8e4f6547261ce9dbae
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170809
+
+    Iridescence shader start
+
+commit 3245d0066caf662720f37e2104b1488606a9a28e
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170809
+
+    some work on drums. currently not working.
+
+commit 37b08807b665f06a5201f0a244b23aa9199404a9
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170810
+
+    Move to table
+
+commit dc476b251b6de25b890291a6b8a35bdb9968f291
+Merge: 3245d00 37b0880
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170810
+
+    Merge branch 'master' of https://github.com/steadysupply/game
+
+commit e4039360ec95d36a6d42f41b8dc1082a68ec908c
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170810
+
+    sirilizable synth components
+
+commit 541b904ad74965826c081fdfd5a2f3588d6837f7
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170810
+
+    Refactoring for attribute
+
+commit 7a32d7f7e6b0bcbfb95949973473758b2c6018d9
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170811
+
+    Real life synth
+
+commit 702fcd2c3c04e38424b4cb46af01c6628d485f64
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170808
+
+    Whaaaaaa
+
+commit af9c63ba3ae4623abaa3f0dd91b60f5147b4771a
+Merge: 7a32d7f 702fcd2
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170811
+
+    Merge branch 'ben/hexmesh'
+
+commit 443df572c0301c4274ebc33a5f733cc238051d7d
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170811
+
+    Hexy back (broken)
+
+commit 884e235c27e4acb238d41531451c9a5bb7e70a57
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170811
+
+    A menu!
+
+commit 8473352c96bbb9c0761f27929a2adc87c50d840e
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170811
+
+    Debug adjusted for node position
+
+commit 361f81347c0a2f845b4e798d3cce9f7a94ff8433
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170811
+
+    More hex, save scene
+
+commit b843fa4b39adedb78a3a11d38e8a70782b3d189f
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170815
+
+    Start of synth ui and ladder filter fixed
+
+commit cfb7988e59ce75bf29f6286af2cf62a9b04022b5
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170816
+
+    trying to setup sliders
+
+commit bea802616d37b43861d3c405d7093bc902865a26
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170816
+
+    Sliders work
+
+commit 3f39faf0f5afe961324b99a4f218c549ba964eb0
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170816
+
+    Murder perfprmance
+
+commit c3ec432606c76c682cc3362c23118b0e2761c51f
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170817
+
+    Tidy up a bit
+
+commit 58841b6b2dab6ece0bf99edf6764b579c32bc1f0
+Author: bmcorser <bmcorser@gmail.com>
+Date:   20170817
+
+    Empty aspect
+
+commit b6abbef5e96bbd6caadd267cc0067cedfada0881
+Author: Paul Betowski <info@designbypaul.co.uk>
+Date:   20170817
+
+    step sequencer ready for gui play time
