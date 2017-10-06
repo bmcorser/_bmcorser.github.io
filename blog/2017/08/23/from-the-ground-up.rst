@@ -71,9 +71,11 @@ The shed acquired a nice set of blinds, and so to the keyboard!
 **Framework considerations**
 
 After considering Godot_ as potential engine because GDScript looked similar to
-Python, I opted to use a C++ as the language for the project -- the library
-ecosystem is enormous. Unfortunately, I didn’t feel Rust’s ecosystem was mature
-enough to support game development by the novice.
+Python, I opted to use a C++ as the language for the project. I have some
+experience with the language and its library ecosystem is enormous and very
+mature. I was initially excited about the possibility of using that new kid on
+the block, Rust, but unfortunately, I didn’t feel Rust’s ecosystem was mature
+enough to support prototypical game development.
 
 The framework I finally settled on to offer education on standards and
 conventions in game program design was Urho3D. I wanted to steer well clear of
@@ -112,36 +114,42 @@ The framework ties together a good bunch of features:
 
 We set computers and desks and whiteboards up and I got a minimal Urho3D
 project up and running, figuring out enough about universe-C++ to start vaguely
-structuring the project wasn’t a lot of fun ... but I did it nonetheless.
+structuring the project wasn’t a lot of fun ... mostly because of the
+bewildering variety in styles of packaging libraries.
 
-The motivation of being able to write game programs was enough for me to make
-an effort to read through the documentation (Urho3D is `decent`_) like a
-grownup before starting typing. I find it hard not to immediately start
-implementing every new idea that is introduced, as it is introduced. I don’t
-know if this actually helps with memory retention, but it feels productive.
+The motivation of being able to write game programs was enough to make me sit
+down and read through the documentation like a grownup. Urho3D’s narrative documentation
+is `decent`_ and I was able to investigate the new ideas it introduced with
+small code experiments. I have found this to help with memory retention when
+learning feels like “a like a lot to take in”.
 
 .. _`decent`: https://urho3d.github.io/documentation/1.7/index.html
 
-I spent some time studying the Urho3D source code, and saw for the first time
-what a heavily class-based system looks like. I am not particularly interested
-in classes, the idea always seemed overly formal and I didn’t understand how
-such a structure would give rise to a fast program. C++ is very fast, but the
-“user experience” of the language is not always a pleasent one. 👺
+I spent quite some time studying the Urho3D source code, and saw for the first
+time what a heavily class-based system looks like. I am not particularly
+interested in classes, the idea always seemed overly formal and I didn’t
+understand how such a structure would help give rise to a fast or
+understandable program. C++ *is* very fast, but the “user experience” of the
+language is not always a pleasent one.
 
-Overall I quite enjoyed the architecture of Urho3D; on top of the classy
-base-structure, there is event layer which is an oddly familiar thing to see in
-C++. Generally I like event-based systems, but again, have never really
-considered them to be particularly fast (Celery was sloww, I ended up using
-huey!). However, event subscription and the emission of events seems too
-liberal, especially since program speed is the primary consideration; I found
-it difficult to see how this code could be fast enough to run at 60 fps.
+`👺`
 
-Urho3D offers other interfaces beyond the two mentioned above;\ [#]_ the result
-is that a programmer may write using whichever application paradigm\ [#]_ suits
-them. This needn’t produce programs that become difficult to reason about, in
-other words, programs that are either complex or complicated. On the contrary,
-discrete paradigms could be used to denote responsibility and aid separation of
-concerns.
+Overall I quite enjoyed the architecture of Urho3D; on top of the biscuit base
+of ``Object``, there is buttery event layer and some nice container classes
+that implement serialisable attributes.
+
+Attributes in Urho3D are implemented as a “variant” type which I understood as
+being a slightly simpler version of Python’s ``object``. A “variant” in Urho3D
+can hold one of a fixed set of concrete types such as ``int`` and ``double``,
+but also offers a vector and map type. All these are serialisable — for
+networking applications and for writing to disk.
+
+Urho3D offers other programmer interfaces beyond the two mentioned above;\ [#]_
+the result is that a programmer may write using whichever application paradigm\
+[#]_ suits them. This needn’t produce programs that become difficult to reason
+about, in other words, programs that are either complex or complicated. On the
+contrary, discrete paradigms could be used to denote responsibility and aid
+separation of concerns.
 
 .. [#] An entity or component system, DOM-style access to the scene graph, a
     decent command line interface, etc.
@@ -205,13 +213,13 @@ is doctored to include a greater degree of photographic realism than is
 presented when playing the game; it’s clearly not the game’s ability to
 simulate a photograph that makes it interesting.
 
-The simulation that *Minecraft* presents is one that is integrated over time.
-That is to say, one has to spend some time actually playing to observe (or
-experience, or witness) the simulation. It’s quite hard to describe what’s
-going on, because there are several experiential threads happening at the same
-time and even embarking on a description feels redundant to begin with because
-what the game simulates is so immediately understandable when one is playing
-it.
+The simulation that *Minecraft* presents is one that only exists when
+integrated over time. That is to say, one has to spend some time actually
+playing to observe (or experience, or witness) the simulation. It’s quite hard
+to describe what’s going on, because there are several experiential threads
+happening at the same time and even embarking on a description feels redundant
+to begin with because what the game simulates is so immediately understandable
+when one is playing it.
 
 In broad strokes, the player is presented with a static simulated landscape
 which has been generated for their game to be played in. The playing of the
