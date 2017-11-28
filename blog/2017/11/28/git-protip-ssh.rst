@@ -5,7 +5,7 @@ A less insane way to manage multiple SSH identities
 ===================================================
 
 There are any number of blog posts advertising some pretty wacky ways to set up
-your computer to use different identities for the same host\ [#] depending on
+your computer to use different identities for the same host\ [#]_ depending on
 the repository you’re working in. Most involve configuring SSH to listen out
 for the hostname mangled with the name of the identity to be used which is then
 unmangled in the ``~/.ssh/config`` file. I didn’t find this to be a
