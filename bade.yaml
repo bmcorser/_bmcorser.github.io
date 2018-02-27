@@ -11,6 +11,7 @@ assetpaths:
   - assets/js
   - assets/fonts
   - assets/html
+  - assets/pdf
   - bower_components/lodash/dist/lodash.min.js
   - bower_components/emojione/lib/js/emojione.min.js
   - bower_components/emojione/assets/svg
