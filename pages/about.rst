@@ -1,9 +1,9 @@
 What’s up?
 ##########
 
-I’m a programmer. I write code in Python, Rust, C++, Elm and JavaScript for
-data processing, analysis and presentation. I’ve also been known to produce the
-odd web application. I also really like maths.
+I’m a programmer. I write code in Python, Bash, C++, Elm and JavaScript. My code does
+automation, data processing, analysis and presentation. I’ve also been known to
+produce the odd web application. I also really like maths.
 
 `:cake: :custard: :shaved_ice: :doughnut:`
 
@@ -11,19 +11,19 @@ Things I do outside Vim:
 
     - Run ``docker`` commands
     - ``tmux`` for my life!
-    - Poke around in PostgreSQL databases and Spark clusters
+    - Poke around in databases of all kinds
     - Profile that last line of code
-    - ``git rebase -i`` [#]_
+    - Keep my trees tidy with ``git rebase -i`` [#]_
 
 `:pear: :fish_cake: :fried_shrimp: :sushi:`
 
 Things I do inside Vim without a browser open:
 
     - Make teapots dance and other triangle-based activites
-    - Make things turn transparent with SQLAlchemy and PySpark
+    - Make things turn transparent with SQLAlchemy
     - Implement nice ETLs
     - Sit down with Pandas and have a good think
-    - Automate all the things [#]_
+    - Automate all the things [#]_ to deploy yo’ webapps
 
 `:dango: :watermelon: :rice: :herb:`
 
@@ -39,8 +39,8 @@ Things I do in a browser:
 
     - Make my Pull Requests real pretty
     - Wait for Chrome to reopen the 40 tabs I had open
-    - Hang out on ``seclists.org/funsec/``
-    - Enthusiastically berate Jenkins, Buildbot, Travis, Circle, Appveyor
+    - Enthusiastically berate my digital butler (be he Jenkins, Buildbot,
+      Travis, CircleCI, Appveyor)
 
 
 If you prefer a more formal presentation, you may enjoy to download `my CV`_.
