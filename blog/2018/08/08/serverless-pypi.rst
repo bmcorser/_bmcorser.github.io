@@ -57,20 +57,27 @@ appropriate authentication headers. In the case of Pip, this is as simple as
 passing an |--extra-index-url|_ either in the requirements file or when running
 ``pip install``. For example::
 
-    pip install private-package --extra-index-url=https://user:pass@pypi.company.cool
+    pip install private-package \
+        --extra-index-url=https://user:pass@pypi.company.cool
 
 .. |--extra-index-url| replace:: ``--extra-index-url``
 .. _`--extra-index-url`: https://pip.pypa.io/en/stable/reference/pip_install/#requirements-file-format
 
-- The CLI tool that knows how to send Python packages to an S3 bucket
-  https://github.com/novemberfiveco/s3pypi (with it's insufficient security
-  model:
-  https://novemberfive.co/blog/opensource-pypi-package-repository-tutorial/#security)
-- The blog post I found by Googling "http basic auth s3" or something
-  https://hackernoon.com/serverless-password-protecting-a-static-website-in-an-aws-s3-bucket-bfaaa01b8666
-- The same thing as above, but the "for dummies version"
-  http://kynatro.com/blog/2018/01/03/a-step-by-step-guide-to-creating-a-password-protected-s3-bucket/
+References
+----------
+The CLI tool that knows how to send Python packages to an S3 bucket
+https://github.com/novemberfiveco/s3pypi (with it's insufficient security
+model: 
+https://novemberfive.co/blog/opensource-pypi-package-repository-tutorial/#security)
 
+The blog post I found by Googling “http basic auth s3” or something
+https://hackernoon.com/serverless-password-protecting-a-static-website-in-an-aws-s3-bucket-bfaaa01b8666
+
+The same thing as above, but the “for dummies version”
+http://kynatro.com/blog/2018/01/03/a-step-by-step-guide-to-creating-a-password-protected-s3-bucket/
+
+My slightly-adjusted implementation of HTTP Basic Auth in the form of an AWS
+Lambda function.
 
 .. code-block:: javascript
 
@@ -99,11 +106,10 @@ passing an |--extra-index-url|_ either in the requirements file or when running
       // Require Basic authentication
       const authHead = headers.authorization;
       if (!authHead || authHead[0].value != authString) {
-        const body = 'Unauthorized';
         const response = {
           status: '401',
           statusDescription: 'Unauthorized',
-          body: body,
+          body: 'Unauthorized',
           headers: {
             'www-authenticate': [
               {key: 'WWW-Authenticate', value:'Basic'}
@@ -117,17 +123,4 @@ passing an |--extra-index-url|_ either in the requirements file or when running
       callback(null, request);
     };
 
-What might not be immediately evident from the perspective of a user (that is,
-package installer) is that the “server” component of a Python Package Index
-that can happily interact with Pip can be implemented with very simple
-infrastructure. It’s nothing more than a static HTTP file server where packages
-are expected to appear in a particular directory structure. Now, S3 offers a
-simple way of hosting a static website in a bucket, which as first blush looks
-like a good-enough solution for hosting a PyPI “server”. There is even a tool,
-s3pypi_, that will handle, if you give it the proper AWS credentials, the
-process of publishing packages to an S3 bucket – in the directory structure
-that package installers like Pip expect. The one issue is the privacy of the
-packages stored in the bucket. When the “static website hosting” property is
-enabled on an S3 bucket, the contents of that bucket become publicly available
-to the internet at large; which is not desirable for a *private* package index.
-
+Enjoy serverless PyPI\ *!*
